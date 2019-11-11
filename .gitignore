@@ -1,0 +1,10 @@
+config/app.php
+config/.env
+config/bootstrap.php
+logs/*
+vendor/*
+tmp/*
+config/Migrations/schema-dump-default.lock
+/composer.json
+/composer.lock
+webroot/images/*
