@@ -194,7 +194,7 @@ class EmployeeInformationTable extends Table
     /**
      * Before save, it encrypts the inputted password
      *
-     * @param Event $event
+     * @param Event $event CakePHP event
      * @return bool
      */
     public function beforeSave(Event $event)

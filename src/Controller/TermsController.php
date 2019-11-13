@@ -17,8 +17,8 @@ class TermsController extends AppController
 {
     /**
      * Initialize method
-     * 
-     * @return \Cake\Http\Response|null
+     *
+     * @return null
      */
     public function initialize()
     {

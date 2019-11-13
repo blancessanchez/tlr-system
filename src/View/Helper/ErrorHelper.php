@@ -9,6 +9,7 @@ class ErrorHelper extends Helper
      * Display Error
      *
      * @param array $errors form error
+     * @return string $error extracted from array
      */
     public function first($errors)
     {
