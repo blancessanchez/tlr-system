@@ -74,71 +74,96 @@ Router::scope('/', function (RouteBuilder $routes) {
             'action' => 'add'
         ]);
     $routes->connect(
-        '/employees/edit/:id', 
+        '/employees/edit/:id',
         [
             'controller' => 'EmployeeInformation',
             'action' => 'edit'
-        ], 
+        ],
         [
-            'pass' => ['id'], 
+            'pass' => ['id'],
             'id' => '[0-9]+'
-        ]);
+        ]
+    );
 
     /**
      * LeaveApplications controller
      */
-    $routes->connect('/leaves', [
+    $routes->connect(
+        '/leaves', 
+        [
             'controller' => 'LeaveApplications',
             'action' => 'index'
-        ]);
-    $routes->connect('/leaves/apply', [
+        ]
+    );
+    $routes->connect(
+        '/leaves/apply', 
+        [
             'controller' => 'LeaveApplications',
             'action' => 'add'
-        ]);
-    $routes->connect('/leaves/edit/:id', [
+        ]
+    );
+    $routes->connect(
+        '/leaves/edit/:id', 
+        [
             'controller' => 'LeaveApplications',
             'action' => 'edit'
         ],
         [
             'pass' => ['id'],
             'id' => '[0-9]+'
-        ]);
-    $routes->connect('/leaves/view/:id', [
+        ]
+    );
+    $routes->connect(
+        '/leaves/view/:id', 
+        [
             'controller' => 'LeaveApplications',
             'action' => 'view'
         ],
         [
             'pass' => ['id'], 
             'id' => '[0-9]+'
-        ]);
-    $routes->connect('/leaves/generateReport', [
+        ]
+    );
+    $routes->connect(
+        '/leaves/generateReport', 
+        [
             'controller' => 'LeaveApplications',
             'action' => 'generateReport'
-        ]);
-    $routes->connect('/leaves/cancel/:id', [
+        ]
+    );
+    $routes->connect(
+        '/leaves/cancel/:id', 
+        [
             'controller' => 'LeaveApplications',
             'action' => 'cancel'
         ],
         [
             'pass' => ['id'],
             'id' => '[0-9]+'
-        ]);
+        ]
+    );
 
     /**
      * LeaveApplicationResponses controller
      */
-    $routes->connect('/leave_response/add', [
+    $routes->connect(
+        '/leave_response/add', 
+        [
             'controller' => 'LeaveApplicationResponses',
             'action' => 'add'
-        ]);
+        ]
+    );
 
     /**
      * Terms controller
      */
-    $routes->connect('/terms/add', [
+    $routes->connect(
+        '/terms/add', 
+        [
             'controller' => 'Terms',
             'action' => 'add'
-        ]);
+        ]
+    );
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
