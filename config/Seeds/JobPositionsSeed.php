@@ -2,7 +2,7 @@
 use Migrations\AbstractSeed;
 
 /**
- * FavoriteBodyPart seed.
+ * JobPositionsSeed
  */
 class JobPositionsSeed extends AbstractSeed
 {

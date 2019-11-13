@@ -2,7 +2,7 @@
 use Migrations\AbstractSeed;
 
 /**
- * FavoriteBodyPart seed.
+ * RolesSeed
  */
 class RolesSeed extends AbstractSeed
 {

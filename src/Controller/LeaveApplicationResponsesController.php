@@ -16,8 +16,7 @@ class LeaveApplicationResponsesController extends AppController
 {
     /**
      * Initialize method
-     * 
-     * @return \Cake\Http\Response|null
+     *
      */
     public function initialize()
     {
@@ -31,7 +30,6 @@ class LeaveApplicationResponsesController extends AppController
     /**
      * Index method
      *
-     * @return \Cake\Http\Response|null
      */
     public function index()
     {
@@ -46,9 +44,6 @@ class LeaveApplicationResponsesController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Leave Application Response id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
@@ -83,19 +78,19 @@ class LeaveApplicationResponsesController extends AppController
             if ($editLeaveApplication->employee_information->is_als === 1) {
                 if ($editLeaveApplication->leave_type_id == 1) {
                     $findLeaveType = 1;
-                } else if ($editLeaveApplication->leave_type_id == 2) {
+                } elseif ($editLeaveApplication->leave_type_id == 2) {
                     $findLeaveType = 2;
-                } else if ($editLeaveApplication->leave_type_id == 4) {
+                } elseif ($editLeaveApplication->leave_type_id == 4) {
                     $findLeaveType = 4;
-                } else if ($editLeaveApplication->leave_type_id == 5) {
+                } elseif ($editLeaveApplication->leave_type_id == 5) {
                     $findLeaveType = 5;
                 }
-            } else if ($editLeaveApplication->employee_information->is_als === 2) {
+            } elseif ($editLeaveApplication->employee_information->is_als === 2) {
                 if ($editLeaveApplication->leave_type_id == 6) {
                     $findLeaveType = 6;
-                } else if ($editLeaveApplication->leave_type_id == 4) {
+                } elseif ($editLeaveApplication->leave_type_id == 4) {
                     $findLeaveType = 4;
-                } else if ($editLeaveApplication->leave_type_id == 5) {
+                } elseif ($editLeaveApplication->leave_type_id == 5) {
                     $findLeaveType = 5;
                 }
             }
@@ -126,7 +121,7 @@ class LeaveApplicationResponsesController extends AppController
             if ($this->request->getData('recommendation_type') == 0) {
                 $leaveStatus['LeaveApplications']['leave_status'] = Configure::read('LEAVES.STATUS.Approved');
                 $leaveBalance['LeaveBalances']['balance'] = $getLeaveBalance['balance'] - $diff;
-            } else if ($this->request->getData('recommendation_type') == 1) {
+            } elseif ($this->request->getData('recommendation_type') == 1) {
                 if (empty($this->request->getData('recommendation_description'))) {
                     $leaveApplicationResponse->setErrors(['recommendation_description' => ['_required' => 'Disapproved description is required']]);
                 }

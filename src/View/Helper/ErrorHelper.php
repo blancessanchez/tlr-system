@@ -7,6 +7,8 @@ class ErrorHelper extends Helper
 {
     /**
      * Display Error
+     *
+     * @param array $errors form error
      */
     public function first($errors)
     {

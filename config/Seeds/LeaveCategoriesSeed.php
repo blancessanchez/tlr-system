@@ -2,7 +2,7 @@
 use Migrations\AbstractSeed;
 
 /**
- * FavoriteBodyPart seed.
+ * LeaveCategoriesSeed
  */
 class LeaveCategoriesSeed extends AbstractSeed
 {

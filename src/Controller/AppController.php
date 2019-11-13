@@ -77,8 +77,7 @@ class AppController extends Controller
 
     /**
      * beforeRender method
-     * 
-     * 
+     *
      */
     public function beforeRender(Event $event)
     {

@@ -67,13 +67,12 @@ Router::scope('/', function (RouteBuilder $routes) {
     /**
      * EmployeeInformation controller
      */
-    $routes->connect('/login', ['controller' => 'EmployeeInformation', 'action' => 'login']);    
+    $routes->connect('/login', ['controller' => 'EmployeeInformation', 'action' => 'login']);
     $routes->connect('/employees', ['controller' => 'EmployeeInformation', 'action' => 'index']);
     $routes->connect('/employees/add', [
             'controller' => 'EmployeeInformation',
             'action' => 'add'
-        ]
-    );
+        ]);
     $routes->connect('/employees/edit/:id', [
             'controller' => 'EmployeeInformation',
             'action' => 'edit'
@@ -81,8 +80,7 @@ Router::scope('/', function (RouteBuilder $routes) {
         [
             'pass' => ['id'], 
             'id' => '[0-9]+'
-        ]
-    );
+        ]);
 
     /**
      * LeaveApplications controller
@@ -90,13 +88,11 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/leaves', [
             'controller' => 'LeaveApplications',
             'action' => 'index'
-        ]
-    );
+        ]);
     $routes->connect('/leaves/apply', [
             'controller' => 'LeaveApplications',
             'action' => 'add'
-        ]
-    );
+        ]);
     $routes->connect('/leaves/edit/:id', [
             'controller' => 'LeaveApplications',
             'action' => 'edit'
@@ -104,8 +100,7 @@ Router::scope('/', function (RouteBuilder $routes) {
         [
             'pass' => ['id'], 
             'id' => '[0-9]+'
-        ]
-    );
+        ]);
     $routes->connect('/leaves/view/:id', [
             'controller' => 'LeaveApplications',
             'action' => 'view'
@@ -113,13 +108,11 @@ Router::scope('/', function (RouteBuilder $routes) {
         [
             'pass' => ['id'], 
             'id' => '[0-9]+'
-        ]
-    );
+        ]);
     $routes->connect('/leaves/generateReport', [
             'controller' => 'LeaveApplications',
             'action' => 'generateReport'
-        ]
-    );
+        ]);
     $routes->connect('/leaves/cancel/:id', [
             'controller' => 'LeaveApplications',
             'action' => 'cancel'
@@ -127,16 +120,15 @@ Router::scope('/', function (RouteBuilder $routes) {
         [
             'pass' => ['id'], 
             'id' => '[0-9]+'
-        ]
-    );
+        ]);
+
     /**
      * LeaveApplicationResponses controller
      */
     $routes->connect('/leave_response/add', [
             'controller' => 'LeaveApplicationResponses',
             'action' => 'add'
-        ]
-    );
+        ]);
 
     /**
      * Terms controller
@@ -144,8 +136,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/terms/add', [
             'controller' => 'Terms',
             'action' => 'add'
-        ]
-    );
+        ]);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
