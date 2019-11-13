@@ -17,20 +17,21 @@ class EmployeeInformationController extends AppController
 {
     /**
      * Initialize method
-     * 
-     * @return \Cake\Http\Response|null
+     *
+     * @return void
      */
     public function initialize()
     {
         parent::initialize();
         $this->loadModel('LeaveApplications');
-        $this->loadModel('LeaveBalances');   
+        $this->loadModel('LeaveBalances');
     }
 
     /**
      * beforeFilter method
-     * 
-     * @return \Cake\Http\Response|null
+     *
+     * @param Event $event CakePHP event
+     * @return void
      */
     public function beforeFilter(Event $event)
     {
@@ -41,8 +42,8 @@ class EmployeeInformationController extends AppController
 
     /**
      * Home method
-     * 
-     * @return \Cake\Http\Response|null
+     *
+     * @return void
      */
     public function home()
     {
@@ -74,7 +75,7 @@ class EmployeeInformationController extends AppController
                 ]
             ])
             ->toArray();
-        
+
         //getting current leave balance
         $leaveBalance = TableRegistry::get('LeaveBalances')
             ->find('all', [
@@ -89,7 +90,7 @@ class EmployeeInformationController extends AppController
                 ]
             ])
             ->toArray();
-        
+
         $this->set(compact('isAdmin', 'currentTerm', 'leaveApplications', 'leaveTypes', 'leaveBalance'));
     }
 
@@ -105,6 +106,7 @@ class EmployeeInformationController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
+
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Flash->error(__('Invalid username or password, try again'));
@@ -203,14 +205,14 @@ class EmployeeInformationController extends AppController
                         $leaveBalanceEntity = $this->LeaveBalances->newEntity();
                         $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
                         $this->LeaveBalances->save($leaveBalanceEntity);
-    
+
                         // Sick leave
                         $leaveBalance['balance'] = 15;
                         $leaveBalance['leave_type_id'] = 2;
                         $leaveBalanceEntity = $this->LeaveBalances->newEntity();
                         $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
                         $this->LeaveBalances->save($leaveBalanceEntity);
-                    } else if ($employeeInformation->is_als == 2) {
+                    } elseif ($employeeInformation->is_als == 2) {
                         // Combo leave
                         $leaveBalance['balance'] = 15;
                         $leaveBalance['leave_type_id'] = 6;
@@ -316,7 +318,7 @@ class EmployeeInformationController extends AppController
 
     /**
      * Logout method
-     * 
+     *
      * @return Auth logoutRedirect
      */
     public function logout()

@@ -78,9 +78,9 @@ class LeaveApplicationsTable extends Table
         $validator
             ->integer('applied_for')
             ->allowEmptyString('applied_for');
-        
+
         $validator
-            ->integer('leave_type_id')    
+            ->integer('leave_type_id')
             ->requirePresence('leave_type_id', 'create')
             ->notEmptyString('leave_type_id', 'Leave type must not be empty');
 

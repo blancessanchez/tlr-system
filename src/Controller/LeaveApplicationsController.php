@@ -17,8 +17,8 @@ class LeaveApplicationsController extends AppController
 {
     /**
      * Initialize method
-     * 
-     * @return \Cake\Http\Response|null
+     *
+     * @return void
      */
     public function initialize()
     {
@@ -30,8 +30,9 @@ class LeaveApplicationsController extends AppController
 
     /**
      * beforeFilter method
-     * 
-     * @return \Cake\Http\Response|null
+     *
+     * @param Event $event CakePHP event
+     * @return void
      */
     public function beforeFilter(Event $event)
     {
@@ -122,7 +123,7 @@ class LeaveApplicationsController extends AppController
                 ]
             ])
             ->first();
-        
+
         if ($leaveApplication->leave_status == 3) {
             $leaveResponse = 'cancelled';
         }
@@ -151,7 +152,7 @@ class LeaveApplicationsController extends AppController
             'leaveApplication',
             'employeeBalance',
             'leaveTypes',
-            'leaveCategories', 
+            'leaveCategories',
             'leaveApplicationResponseErrors',
             'leaveResponse',
             'diff',
@@ -279,7 +280,7 @@ class LeaveApplicationsController extends AppController
         ]);
 
         //if status IN approved,disapproved,cancelled redirect to top page
-        if (in_array($leaveApplication->leave_status, [2,3,4])) {
+        if (in_array($leaveApplication->leave_status, [2, 3, 4])) {
             return $this->redirect('/');
         }
 
@@ -358,7 +359,7 @@ class LeaveApplicationsController extends AppController
             'leaveApplication',
             'leaveBalance',
             'leaveTypes',
-            'leaveCategories', 
+            'leaveCategories',
             'leaveApplicationErrors'
         ));
     }
@@ -410,8 +411,8 @@ class LeaveApplicationsController extends AppController
 
     /**
      * Cancel leave application
-     * 
-     * @param int $id
+     *
+     * @param int $id leave application id
      * @return Json $response
      */
     public function cancel($id = null)
@@ -426,7 +427,6 @@ class LeaveApplicationsController extends AppController
             $responseError['message'] = 'The given data was invalid';
 
             if ($this->LeaveApplications->save($saveData)) {
-
                 return $this->response->withStatus(200)
                     ->withStringBody(json_encode(['status' => true], JSON_UNESCAPED_UNICODE));
             }

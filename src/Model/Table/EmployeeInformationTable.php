@@ -48,13 +48,13 @@ class EmployeeInformationTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->hasMany('ActivityLogs', [
-            'foreignKey' => 'employee_id'            
+            'foreignKey' => 'employee_id'
         ]);
         $this->hasMany('LeaveApplications', [
-            'foreignKey' => 'employee_id'           
+            'foreignKey' => 'employee_id'
         ]);
         $this->hasMany('LeaveBalances', [
-            'foreignKey' => 'employee_id'            
+            'foreignKey' => 'employee_id'
         ]);
         $this->belongsTo('JobPositions', [
             'foreignKey' => 'job_position_id',
@@ -75,7 +75,7 @@ class EmployeeInformationTable extends Table
             ->allowEmptyString('id', 'create');
 
         $validator
-            ->integer('role_id')    
+            ->integer('role_id')
             ->requirePresence('role_id', 'create')
             ->notEmptyString('role_id', 'Role must be not empty');
 
@@ -166,9 +166,9 @@ class EmployeeInformationTable extends Table
         $validator
             ->integer('deleted')
             ->allowEmptyString('deleted');
-        
+
         $validator
-            ->integer('job_position_id')            
+            ->integer('job_position_id')
             ->requirePresence('job_position_id', 'create')
             ->notEmptyString('job_position_id', 'Job Position must be not empty');
 
@@ -193,8 +193,8 @@ class EmployeeInformationTable extends Table
 
     /**
      * Before save, it encrypts the inputted password
-     * 
-     * @param Event $event
+     *
+     * @param Event $event CakePHP event
      * @return bool
      */
     public function beforeSave(Event $event)
