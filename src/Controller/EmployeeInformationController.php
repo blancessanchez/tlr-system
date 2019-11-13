@@ -18,6 +18,7 @@ class EmployeeInformationController extends AppController
     /**
      * Initialize method
      *
+     * @return void
      */
     public function initialize()
     {
@@ -30,6 +31,7 @@ class EmployeeInformationController extends AppController
      * beforeFilter method
      *
      * @param Event $event CakePHP event
+     * @return void
      */
     public function beforeFilter(Event $event)
     {
@@ -41,6 +43,7 @@ class EmployeeInformationController extends AppController
     /**
      * Home method
      *
+     * @return void
      */
     public function home()
     {

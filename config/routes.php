@@ -73,14 +73,15 @@ Router::scope('/', function (RouteBuilder $routes) {
             'controller' => 'EmployeeInformation',
             'action' => 'add'
         ]);
-    $routes->connect('/employees/edit/:id', [
-            'controller' => 'EmployeeInformation',
-            'action' => 'edit'
-        ], 
-        [
-            'pass' => ['id'], 
-            'id' => '[0-9]+'
-        ]);
+    $routes->connect(
+            '/employees/edit/:id', [
+                'controller' => 'EmployeeInformation',
+                'action' => 'edit'
+            ], 
+            [
+                'pass' => ['id'], 
+                'id' => '[0-9]+'
+            ]);
 
     /**
      * LeaveApplications controller
