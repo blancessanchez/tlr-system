@@ -74,14 +74,15 @@ Router::scope('/', function (RouteBuilder $routes) {
             'action' => 'add'
         ]);
     $routes->connect(
-            '/employees/edit/:id', [
-                'controller' => 'EmployeeInformation',
-                'action' => 'edit'
-            ], 
-            [
-                'pass' => ['id'], 
-                'id' => '[0-9]+'
-            ]);
+        '/employees/edit/:id', 
+        [
+            'controller' => 'EmployeeInformation',
+            'action' => 'edit'
+        ], 
+        [
+            'pass' => ['id'], 
+            'id' => '[0-9]+'
+        ]);
 
     /**
      * LeaveApplications controller
@@ -97,15 +98,15 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/leaves/edit/:id', [
             'controller' => 'LeaveApplications',
             'action' => 'edit'
-        ], 
+        ],
         [
-            'pass' => ['id'], 
+            'pass' => ['id'],
             'id' => '[0-9]+'
         ]);
     $routes->connect('/leaves/view/:id', [
             'controller' => 'LeaveApplications',
             'action' => 'view'
-        ], 
+        ],
         [
             'pass' => ['id'], 
             'id' => '[0-9]+'
@@ -117,9 +118,9 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/leaves/cancel/:id', [
             'controller' => 'LeaveApplications',
             'action' => 'cancel'
-        ], 
+        ],
         [
-            'pass' => ['id'], 
+            'pass' => ['id'],
             'id' => '[0-9]+'
         ]);
 

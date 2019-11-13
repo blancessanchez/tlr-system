@@ -32,7 +32,7 @@ class LeaveApplicationsController extends AppController
      * beforeFilter method
      *
      * @param Event $event CakePHP event
-     * @return \Cake\Http\Response|null
+     * @return void
      */
     public function beforeFilter(Event $event)
     {
