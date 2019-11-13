@@ -84,7 +84,7 @@ class AddTermsTable extends AbstractMigration
                 'collation' => 'utf8_general_ci'
             ])
             ->addColumn('term_id', 'string', [
-                'after' => 'employee_id',                
+                'after' => 'employee_id',
                 'limit' => 255,
                 'null' => false
             ])

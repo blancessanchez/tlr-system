@@ -18,7 +18,7 @@ class LeaveApplicationsController extends AppController
     /**
      * Initialize method
      *
-     * @return null
+     * @return void
      */
     public function initialize()
     {

@@ -17,7 +17,7 @@ class LeaveApplicationResponsesController extends AppController
     /**
      * Initialize method
      *
-     * @return null
+     * @return void
      */
     public function initialize()
     {
@@ -31,7 +31,7 @@ class LeaveApplicationResponsesController extends AppController
     /**
      * Index method
      *
-     * @return null
+     * @return void
      */
     public function index()
     {
@@ -47,7 +47,7 @@ class LeaveApplicationResponsesController extends AppController
      * View method
      *
      * @param int $id leave id
-     * @return null
+     * @return void
      */
     public function view($id = null)
     {

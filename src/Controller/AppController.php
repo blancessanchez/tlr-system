@@ -79,7 +79,7 @@ class AppController extends Controller
      * beforeRender method
      *
      * @param Event $event CakePHP event
-     * @return null
+     * @return void
      */
     public function beforeRender(Event $event)
     {

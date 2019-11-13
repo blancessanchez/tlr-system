@@ -21,7 +21,7 @@ class ChangeColumnIsSuccess extends AbstractMigration
                 'comment' => '1. forapproval, 2.approved, 3.cancelled, 4.disapproved'
             ])
             ->update();
-        
+
         $table = $this->table('employee_information')
             ->changeColumn('salary', 'string', [
                 'limit' => 255,
