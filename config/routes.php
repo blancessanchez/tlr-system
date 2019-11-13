@@ -89,21 +89,21 @@ Router::scope('/', function (RouteBuilder $routes) {
      * LeaveApplications controller
      */
     $routes->connect(
-        '/leaves', 
+        '/leaves',
         [
             'controller' => 'LeaveApplications',
             'action' => 'index'
         ]
     );
     $routes->connect(
-        '/leaves/apply', 
+        '/leaves/apply',
         [
             'controller' => 'LeaveApplications',
             'action' => 'add'
         ]
     );
     $routes->connect(
-        '/leaves/edit/:id', 
+        '/leaves/edit/:id',
         [
             'controller' => 'LeaveApplications',
             'action' => 'edit'
@@ -114,25 +114,25 @@ Router::scope('/', function (RouteBuilder $routes) {
         ]
     );
     $routes->connect(
-        '/leaves/view/:id', 
+        '/leaves/view/:id',
         [
             'controller' => 'LeaveApplications',
             'action' => 'view'
         ],
         [
-            'pass' => ['id'], 
+            'pass' => ['id'],
             'id' => '[0-9]+'
         ]
     );
     $routes->connect(
-        '/leaves/generateReport', 
+        '/leaves/generateReport',
         [
             'controller' => 'LeaveApplications',
             'action' => 'generateReport'
         ]
     );
     $routes->connect(
-        '/leaves/cancel/:id', 
+        '/leaves/cancel/:id',
         [
             'controller' => 'LeaveApplications',
             'action' => 'cancel'
@@ -147,7 +147,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      * LeaveApplicationResponses controller
      */
     $routes->connect(
-        '/leave_response/add', 
+        '/leave_response/add',
         [
             'controller' => 'LeaveApplicationResponses',
             'action' => 'add'
@@ -158,7 +158,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      * Terms controller
      */
     $routes->connect(
-        '/terms/add', 
+        '/terms/add',
         [
             'controller' => 'Terms',
             'action' => 'add'
