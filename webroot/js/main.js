@@ -157,4 +157,57 @@ $(function() {
       return;
     }
   });
-})
+});
+
+/**
+ * Common Controller
+ * 
+ */
+const Common = new function() {
+  /**
+   * clear button for forms
+   */
+  this.clearFormAll = function() {
+    for (var i = 0; i < document.forms.length; ++i) {
+      Common.clearForm(document.forms[i]);
+    }
+  }
+
+  this.clearForm = function(form) {
+    if (typeof form === 'string') {
+      form = document.getElementById(form);
+    }
+
+    for (var i = 0; i < form.elements.length; ++i) {
+      Common.clearElement(form.elements[i]);
+    }
+  }
+
+  this.clearElement = function(element) {
+    switch(element.type) {
+      case 'hidden':
+      case 'submit':
+      case 'reset':
+      case 'button':
+      case 'image':
+          return;
+      case 'file':
+          return;
+      case 'text':
+      case 'number':
+      case 'password':
+      case 'textarea':
+          element.value = '';
+          return;
+      case 'checkbox':
+      case 'radio':
+          element.checked = false;
+          return;
+      case 'select-one':
+      case 'select-multiple':
+          element.selectedIndex = 0;
+          return;
+      default:
+    }
+  }
+}
