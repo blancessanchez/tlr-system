@@ -13,7 +13,7 @@
         ]);
       ?>
       <div class="form-group has-feedback">
-        <?= $this->Form->input('employee_no', [
+        <?= $this->Form->control('employee_no', [
             'label' => false,
             'type' => 'text',
             'required' => false,
@@ -25,7 +25,7 @@
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <?= $this->Form->input('password', array(
+        <?= $this->Form->control('password', array(
             'label' => false,
             'type' => 'password',
             'required' => false,
