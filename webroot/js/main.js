@@ -166,6 +166,7 @@ $(function() {
 const Common = new function() {
   /**
    * clear button for forms
+   * 
    */
   this.clearFormAll = function() {
     for (var i = 0; i < document.forms.length; ++i) {
@@ -173,6 +174,11 @@ const Common = new function() {
     }
   }
 
+  /**
+   * find what form is going to be cleared
+   * 
+   * @param string form name of form
+   */
   this.clearForm = function(form) {
     if (typeof form === 'string') {
       form = document.getElementById(form);
@@ -183,8 +189,12 @@ const Common = new function() {
     }
   }
 
+  /**
+   * if element exists, clear content
+   * 
+   */
   this.clearElement = function(element) {
-    switch(element.type) {
+    switch (element.type) {
       case 'hidden':
       case 'submit':
       case 'reset':
