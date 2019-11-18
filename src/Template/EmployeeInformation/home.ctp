@@ -180,7 +180,7 @@
           },
           dataType: 'json',
           beforeSend: function (xhr) {
-              xhr.setRequestHeader('X-CSRF-Token', <?= json_encode($this->request->param('_csrfToken')); ?>);
+              xhr.setRequestHeader('X-CSRF-Token', <?= json_encode($this->request->getParam('_csrfToken')); ?>);
               $('#btn-submit').prop('disabled','disabled');
           }
       }).done(function(res) {

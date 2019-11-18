@@ -60,16 +60,13 @@
                     'type' => 'hidden',
                     'value' => $employeeInformation->id
                   ]); ?>
-                  <?= $this->Form->control('', [
-                    'class' => 'form-control',
-                    'id' => 'employee_name',
-                    'label' => false,
-                    'disabled' => 'disabled',
-                    'type' => 'text',
-                    'value' => h($employeeInformation->last_name . ', ' .
-                                 $employeeInformation->first_name . ' ' .
-                                 $employeeInformation->middle_name)
-                  ]); ?>
+                  <p>
+                    <?= 
+                      h($employeeInformation->last_name . ', ' .
+                      $employeeInformation->first_name . ' ' .
+                      $employeeInformation->middle_name)
+                    ?>
+                  </p>
                 </div>
               </div>
               <div class="col-md-12">
@@ -140,7 +137,7 @@
               </div>
             </div>
             <div class="box-footer">
-              <button type="button" class="btn btn-default">Clear</button>
+              <button type="button" class="btn btn-default" onclick="return Common.clearFormAll()">Clear</button>
               <button type="submit" class="btn btn-primary pull-right">Submit</button>
             </div>
           <?= $this->Form->end() ?>

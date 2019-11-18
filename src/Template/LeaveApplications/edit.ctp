@@ -63,16 +63,13 @@
                     'value' => $leaveApplication->id,
                     'id' => 'edit_leave_application_id'
                   ]); ?>
-                  <?= $this->Form->control('', [
-                    'class' => 'form-control',
-                    'id' => 'employee_name',
-                    'label' => false,
-                    'disabled' => 'disabled',
-                    'type' => 'text',
-                    'value' => h($leaveApplication->employee_information->last_name . ', ' .
-                                $leaveApplication->employee_information->first_name . ' ' .
-                                $leaveApplication->employee_information->middle_name)
-                  ]); ?>
+                  <p>
+                    <?= 
+                      h($leaveApplication->employee_information->last_name . ', ' .
+                      $leaveApplication->employee_information->first_name . ' ' .
+                      $leaveApplication->employee_information->middle_name)
+                    ?>
+                  </p>
                   <span class="help-block"><?= $this->Error->first(isset($leaveApplicationErrors['employee_id']) ? $leaveApplicationErrors['employee_id'] : null) ?></span>
                 </div>
               </div>
@@ -149,7 +146,7 @@
               </div>
             </div>
             <div class="box-footer">
-              <button type="button" class="btn btn-default">Clear</button>
+              <button type="button" class="btn btn-default" onclick="return Common.clearFormAll()">Clear</button>
               <button type="submit" class="btn btn-primary pull-right">Submit</button>
             </div>
           <?= $this->Form->end() ?>

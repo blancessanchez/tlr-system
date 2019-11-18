@@ -222,7 +222,7 @@
               </div>
             </div>
             <div class="box-footer">
-              <button type="button" class="btn btn-default">Clear</button>
+              <button type="button" class="btn btn-default" onclick="return Common.clearFormAll()">Clear</button>
               <button type="submit" class="btn btn-primary pull-right">Submit</button>
             </div>
           <?= $this->Form->end() ?>
