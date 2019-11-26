@@ -22,27 +22,6 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
-/**
- * The default class to use for all routes
- *
- * The following route classes are supplied with CakePHP and are appropriate
- * to set as the default:
- *
- * - Route
- * - InflectedRoute
- * - DashedRoute
- *
- * If no call is made to `Router::defaultRouteClass()`, the class used is
- * `Route` (`Cake\Routing\Route\Route`)
- *
- * Note that `Route` does not do any inflections on URLs which will result in
- * inconsistently cased URLs when used with `:plugin`, `:controller` and
- * `:action` markers.
- *
- * Cache: Routes are cached to improve performance, check the RoutingMiddleware
- * constructor in your `src/Application.php` file to change this behavior.
- *
- */
 Router::defaultRouteClass(DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
@@ -64,142 +43,137 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/', ['controller' => 'EmployeeInformation', 'action' => 'home', 'home']);
 
+    $routes->connect(
+        '/login',
+        [
+            'controller' => 'EmployeeInformation',
+            'action' => 'login'
+        ]
+    );
+
     /**
      * EmployeeInformation controller
      */
-    $routes->connect('/login', ['controller' => 'EmployeeInformation', 'action' => 'login']);
-    $routes->connect('/employees', ['controller' => 'EmployeeInformation', 'action' => 'index']);
-    $routes->connect('/employees/add', [
-            'controller' => 'EmployeeInformation',
-            'action' => 'add'
-        ]);
-    $routes->connect(
-        '/employees/edit/:id',
-        [
-            'controller' => 'EmployeeInformation',
-            'action' => 'edit'
-        ],
-        [
-            'pass' => ['id'],
-            'id' => '[0-9]+'
-        ]
-    );
+    $routes->scope('/employees', function($routes) {
+        $routes->connect(
+            '/',
+            [
+                'controller' => 'EmployeeInformation',
+                'action' => 'index'
+            ]
+        );
+
+        $routes->connect(
+            '/add',
+            [
+                'controller' => 'EmployeeInformation',
+                'action' => 'add'
+            ]
+        );
+
+        $routes->connect(
+            '/edit/:id',
+            [
+                'controller' => 'EmployeeInformation',
+                'action' => 'edit'
+            ],
+            [
+                'pass' => ['id'],
+                'id' => '[0-9]+'
+            ]
+        );
+    });
 
     /**
      * LeaveApplications controller
      */
-    $routes->connect(
-        '/leaves',
-        [
-            'controller' => 'LeaveApplications',
-            'action' => 'index'
-        ]
-    );
-    $routes->connect(
-        '/leaves/apply',
-        [
-            'controller' => 'LeaveApplications',
-            'action' => 'add'
-        ]
-    );
-    $routes->connect(
-        '/leaves/edit/:id',
-        [
-            'controller' => 'LeaveApplications',
-            'action' => 'edit'
-        ],
-        [
-            'pass' => ['id'],
-            'id' => '[0-9]+'
-        ]
-    );
-    $routes->connect(
-        '/leaves/view/:id',
-        [
-            'controller' => 'LeaveApplications',
-            'action' => 'view'
-        ],
-        [
-            'pass' => ['id'],
-            'id' => '[0-9]+'
-        ]
-    );
-    $routes->connect(
-        '/leaves/generateReport',
-        [
-            'controller' => 'LeaveApplications',
-            'action' => 'generateReport'
-        ]
-    );
-    $routes->connect(
-        '/leaves/cancel/:id',
-        [
-            'controller' => 'LeaveApplications',
-            'action' => 'cancel'
-        ],
-        [
-            'pass' => ['id'],
-            'id' => '[0-9]+'
-        ]
-    );
+    $routes->scope('/leaves', function($routes) {
+        $routes->connect(
+            '/',
+            [
+                'controller' => 'LeaveApplications',
+                'action' => 'index'
+            ]
+        );
+
+        $routes->connect(
+            '/apply',
+            [
+                'controller' => 'LeaveApplications',
+                'action' => 'add'
+            ]
+        );
+
+        $routes->connect(
+            '/edit/:id',
+            [
+                'controller' => 'LeaveApplications',
+                'action' => 'edit'
+            ],
+            [
+                'pass' => ['id'],
+                'id' => '[0-9]+'
+            ]
+        );
+
+        $routes->connect(
+            '/view/:id',
+            [
+                'controller' => 'LeaveApplications',
+                'action' => 'view'
+            ],
+            [
+                'pass' => ['id'],
+                'id' => '[0-9]+'
+            ]
+        );
+
+        $routes->connect(
+            '/generateReport',
+            [
+                'controller' => 'LeaveApplications',
+                'action' => 'generateReport'
+            ]
+        );
+
+        $routes->connect(
+            '/cancel/:id',
+            [
+                'controller' => 'LeaveApplications',
+                'action' => 'cancel'
+            ],
+            [
+                'pass' => ['id'],
+                'id' => '[0-9]+'
+            ]
+        );
+    });
 
     /**
      * LeaveApplicationResponses controller
      */
-    $routes->connect(
-        '/leave_response/add',
-        [
-            'controller' => 'LeaveApplicationResponses',
-            'action' => 'add'
-        ]
-    );
+    $routes->scope('/leave_response', function($routes) {
+        $routes->connect(
+            '/add',
+            [
+                'controller' => 'LeaveApplicationResponses',
+                'action' => 'add'
+            ]
+        );
+    });
 
     /**
      * Terms controller
      */
-    $routes->connect(
-        '/terms/add',
-        [
-            'controller' => 'Terms',
-            'action' => 'add'
-        ]
-    );
+    $routes->scope('/terms', function($routes) {
+        $routes->connect(
+            '/add',
+            [
+                'controller' => 'LeaveApplicationResponses',
+                'action' => 'add'
+            ]
+        );
+    });
 
-    /**
-     * ...and connect the rest of 'Pages' controller's URLs.
-     */
-    $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
-
-    /**
-     * Connect catchall routes for all controllers.
-     *
-     * Using the argument `DashedRoute`, the `fallbacks` method is a shortcut for
-     *
-     * ```
-     * $routes->connect('/:controller', ['action' => 'index'], ['routeClass' => 'DashedRoute']);
-     * $routes->connect('/:controller/:action/*', [], ['routeClass' => 'DashedRoute']);
-     * ```
-     *
-     * Any route class can be used with this method, such as:
-     * - DashedRoute
-     * - InflectedRoute
-     * - Route
-     * - Or your own route class
-     *
-     * You can remove these routes once you've connected the
-     * routes you want in your application.
-     */
     $routes->fallbacks(DashedRoute::class);
 });
-
-/**
- * If you need a different set of middleware or none at all,
- * open new scope and define routes there.
- *
- * ```
- * Router::scope('/api', function (RouteBuilder $routes) {
- *     // No $routes->applyMiddleware() here.
- *     // Connect API actions here.
- * });
- * ```
- */
