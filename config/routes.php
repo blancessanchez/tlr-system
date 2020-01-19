@@ -41,25 +41,24 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/', ['controller' => 'EmployeeInformation', 'action' => 'home', 'home']);
-
-    $routes->connect(
-        '/login',
-        [
-            'controller' => 'EmployeeInformation',
-            'action' => 'login'
-        ]
-    );
+    $routes->connect('/', ['controller' => 'EmployeeInformation', 'action' => 'index', 'login']);
+    $routes->connect('/home', ['controller' => 'EmployeeInformation', 'action' => 'home']);
+    $routes->connect('/logout', ['controller' => 'EmployeeInformation', 'action' => 'logout']);
 
     /**
      * EmployeeInformation controller
      */
     $routes->scope('/employees', function($routes) {
         $routes->connect(
-            '/',
+            // '/',
+            // [
+            //     'controller' => 'EmployeeInformation',
+            //     'action' => 'index'
+            // ],
+            '/list',
             [
                 'controller' => 'EmployeeInformation',
-                'action' => 'index'
+                'action' => 'employeeList'
             ]
         );
 

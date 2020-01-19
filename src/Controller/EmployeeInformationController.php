@@ -37,7 +37,7 @@ class EmployeeInformationController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Auth->allow(['login', 'logout']);
+        $this->Auth->allow(['index', 'logout']);
     }
 
     /**
@@ -95,11 +95,11 @@ class EmployeeInformationController extends AppController
     }
 
     /**
-     * Login method
+     * Index method
      *
      * @return \Cake\Http\Response|null
      */
-    public function login()
+    public function index()
     {
         $this->viewBuilder()->setLayout('login');
         if ($this->request->is('post')) {
@@ -114,11 +114,11 @@ class EmployeeInformationController extends AppController
     }
 
     /**
-     * Index method
-     *
+     * Employee list method
+     * 
      * @return \Cake\Http\Response|null
      */
-    public function index()
+    public function employeeList()
     {
         //denies if role is not administrator
         if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Admin')) {
