@@ -50,11 +50,6 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->scope('/employees', function($routes) {
         $routes->connect(
-            // '/',
-            // [
-            //     'controller' => 'EmployeeInformation',
-            //     'action' => 'index'
-            // ],
             '/list',
             [
                 'controller' => 'EmployeeInformation',

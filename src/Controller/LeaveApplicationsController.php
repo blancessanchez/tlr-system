@@ -265,12 +265,6 @@ class LeaveApplicationsController extends AppController
      */
     public function edit($id = null)
     {
-        // pr($id);die;
-        if (!$id) {
-            return 'a';
-            // throw new NotFoundException();
-        }
-
         $this->viewBuilder()->setLayout('main');
 
         //get leave application information
