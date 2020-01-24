@@ -50,7 +50,11 @@ class AppController extends Controller
         $this->loadComponent('Auth', [
             'loginAction' => [
                 'controller' => 'EmployeeInformation',
-                'action' => 'login'
+                'action' => 'index'
+            ],
+            'loginRedirect' => [
+                'controller' => 'EmployeeInformation',
+                'action' => 'home'
             ],
             'authError' => 'Please login first',
             'loginError' => 'Incorrect username or password',
@@ -68,7 +72,7 @@ class AppController extends Controller
             ],
             'logoutRedirect' => [
                 'controller' => 'EmployeeInformation',
-                'action' => 'login'
+                'action' => 'index'
             ],
             'storage' => 'Session'
         ]);

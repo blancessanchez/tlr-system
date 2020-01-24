@@ -14,7 +14,7 @@
   <?php if ($Auth->user('role_id') == $this->Configure->read('EMPLOYEES.ROLES.Principal')) : ?>
     <li>
       <?= $this->Html->link(
-        $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
+        $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) .
         'Leaves List', [
           'controller' => 'LeaveApplications',
           'action' => 'index'
@@ -36,7 +36,7 @@
               $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
               'Employee List', [
                 'controller' => 'EmployeeInformation',
-                'action' => 'index'
+                'action' => 'employeeList'
               ],
               ['escape' => false]
             ); ?>

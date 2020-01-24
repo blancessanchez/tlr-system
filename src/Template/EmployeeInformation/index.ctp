@@ -1,57 +1,46 @@
-<?php $this->assign('title', 'Home'); ?> 
-<div class="content-wrapper">
-  <section class="content-header">
-    <h1>
-      Home
-    </h1>
-    <ol class="breadcrumb">
-      <li class="active">Home</li>
-    </ol>
-  </section>
-
-  <section class="content">
-    <div class="row">
-      <div class="col-md-12">
-        <?= $this->Flash->render(); ?>
-        <div class="box">
-          <div class="box-header">
-            <h3 class="box-title">Employee List</h3>
-          </div>
-          <div class="box-body">
-            <table id="employee_list" class="table table-bordered table-striped">
-              <thead>
-              <tr>
-                <th>Employee Number</th>
-                <th>Name</th>
-                <th>Job Position</th>
-                <th>Status</th>
-                <!-- <th>Action</th> -->
-              </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($employees as $employee) : ?>
-                  <tr>
-                    <td><?= h($employee->employee_no) ?></td>
-                    <td>
-                      <?= h($employee->last_name . ', ' .
-                            $employee->first_name . ' ' .
-                            $employee->middle_name) ?>
-                    </td>
-                    <td><?= h($employee->job_position->title) ?></td>
-                    <td><?= $employeeStatus[$employee->status] ?></td>
-                    <td>
-                      <!-- <button type="button" class="btn btn-default"><i class="fa fa-eye"></i></button>
-                      <button type="button" class="btn btn-default"><i class="fa fa-pencil"></i></button>
-                      <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button> -->
-                    </td>
-                  </tr>
-                <?php endforeach ?>
-              </tbody>
-            </table>
-          </div>
+<?php $this->assign('title', 'Login'); ?>
+<div class="login-box">
+  <div class="login-logo">
+    <a href="../../index2.html"><?= $this->Configure->read('system_name') ?></a>
+  </div>
+  <?= $this->Flash->render() ?>
+  <div class="login-box-body">
+    <p class="login-box-msg">Sign in to start your session</p>
+      <?= $this->Form->create('EmployeeInformation', [
+          'class' => 'form',
+          'autocomplete' => 'off',
+          'novalidate' => true
+        ]);
+      ?>
+      <div class="form-group has-feedback">
+        <?= $this->Form->control('employee_no', [
+            'label' => false,
+            'type' => 'number',
+            'required' => false,
+            'div' => false,
+            'placeholder' => 'Employee Number',
+            'class' => 'form-control employeeno'
+          ]);
+        ?>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <?= $this->Form->control('password', array(
+            'label' => false,
+            'type' => 'password',
+            'required' => false,
+            'div' => false,
+            'placeholder' => 'Password',
+            'class' => 'form-control'
+          ));
+        ?>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
       </div>
-    </div>
-  </section>
+    <?= $this->Form->end() ?><br>
+  </div>
 </div>
-  
