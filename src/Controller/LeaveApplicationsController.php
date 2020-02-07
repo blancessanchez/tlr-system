@@ -263,24 +263,31 @@ class LeaveApplicationsController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit()
     {
+        $getId = $this->request->params['id'];
         $this->viewBuilder()->setLayout('main');
+        $errorPage = false;
 
         //get leave application information
-        $leaveApplication = $this->LeaveApplications->get($id, [
+        $leaveApplication = $this->LeaveApplications->find('all', [
             'contain' => [
                 'EmployeeInformation',
                 'LeaveTypes',
                 'LeaveCategories'
             ],
             'conditions' => [
-                'employee_id' => $this->Auth->user('id')
+                'LeaveApplications.id' => $getId,
+                'LeaveApplications.employee_id' => $this->Auth->user('id')
             ]
-        ]);
+        ])->first();
+
+        if (empty($leaveApplication)) {
+            $errorPage = true;
+        }
 
         //if status IN approved,disapproved,cancelled redirect to top page
-        if (in_array($leaveApplication->leave_status, [2, 3, 4])) {
+        if (!empty($leaveApplication) && in_array($leaveApplication->leave_status, [2, 3, 4])) {
             return $this->redirect('/');
         }
 
@@ -360,7 +367,8 @@ class LeaveApplicationsController extends AppController
             'leaveBalance',
             'leaveTypes',
             'leaveCategories',
-            'leaveApplicationErrors'
+            'leaveApplicationErrors',
+            'errorPage'
         ));
     }
 
