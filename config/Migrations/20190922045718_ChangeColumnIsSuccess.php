@@ -12,7 +12,7 @@ class ChangeColumnIsSuccess extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('leave_applications')
+        $table = $this->table('leaves')
             ->addColumn('leave_status', 'integer', [
                 'after' => 'commutation',
                 'limit' => 1,

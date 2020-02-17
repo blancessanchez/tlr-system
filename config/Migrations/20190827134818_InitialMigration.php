@@ -46,7 +46,7 @@ class InitialMigration extends AbstractMigration
             ->addIndex(['id'])
             ->create();
 
-        $table = $this->table('leave_applications', [
+        $table = $this->table('leaves', [
                 'collation' => 'utf8_general_ci'
             ])
             ->addColumn('employee_id', 'integer', [

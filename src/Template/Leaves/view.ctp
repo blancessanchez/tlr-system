@@ -87,7 +87,7 @@
             <div class="col-md-12">
               <div class="form-group col-md-4">
                 <label for="applied_for">Applied for</label>
-                <?= $this->Form->control('LeaveApplications.applied_for', [
+                <?= $this->Form->control('Leaves.applied_for', [
                   'class' => 'form-control',
                   'id' => 'applied_for',
                   'label' => false,
@@ -97,7 +97,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="leave_from">From</label>
-                <?= $this->Form->control('LeaveApplications.leave_from', [
+                <?= $this->Form->control('Leaves.leave_from', [
                   'class' => 'form-control pull-right',
                   'id' => 'leave_from',
                   'label' => false,
@@ -108,7 +108,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="leave_to">To</label>
-                <?= $this->Form->control('LeaveApplications.leave_to', [
+                <?= $this->Form->control('Leaves.leave_to', [
                   'class' => 'form-control pull-right',
                   'id' => 'leave_to',
                   'label' => false,
@@ -122,7 +122,7 @@
               <div class="form-group col-md-4">
                 <label for="commutation">Commutation</label>
                 <div class="radio">
-                  <?= $this->Form->radio('LeaveApplications.commutation', 
+                  <?= $this->Form->radio('Leaves.commutation', 
                       [
                         'Requested',
                         'Not Requested'

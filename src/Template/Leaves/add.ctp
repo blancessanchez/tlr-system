@@ -36,9 +36,9 @@
     <div class="row">
       <div class="col-md-12">
         <div class="box box-primary">
-          <?= $this->Form->create('LeaveApplications', [
+          <?= $this->Form->create('Leaves', [
               'url' => [
-                'controller' => 'LeaveApplications',
+                'controller' => 'Leaves',
                 'action' => 'add'
               ],
               // 'autocomplete' => 'off'
@@ -52,7 +52,7 @@
               <div class="col-md-12">
                 <div class="form-group col-md-4">
                   <label for="employee_id">Employee Name</label>
-                  <?= $this->Form->control('LeaveApplications.employee_id', [
+                  <?= $this->Form->control('Leaves.employee_id', [
                     'class' => 'form-control',
                     'id' => 'employee_id',
                     'label' => false,
@@ -77,7 +77,7 @@
               <div class="col-md-12">
                 <div class="form-group col-md-4 <?= isset($leaveApplicationErrors['leave_type_id']) ? 'has-error' : '' ?>">
                   <label for="leave_type_id">Type of Leave <span style="color:red">*</span></label>
-                  <?= $this->Form->control('LeaveApplications.leave_type_id', [
+                  <?= $this->Form->control('Leaves.leave_type_id', [
                     'class' => 'form-control',
                     'id' => 'add_leave_type_id',
                     'label' => false,
@@ -89,7 +89,7 @@
                 </div>
                 <div class="form-group col-md-4 <?= isset($leaveApplicationErrors['leave_category_id']) ? 'has-error' : '' ?>">
                   <label for="leave_category" id="leave_category_id">Leave Category</label>
-                  <?= $this->Form->control('LeaveApplications.leave_category_id', [
+                  <?= $this->Form->control('Leaves.leave_category_id', [
                     'class' => 'form-control',
                     'id' => 'add_leave_category_id',
                     'label' => false,
@@ -103,7 +103,7 @@
               <div class="col-md-12">
                 <div class="form-group col-md-4 <?= isset($leaveApplicationErrors['leave_from']) ? 'has-error' : '' ?>">
                   <label for="leave_from">From <span style="color:red">*</span></label>
-                  <?= $this->Form->control('LeaveApplications.leave_from', [
+                  <?= $this->Form->control('Leaves.leave_from', [
                     'class' => 'form-control pull-right',
                     'id' => 'leave_from',
                     'label' => false,
@@ -113,7 +113,7 @@
                 </div>
                 <div class="form-group col-md-4 <?= isset($leaveApplicationErrors['leave_to']) ? 'has-error' : '' ?>">
                   <label for="leave_to">To <span style="color:red">*</span></label>
-                  <?= $this->Form->control('LeaveApplications.leave_to', [
+                  <?= $this->Form->control('Leaves.leave_to', [
                     'class' => 'form-control pull-right',
                     'id' => 'leave_to',
                     'label' => false,
@@ -124,7 +124,7 @@
                 <div class="form-group col-md-4 <?= isset($leaveApplicationErrors['commutation']) ? 'has-error' : '' ?>">
                   <label for="commutation">Commutation</label>
                   <div class="radio">
-                    <?= $this->Form->radio('LeaveApplications.commutation', 
+                    <?= $this->Form->radio('Leaves.commutation', 
                         [
                           ['value' => 1, 'text' => 'Requested'],
                           ['value' => 2, 'text' => 'Not Requested']

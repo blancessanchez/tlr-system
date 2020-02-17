@@ -40,7 +40,7 @@ class LeaveApplicationResponsesTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('LeaveApplications', [
+        $this->belongsTo('Leaves', [
             'foreignKey' => 'application_id',
             'joinType' => 'INNER'
         ]);
@@ -88,7 +88,7 @@ class LeaveApplicationResponsesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['application_id'], 'LeaveApplications'));
+        $rules->add($rules->existsIn(['application_id'], 'Leaves'));
 
         return $rules;
     }

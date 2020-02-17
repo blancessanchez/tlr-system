@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * LeaveTypes Model
  *
- * @property \App\Model\Table\LeaveApplicationsTable|\Cake\ORM\Association\HasMany $LeaveApplications
+ * @property \App\Model\Table\LeavesTable|\Cake\ORM\Association\HasMany $Leaves
  * @property \App\Model\Table\LeaveBalancesTable|\Cake\ORM\Association\HasMany $LeaveBalances
  *
  * @method \App\Model\Entity\LeaveType get($primaryKey, $options = [])
@@ -41,7 +41,7 @@ class LeaveTypesTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('LeaveApplications', [
+        $this->hasMany('Leaves', [
             'foreignKey' => 'leave_type_id'
         ]);
         $this->hasMany('LeaveBalances', [
