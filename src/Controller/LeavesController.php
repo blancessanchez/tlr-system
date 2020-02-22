@@ -265,9 +265,16 @@ class LeavesController extends AppController
      */
     public function edit()
     {
-        $getId = $this->request->params['id'];
+        $getId = null;
         $this->viewBuilder()->setLayout('main');
         $errorPage = false;
+
+        //if leave application id is empty return error page
+        if (!isset($this->request->params['id'])) {
+            $errorPage = true;
+        } else {
+            $getId = $this->request->params['id'];
+        }
 
         //get leave application information
         $leaveApplication = $this->Leaves->find('all', [

@@ -24,7 +24,7 @@ class LeaveTypesTableTest extends TestCase
      */
     public $fixtures = [
         'app.LeaveTypes',
-        'app.LeaveApplications',
+        'app.Leaves',
         'app.LeaveBalances'
     ];
 

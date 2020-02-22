@@ -1,16 +1,16 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\LeaveApplicationsController;
+use App\Controller\LeavesController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\LeaveApplicationsController Test Case
+ * App\Controller\LeavesController Test Case
  *
- * @uses \App\Controller\LeaveApplicationsController
+ * @uses \App\Controller\LeavesController
  */
-class LeaveApplicationsControllerTest extends TestCase
+class LeavesControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -20,7 +20,7 @@ class LeaveApplicationsControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.LeaveApplications',
+        'app.Leaves',
         'app.EmployeeInformation',
         'app.LeaveTypes',
         'app.LeaveCategories'

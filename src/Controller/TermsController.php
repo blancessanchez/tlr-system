@@ -24,7 +24,7 @@ class TermsController extends AppController
     {
         parent::initialize();
         $this->loadModel('Terms');
-        $this->loadModel('LeaveApplications');
+        $this->loadModel('Leaves');
         $this->loadModel('LeaveBalances');
     }
 

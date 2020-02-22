@@ -24,7 +24,7 @@ class LeaveCategoriesTableTest extends TestCase
      */
     public $fixtures = [
         'app.LeaveCategories',
-        'app.LeaveApplications'
+        'app.Leaves'
     ];
 
     /**

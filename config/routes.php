@@ -20,9 +20,10 @@
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
-use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\Route\InflectedRoute;
 
-Router::defaultRouteClass(DashedRoute::class);
+
+Router::defaultRouteClass(InflectedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
     // Register scoped middleware for in scopes.
@@ -163,11 +164,11 @@ Router::scope('/', function (RouteBuilder $routes) {
         $routes->connect(
             '/add',
             [
-                'controller' => 'LeaveApplicationResponses',
+                'controller' => 'Terms',
                 'action' => 'add'
             ]
         );
     });
 
-    $routes->fallbacks(DashedRoute::class);
+    $routes->fallbacks(InflectedRoute::class);
 });

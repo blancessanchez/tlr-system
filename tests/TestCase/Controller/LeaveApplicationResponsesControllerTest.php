@@ -19,7 +19,7 @@ class LeaveApplicationResponsesControllerTest extends TestCase
      */
     public $fixtures = [
         'app.LeaveApplicationResponses',
-        'app.LeaveApplications'
+        'app.Leaves'
     ];
 
     /**

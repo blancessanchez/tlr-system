@@ -14,7 +14,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $deleted_date
  * @property int|null $deleted
  *
- * @property \App\Model\Entity\LeaveApplication[] $leaves
+ * @property \App\Model\Entity\Leave[] $leaves
  */
 class LeaveCategory extends Entity
 {

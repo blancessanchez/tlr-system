@@ -27,7 +27,7 @@ class EmployeesTableTest extends TestCase
         'app.Roles',
         'app.ActivityLogs',
         'app.EmployeeInformation',
-        'app.LeaveApplications',
+        'app.Leaves',
         'app.LeaveBalances'
     ];
 

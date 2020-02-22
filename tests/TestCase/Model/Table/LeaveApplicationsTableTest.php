@@ -1,21 +1,21 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\LeaveApplicationsTable;
+use App\Model\Table\LeavesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\LeaveApplicationsTable Test Case
+ * App\Model\Table\LeavesTable Test Case
  */
-class LeaveApplicationsTableTest extends TestCase
+class LeavesTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\LeaveApplicationsTable
+     * @var \App\Model\Table\LeavesTable
      */
-    public $LeaveApplications;
+    public $Leaves;
 
     /**
      * Fixtures
@@ -23,7 +23,7 @@ class LeaveApplicationsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.LeaveApplications',
+        'app.Leaves',
         'app.EmployeeInformation',
         'app.LeaveTypes',
         'app.LeaveCategories'
@@ -37,8 +37,8 @@ class LeaveApplicationsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('LeaveApplications') ? [] : ['className' => LeaveApplicationsTable::class];
-        $this->Leaves = TableRegistry::getTableLocator()->get('LeaveApplications', $config);
+        $config = TableRegistry::getTableLocator()->exists('Leaves') ? [] : ['className' => LeavesTable::class];
+        $this->Leaves = TableRegistry::getTableLocator()->get('Leaves', $config);
     }
 
     /**

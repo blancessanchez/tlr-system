@@ -4,9 +4,9 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * LeaveApplicationsFixture
+ * LeavesFixture
  */
-class LeaveApplicationsFixture extends TestFixture
+class LeavesFixture extends TestFixture
 {
     /**
      * Fields
