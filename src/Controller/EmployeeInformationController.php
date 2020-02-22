@@ -198,40 +198,40 @@ class EmployeeInformationController extends AppController
                         'leave_type_id' => 0
                     ];
 
-                    if ($employeeInformation->is_als == 1) {
+                    if ($employeeInformation->is_als == Configure::read('EMPLOYEES.ALS.False')) {
+                        // Combo leave
+                        $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Combo');
+                        $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Combo');
+                        $leaveBalanceEntity = $this->LeaveBalances->newEntity();
+                        $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
+                        $this->LeaveBalances->save($leaveBalanceEntity);
+                    } else {
                         // Vacation leave
-                        $leaveBalance['balance'] = 15;
-                        $leaveBalance['leave_type_id'] = 1;
+                        $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Vacation');
+                        $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Vacation');
                         $leaveBalanceEntity = $this->LeaveBalances->newEntity();
                         $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
                         $this->LeaveBalances->save($leaveBalanceEntity);
 
                         // Sick leave
-                        $leaveBalance['balance'] = 15;
-                        $leaveBalance['leave_type_id'] = 2;
-                        $leaveBalanceEntity = $this->LeaveBalances->newEntity();
-                        $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
-                        $this->LeaveBalances->save($leaveBalanceEntity);
-                    } elseif ($employeeInformation->is_als == 2) {
-                        // Combo leave
-                        $leaveBalance['balance'] = 15;
-                        $leaveBalance['leave_type_id'] = 6;
+                        $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Sick');
+                        $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Sick');
                         $leaveBalanceEntity = $this->LeaveBalances->newEntity();
                         $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
                         $this->LeaveBalances->save($leaveBalanceEntity);
                     }
 
-                    if ($employeeInformation->gender == 1) {
+                    if ($employeeInformation->gender == Configure::read('EMPLOYEES.GENDER.Male')) {
                         // Paternity leave
-                        $leaveBalance['balance'] = 7;
-                        $leaveBalance['leave_type_id'] = 5;
+                        $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Paternity');
+                        $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Paternity');
                         $leaveBalanceEntity = $this->LeaveBalances->newEntity();
                         $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
                         $this->LeaveBalances->save($leaveBalanceEntity);
                     } else {
                         // Maternity leave
-                        $leaveBalance['balance'] = 103;
-                        $leaveBalance['leave_type_id'] = 4;
+                        $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Maternity');
+                        $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Maternity');
                         $leaveBalanceEntity = $this->LeaveBalances->newEntity();
                         $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
                         $this->LeaveBalances->save($leaveBalanceEntity);

@@ -235,7 +235,7 @@ class LeavesController extends AppController
                 $leaveApplication->leave_to = date('Y-m-d', strtotime($leaveApplication->leave_to));
                 $leaveApplication->leave_status = $leavesConfiguration['STATUS']['ForApproval'];
 
-                if (in_array($leaveApplication->leave_type_id, [1, 2]) && $employeeInformation->is_als == 2) {
+                if (in_array($leaveApplication->leave_type_id, [Configure::read('LEAVES.TYPE.Vacation'), Configure::read('LEAVES.TYPE.Sick')]) && $employeeInformation->is_als == Configure::read('EMPLOYEES.ALS.False')) {
                     $leaveApplication->leave_type_id = $leavesConfiguration['NON_ALS_ID'];
                 }
 
@@ -356,7 +356,7 @@ class LeavesController extends AppController
                 $leaveApplication->leave_from = date('Y-m-d', strtotime($leaveApplication->leave_from));
                 $leaveApplication->leave_to = date('Y-m-d', strtotime($leaveApplication->leave_to));
 
-                if (in_array($leaveApplication->leave_type_id, [1, 2]) && $leaveApplication->employee_information->is_als == 2) {
+                if (in_array($leaveApplication->leave_type_id, [Configure::read('LEAVES.TYPE.Vacation'), Configure::read('LEAVES.TYPE.Sick')]) && $leaveApplication->employee_information->is_als == Configure::read('EMPLOYEES.ALS.False')) {
                     $leaveApplication->leave_type_id = $leavesConfiguration['NON_ALS_ID'];
                 }
 

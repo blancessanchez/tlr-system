@@ -52,7 +52,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-confirm">Yes</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" id="term_btn_confirm">Yes</button>
                 </div>
               </div>
             </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" id="btn-submit">Submit</button>
+                  <button type="button" class="btn btn-primary" id="term_btn_submit">Submit</button>
                 </div>
               </div>
             </div>
@@ -165,11 +165,11 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#btn-confirm').on('click', function() {
+    $('#term_btn_confirm').on('click', function() {
       $('#inputModal').modal('show');
     });
 
-    $('#btn-submit').on('click', function() {
+    $('#term_btn_submit').on('click', function() {
       $.ajax({
           type: 'POST',
           url: '/terms/add',
@@ -181,7 +181,7 @@
           dataType: 'json',
           beforeSend: function (xhr) {
               xhr.setRequestHeader('X-CSRF-Token', <?= json_encode($this->request->getParam('_csrfToken')); ?>);
-              $('#btn-submit').prop('disabled','disabled');
+              $('#term_btn_submit').prop('disabled','disabled');
           }
       }).done(function(res) {
         if (res.status = true) {
@@ -191,7 +191,7 @@
         if (res.status == 422) {
           let mainResponse = $.parseJSON(res.responseText);
           $('#inputError').text(mainResponse.responseText)
-          $('#btn-submit').removeAttr('disabled');
+          $('#term_btn_submit').removeAttr('disabled');
         }
       });
     });

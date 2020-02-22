@@ -79,23 +79,23 @@ class LeaveApplicationResponsesController extends AppController
 
             //checks if teacher is ALS or NOT
             $findLeaveType = null;
-            if ($editLeaveApplication->employee_information->is_als === 1) {
-                if ($editLeaveApplication->leave_type_id == 1) {
-                    $findLeaveType = 1;
-                } elseif ($editLeaveApplication->leave_type_id == 2) {
-                    $findLeaveType = 2;
-                } elseif ($editLeaveApplication->leave_type_id == 4) {
-                    $findLeaveType = 4;
-                } elseif ($editLeaveApplication->leave_type_id == 5) {
-                    $findLeaveType = 5;
+            if ($editLeaveApplication->employee_information->is_als === Configure::read('EMPLOYEES.ALS.True')) {
+                if ($editLeaveApplication->leave_type_id == Configure::read('LEAVES.TYPE.Vacation')) {
+                    $findLeaveType = Configure::read('LEAVES.TYPE.Vacation');
+                } elseif ($editLeaveApplication->leave_type_id == Configure::read('LEAVES.TYPE.Sick')) {
+                    $findLeaveType = Configure::read('LEAVES.TYPE.Sick');
+                } elseif ($editLeaveApplication->leave_type_id == Configure::read('LEAVES.TYPE.Maternity')) {
+                    $findLeaveType = Configure::read('LEAVES.TYPE.Maternity');
+                } elseif ($editLeaveApplication->leave_type_id == Configure::read('LEAVES.TYPE.Paternity')) {
+                    $findLeaveType = Configure::read('LEAVES.TYPE.Paternity');
                 }
-            } elseif ($editLeaveApplication->employee_information->is_als === 2) {
-                if ($editLeaveApplication->leave_type_id == 6) {
-                    $findLeaveType = 6;
-                } elseif ($editLeaveApplication->leave_type_id == 4) {
-                    $findLeaveType = 4;
-                } elseif ($editLeaveApplication->leave_type_id == 5) {
-                    $findLeaveType = 5;
+            } else {
+                if ($editLeaveApplication->leave_type_id == Configure::read('LEAVES.TYPE.Combo')) {
+                    $findLeaveType = Configure::read('LEAVES.TYPE.Combo');
+                } elseif ($editLeaveApplication->leave_type_id == Configure::read('LEAVES.TYPE.Maternity')) {
+                    $findLeaveType = Configure::read('LEAVES.TYPE.Maternity');
+                } elseif ($editLeaveApplication->leave_type_id == Configure::read('LEAVES.TYPE.Paternity')) {
+                    $findLeaveType = Configure::read('LEAVES.TYPE.Paternity');
                 }
             }
 
