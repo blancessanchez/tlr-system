@@ -1,7 +1,12 @@
 <?php $this->assign('title', 'Login'); ?>
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><?= $this->Configure->read('system_name') ?></a>
+    <?= $this->Html->link($this->Configure->read('system_name'), [
+        'controller' => 'EmployeeInformation',
+        'action' => 'home'
+      ],
+      ['escape' => false]
+    ); ?>
   </div>
   <?= $this->Flash->render() ?>
   <div class="login-box-body">
@@ -19,7 +24,8 @@
             'required' => false,
             'div' => false,
             'placeholder' => 'Employee Number',
-            'class' => 'form-control employeeno'
+            'class' => 'form-control employeeno',
+            'pattern' => '[0-9]'
           ]);
         ?>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
