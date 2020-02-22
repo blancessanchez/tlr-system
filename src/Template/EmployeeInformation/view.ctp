@@ -147,7 +147,7 @@
     </div>
     <div class="related">
         <h4><?= __('Related Leave Applications') ?></h4>
-        <?php if (!empty($employee->leave_applications)): ?>
+        <?php if (!empty($employee->leaves)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
@@ -165,7 +165,7 @@
                 <th scope="col"><?= __('Deleted') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($employee->leave_applications as $leaveApplications): ?>
+            <?php foreach ($employee->leaves as $leaveApplications): ?>
             <tr>
                 <td><?= h($leaveApplications->id) ?></td>
                 <td><?= h($leaveApplications->employee_id) ?></td>

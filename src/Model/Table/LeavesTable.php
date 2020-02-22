@@ -7,24 +7,24 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * LeaveApplications Model
+ * Leaves Model
  *
  * @property \App\Model\Table\EmployeeInformationTable|\Cake\ORM\Association\BelongsTo $EmployeeInformation
  * @property \App\Model\Table\LeaveTypesTable|\Cake\ORM\Association\BelongsTo $LeaveTypes
  * @property \App\Model\Table\LeaveCategoriesTable|\Cake\ORM\Association\BelongsTo $LeaveCategories
  *
- * @method \App\Model\Entity\LeaveApplication get($primaryKey, $options = [])
- * @method \App\Model\Entity\LeaveApplication newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\LeaveApplication[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\LeaveApplication|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\LeaveApplication saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\LeaveApplication patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\LeaveApplication[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\LeaveApplication findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Leave get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Leave newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Leave[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Leave|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Leave saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Leave patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Leave[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Leave findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class LeaveApplicationsTable extends Table
+class LeavesTable extends Table
 {
     /**
      * Initialize method
@@ -36,7 +36,7 @@ class LeaveApplicationsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('leave_applications');
+        $this->setTable('leaves');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 

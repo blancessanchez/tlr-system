@@ -4,7 +4,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * LeaveApplication Entity
+ * Leave Entity
  *
  * @property int $id
  * @property int $employee_id
@@ -25,7 +25,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\LeaveType $leave_type
  * @property \App\Model\Entity\LeaveCategory $leave_category
  */
-class LeaveApplication extends Entity
+class Leave extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

@@ -7,13 +7,13 @@ use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 
 /**
- * LeaveApplications Controller
+ * Leaves Controller
  *
- * @property \App\Model\Table\LeaveApplicationsTable $LeaveApplications
+ * @property \App\Model\Table\LeavesTable $Leaves
  *
- * @method \App\Model\Entity\LeaveApplication[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Leave[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class LeaveApplicationsController extends AppController
+class LeavesController extends AppController
 {
     /**
      * Initialize method
@@ -50,11 +50,11 @@ class LeaveApplicationsController extends AppController
     {
         //denies if role is not principal
         if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal')) {
-            return $this->redirect('/');
+            return $this->redirect('/home');
         }
 
         $this->viewBuilder()->setLayout('main');
-        $leaveApplications = $this->LeaveApplications->find('all', [
+        $leaveApplications = $this->Leaves->find('all', [
             'contain' => [
                 'EmployeeInformation'
             ]
@@ -83,14 +83,14 @@ class LeaveApplicationsController extends AppController
     {
         //denies if role is not principal
         if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal')) {
-            return $this->redirect('/');
+            return $this->redirect('/home');
         }
 
         $this->viewBuilder()->setLayout('main');
         $leaveApplicationResponseErrors = [];
 
         //get leave application information
-        $leaveApplication = $this->LeaveApplications->get($id, [
+        $leaveApplication = $this->Leaves->get($id, [
             'contain' => [
                 'EmployeeInformation',
                 'LeaveTypes',
@@ -221,7 +221,7 @@ class LeaveApplicationsController extends AppController
             ->toArray();
 
         if ($this->request->is('post')) {
-            $leaveApplication = $this->LeaveApplications->newEntity($this->request->getData());
+            $leaveApplication = $this->Leaves->newEntity($this->request->getData());
             if (date('Y-m-d', strtotime($leaveApplication->leave_from)) > date('Y-m-d', strtotime($leaveApplication->leave_to))) {
                 $leaveApplication->setErrors(['leave_from' => ['dateCompare' => 'Leave from date must not be greater than leave to date']]);
             }
@@ -239,10 +239,10 @@ class LeaveApplicationsController extends AppController
                     $leaveApplication->leave_type_id = $leavesConfiguration['NON_ALS_ID'];
                 }
 
-                if ($this->LeaveApplications->save($leaveApplication)) {
+                if ($this->Leaves->save($leaveApplication)) {
                     $this->Flash->success(__('The leave application has been saved.'));
 
-                    return $this->redirect('/');
+                    return $this->redirect('/home');
                 }
                 $this->Flash->error(__('The leave application could not be saved. Please, try again.'));
             }
@@ -270,15 +270,15 @@ class LeaveApplicationsController extends AppController
         $errorPage = false;
 
         //get leave application information
-        $leaveApplication = $this->LeaveApplications->find('all', [
+        $leaveApplication = $this->Leaves->find('all', [
             'contain' => [
                 'EmployeeInformation',
                 'LeaveTypes',
                 'LeaveCategories'
             ],
             'conditions' => [
-                'LeaveApplications.id' => $getId,
-                'LeaveApplications.employee_id' => $this->Auth->user('id')
+                'Leaves.id' => $getId,
+                'Leaves.employee_id' => $this->Auth->user('id')
             ]
         ])->first();
 
@@ -288,7 +288,7 @@ class LeaveApplicationsController extends AppController
 
         //if status IN approved,disapproved,cancelled redirect to top page
         if (!empty($leaveApplication) && in_array($leaveApplication->leave_status, [2, 3, 4])) {
-            return $this->redirect('/');
+            return $this->redirect('/home');
         }
 
         $leaveApplicationErrors = [];
@@ -337,7 +337,7 @@ class LeaveApplicationsController extends AppController
             ->toArray();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $leaveApplication = $this->LeaveApplications->patchEntity($leaveApplication, $this->request->getData());
+            $leaveApplication = $this->Leaves->patchEntity($leaveApplication, $this->request->getData());
             if (date('Y-m-d', strtotime($leaveApplication->leave_from)) > date('Y-m-d', strtotime($leaveApplication->leave_to))) {
                 $leaveApplication->setErrors(['leave_from' => ['dateCompare' => 'Leave from date must not be greater than leave to date']]);
             }
@@ -353,10 +353,10 @@ class LeaveApplicationsController extends AppController
                     $leaveApplication->leave_type_id = $leavesConfiguration['NON_ALS_ID'];
                 }
 
-                if ($this->LeaveApplications->save($leaveApplication)) {
+                if ($this->Leaves->save($leaveApplication)) {
                     $this->Flash->success(__('The leave application has been saved.'));
 
-                    return $this->redirect('/');
+                    return $this->redirect('/home');
                 }
                 $this->Flash->error(__('The leave application could not be saved. Please, try again.'));
             }
@@ -382,8 +382,8 @@ class LeaveApplicationsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $leaveApplication = $this->LeaveApplications->get($id);
-        if ($this->LeaveApplications->delete($leaveApplication)) {
+        $leaveApplication = $this->Leaves->get($id);
+        if ($this->Leaves->delete($leaveApplication)) {
             $this->Flash->success(__('The leave application has been deleted.'));
         } else {
             $this->Flash->error(__('The leave application could not be deleted. Please, try again.'));
@@ -400,17 +400,17 @@ class LeaveApplicationsController extends AppController
     {
         //denies if role is not principal
         if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal')) {
-            return $this->redirect('/');
+            return $this->redirect('/home');
         }
 
-        $leaveApplications = $this->LeaveApplications->find('all', [
+        $leaveApplications = $this->Leaves->find('all', [
             'contain' => [
                 'EmployeeInformation' => ['JobPositions'],
                 'LeaveApplicationResponses'
             ],
             'conditions' => [
-                'LeaveApplications.leave_status IN' => [2, 4],
-                'LeaveApplications.deleted' => 0
+                'Leaves.leave_status IN' => [2, 4],
+                'Leaves.deleted' => 0
             ]
         ])->toArray();
         $this->viewBuilder()->layout(false);
@@ -427,14 +427,14 @@ class LeaveApplicationsController extends AppController
     {
         if ($this->request->is('post')) {
             //edit leave application status
-            $editLeaveApplication = $this->LeaveApplications->get($this->request->getData('id'));
-            $leaveStatus['LeaveApplications']['leave_status'] = Configure::read('LEAVES.STATUS.Cancelled');
-            $saveData = $this->LeaveApplications->patchEntity($editLeaveApplication, $leaveStatus);
+            $editLeaveApplication = $this->Leaves->get($this->request->getData('id'));
+            $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.Cancelled');
+            $saveData = $this->Leaves->patchEntity($editLeaveApplication, $leaveStatus);
 
             //send response error if failed
             $responseError['message'] = 'The given data was invalid';
 
-            if ($this->LeaveApplications->save($saveData)) {
+            if ($this->Leaves->save($saveData)) {
                 return $this->response->withStatus(200)
                     ->withStringBody(json_encode(['status' => true], JSON_UNESCAPED_UNICODE));
             }

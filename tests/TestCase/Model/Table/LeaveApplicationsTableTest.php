@@ -38,7 +38,7 @@ class LeaveApplicationsTableTest extends TestCase
     {
         parent::setUp();
         $config = TableRegistry::getTableLocator()->exists('LeaveApplications') ? [] : ['className' => LeaveApplicationsTable::class];
-        $this->LeaveApplications = TableRegistry::getTableLocator()->get('LeaveApplications', $config);
+        $this->Leaves = TableRegistry::getTableLocator()->get('LeaveApplications', $config);
     }
 
     /**
@@ -48,7 +48,7 @@ class LeaveApplicationsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->LeaveApplications);
+        unset($this->Leaves);
 
         parent::tearDown();
     }

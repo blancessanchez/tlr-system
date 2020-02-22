@@ -23,7 +23,7 @@ class EmployeeInformationController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('LeaveApplications');
+        $this->loadModel('Leaves');
         $this->loadModel('LeaveBalances');
     }
 
@@ -58,7 +58,7 @@ class EmployeeInformationController extends AppController
             ->first();
 
         //getting own leave application
-        $leaveApplications = $this->LeaveApplications->find('all', [
+        $leaveApplications = $this->Leaves->find('all', [
             'conditions' => [
                 'employee_id' => $this->Auth->user('id')
             ],

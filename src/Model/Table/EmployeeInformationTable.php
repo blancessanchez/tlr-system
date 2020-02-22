@@ -50,7 +50,7 @@ class EmployeeInformationTable extends Table
         $this->hasMany('ActivityLogs', [
             'foreignKey' => 'employee_id'
         ]);
-        $this->hasMany('LeaveApplications', [
+        $this->hasMany('Leaves', [
             'foreignKey' => 'employee_id'
         ]);
         $this->hasMany('LeaveBalances', [

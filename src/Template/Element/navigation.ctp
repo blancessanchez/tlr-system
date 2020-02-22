@@ -16,7 +16,7 @@
       <?= $this->Html->link(
         $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) .
         'Leaves List', [
-          'controller' => 'LeaveApplications',
+          'controller' => 'Leaves',
           'action' => 'index'
         ],
         ['escape' => false]
@@ -61,7 +61,7 @@
     <?= $this->Html->link(
       $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
       'Apply Leave', [
-        'controller' => 'LeaveApplications',
+        'controller' => 'Leaves',
         'action' => 'add'
       ],
       ['escape' => false]

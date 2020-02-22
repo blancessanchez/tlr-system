@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * LeaveCategories Model
  *
  * @property |\Cake\ORM\Association\BelongsTo $ParentLeaveTypes
- * @property \App\Model\Table\LeaveApplicationsTable|\Cake\ORM\Association\HasMany $LeaveApplications
+ * @property \App\Model\Table\LeavesTable|\Cake\ORM\Association\HasMany $Leaves
  *
  * @method \App\Model\Entity\LeaveCategory get($primaryKey, $options = [])
  * @method \App\Model\Entity\LeaveCategory newEntity($data = null, array $options = [])
@@ -44,7 +44,7 @@ class LeaveCategoriesTable extends Table
         $this->belongsTo('LeaveTypes', [
             'foreignKey' => 'parent_leave_type_id'
         ]);
-        $this->hasMany('LeaveApplications', [
+        $this->hasMany('Leaves', [
             'foreignKey' => 'leave_category_id'
         ]);
     }

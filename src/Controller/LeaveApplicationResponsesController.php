@@ -22,7 +22,7 @@ class LeaveApplicationResponsesController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('LeaveApplications');
+        $this->loadModel('Leaves');
         $this->loadModel('LeaveBalances');
         $this->loadModel('LeaveTypes');
         $this->loadModel('Terms');
@@ -36,7 +36,7 @@ class LeaveApplicationResponsesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['LeaveApplications']
+            'contain' => ['Leaves']
         ];
         $leaveApplicationResponses = $this->paginate($this->LeaveApplicationResponses);
 
@@ -52,7 +52,7 @@ class LeaveApplicationResponsesController extends AppController
     public function view($id = null)
     {
         $leaveApplicationResponse = $this->LeaveApplicationResponses->get($id, [
-            'contain' => ['LeaveApplications']
+            'contain' => ['Leaves']
         ]);
 
         $this->set('leaveApplicationResponse', $leaveApplicationResponse);
@@ -71,7 +71,7 @@ class LeaveApplicationResponsesController extends AppController
             $leaveApplicationResponse = $this->LeaveApplicationResponses->newEntity($this->request->getData());
 
             //edit leave application status
-            $editLeaveApplication = $this->LeaveApplications->get($this->request->getData('id'), [
+            $editLeaveApplication = $this->Leaves->get($this->request->getData('id'), [
                 'contain' => [
                     'EmployeeInformation'
                 ]
@@ -123,13 +123,13 @@ class LeaveApplicationResponsesController extends AppController
             $leaveBalance['LeaveBalances']['balance'] = $getLeaveBalance['balance'];
 
             if ($this->request->getData('recommendation_type') == 0) {
-                $leaveStatus['LeaveApplications']['leave_status'] = Configure::read('LEAVES.STATUS.Approved');
+                $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.Approved');
                 $leaveBalance['LeaveBalances']['balance'] = $getLeaveBalance['balance'] - $diff;
             } elseif ($this->request->getData('recommendation_type') == 1) {
                 if (empty($this->request->getData('recommendation_description'))) {
                     $leaveApplicationResponse->setErrors(['recommendation_description' => ['_required' => 'Disapproved description is required']]);
                 }
-                $leaveStatus['LeaveApplications']['leave_status'] = Configure::read('LEAVES.STATUS.Disapproved');
+                $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.Disapproved');
             }
 
             //send response error if failed
@@ -140,11 +140,11 @@ class LeaveApplicationResponsesController extends AppController
 
             $leaveApplicationResponse->application_id = $this->request->getData('id');
             if ($this->LeaveApplicationResponses->save($leaveApplicationResponse)) {
-                $table = $this->LeaveApplications->patchEntity($editLeaveApplication, $leaveStatus);
+                $table = $this->Leaves->patchEntity($editLeaveApplication, $leaveStatus);
                 $tableBalance = $this->LeaveBalances->patchEntity($editLeaveBalance, $leaveBalance);
 
                 //update record
-                $this->LeaveApplications->save($table);
+                $this->Leaves->save($table);
                 $this->LeaveBalances->save($tableBalance);
 
                 $this->Flash->success(__('The leave application response has been saved.'));
@@ -179,7 +179,7 @@ class LeaveApplicationResponsesController extends AppController
             }
             $this->Flash->error(__('The leave application response could not be saved. Please, try again.'));
         }
-        $leaveApplications = $this->LeaveApplicationResponses->LeaveApplications->find('list', ['limit' => 200]);
+        $leaveApplications = $this->LeaveApplicationResponses->Leaves->find('list', ['limit' => 200]);
         $this->set(compact('leaveApplicationResponse', 'leaveApplications'));
     }
 
