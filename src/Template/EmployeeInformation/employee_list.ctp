@@ -1,11 +1,10 @@
-<?php $this->assign('title', 'Home'); ?> 
+<?php $this->assign('title', 'Employees List'); ?> 
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>
-      Home
-    </h1>
+    <br>
     <ol class="breadcrumb">
-      <li class="active">Home</li>
+      <li ><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+      <li class="active">Employees List</li>
     </ol>
   </section>
 
@@ -15,17 +14,17 @@
         <?= $this->Flash->render(); ?>
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Employee List</h3>
+            <h3 class="box-title">Employees List</h3>
           </div>
           <div class="box-body">
-            <table id="employee_list" class="table table-bordered table-striped">
+            <table id="table_data" class="table table-bordered table-striped">
               <thead>
               <tr>
                 <th>Employee Number</th>
                 <th>Name</th>
                 <th>Job Position</th>
                 <th>Status</th>
-                <!-- <th>Action</th> -->
+                <th>Action</th>
               </tr>
               </thead>
               <tbody>
@@ -39,11 +38,7 @@
                     </td>
                     <td><?= h($employee->job_position->title) ?></td>
                     <td><?= $employeeStatus[$employee->status] ?></td>
-                    <td>
-                      <!-- <button type="button" class="btn btn-default"><i class="fa fa-eye"></i></button>
-                      <button type="button" class="btn btn-default"><i class="fa fa-pencil"></i></button>
-                      <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button> -->
-                    </td>
+                    <td></td>
                   </tr>
                 <?php endforeach ?>
               </tbody>

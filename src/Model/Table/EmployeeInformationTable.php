@@ -185,6 +185,7 @@ class EmployeeInformationTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         // $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->isUnique(['employee_no'], 'User already exist.'));
         $rules->add($rules->existsIn(['role_id'], 'Roles'));
         $rules->add($rules->existsIn(['job_position_id'], 'JobPositions'));
 

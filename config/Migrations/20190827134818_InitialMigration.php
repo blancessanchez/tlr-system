@@ -211,7 +211,7 @@ class InitialMigration extends AbstractMigration
             ])
             ->addColumn('middle_name', 'string', [
                 'limit' => 255,
-                'null' => false
+                'null' => true
             ])
             ->addColumn('job_position_id', 'integer', [
                 'limit' => 11,

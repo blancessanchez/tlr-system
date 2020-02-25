@@ -24,7 +24,7 @@ class ActivityLogsTableTest extends TestCase
      */
     public $fixtures = [
         'app.ActivityLogs',
-        'app.EmployeeInformation'
+        'app.EmployeeInformation',
     ];
 
     /**

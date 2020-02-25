@@ -25,6 +25,8 @@ class EmployeeInformationController extends AppController
         parent::initialize();
         $this->loadModel('Leaves');
         $this->loadModel('LeaveBalances');
+        $this->loadModel('ActivityLogs');
+        $this->loadComponent('ActivityLog');
     }
 
     /**
@@ -57,7 +59,7 @@ class EmployeeInformationController extends AppController
             ])
             ->first();
 
-        //getting own leave application
+        // getting own leave application
         $leaveApplications = $this->Leaves->find('all', [
             'conditions' => [
                 'employee_id' => $this->Auth->user('id')
@@ -67,7 +69,7 @@ class EmployeeInformationController extends AppController
             ]
         ]);
 
-        //geting all options array
+        // geting all options array
         $leaveTypes = TableRegistry::get('LeaveTypes')
             ->find('list', [
                 'conditions' => [
@@ -76,7 +78,7 @@ class EmployeeInformationController extends AppController
             ])
             ->toArray();
 
-        //getting current leave balance
+        // getting current leave balance
         $leaveBalance = TableRegistry::get('LeaveBalances')
             ->find('all', [
                 'contain' => [
@@ -102,14 +104,18 @@ class EmployeeInformationController extends AppController
     public function index()
     {
         $this->viewBuilder()->setLayout('login');
+
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
 
-                return $this->redirect($this->Auth->redirectUrl());
+                if ($this->ActivityLog->logginginActivityLog($user['id'], 'User login')) {
+                    return $this->redirect($this->Auth->redirectUrl());
+                }
+                $this->Flash->error(__('Error saving login info in activity log.'));
             }
-            $this->Flash->error(__('Invalid username or password, try again'));
+            $this->Flash->error(__('Invalid username or password, try again.'));
         }
     }
 
@@ -179,9 +185,27 @@ class EmployeeInformationController extends AppController
                     $employeeInformation->hired_date = null;
                 }
 
-                // if (empty($employeeInformation->middle_name)) {
-                //     $employeeInformation->middle_name = null;
-                // }
+                if (empty($employeeInformation->middle_name)) {
+                    $employeeInformation->middle_name = null;
+                }
+
+                if (empty($employeeInformation->salary)) {
+                    $employeeInformation->salary = null;
+                }
+
+                // check if employee number already exists
+                $query = $this->EmployeeInformation->find('all', [
+                    'conditions' => [
+                        'EmployeeInformation.employee_no' => $employeeInformation->employee_no
+                    ]
+                ]);
+
+                $checkIfEmployeeExists = $query->first();
+
+                if (!empty($checkIfEmployeeExists)) {
+                    $this->Flash->error(__('Employee number is already existing.'));
+                }
+                
                 if ($this->EmployeeInformation->save($employeeInformation)) {
                     $currentTerm = TableRegistry::get('Terms')
                         ->find('all', [
@@ -190,55 +214,60 @@ class EmployeeInformationController extends AppController
                             ]
                         ])
                         ->first();
-
-                    $leaveBalance = [
-                        'employee_id' => $employeeInformation->id,
-                        'term_id' => $currentTerm['id'],
-                        'balance' => 0,
-                        'leave_type_id' => 0
-                    ];
-
-                    if ($employeeInformation->is_als == Configure::read('EMPLOYEES.ALS.False')) {
-                        // Combo leave
-                        $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Combo');
-                        $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Combo');
-                        $leaveBalanceEntity = $this->LeaveBalances->newEntity();
-                        $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
-                        $this->LeaveBalances->save($leaveBalanceEntity);
-                    } else {
-                        // Vacation leave
-                        $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Vacation');
-                        $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Vacation');
-                        $leaveBalanceEntity = $this->LeaveBalances->newEntity();
-                        $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
-                        $this->LeaveBalances->save($leaveBalanceEntity);
-
-                        // Sick leave
-                        $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Sick');
-                        $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Sick');
-                        $leaveBalanceEntity = $this->LeaveBalances->newEntity();
-                        $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
-                        $this->LeaveBalances->save($leaveBalanceEntity);
+                    
+                    if (!empty($currentTerm)) {
+                        $leaveBalance = [
+                            'employee_id' => $employeeInformation->id,
+                            'term_id' => $currentTerm['id'],
+                            'balance' => 0,
+                            'leave_type_id' => 0
+                        ];
+    
+                        if ($employeeInformation->is_als == Configure::read('EMPLOYEES.ALS.False')) {
+                            // Combo leave
+                            $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Combo');
+                            $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Combo');
+                            $leaveBalanceEntity = $this->LeaveBalances->newEntity();
+                            $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
+                            $this->LeaveBalances->save($leaveBalanceEntity);
+                        } else {
+                            // Vacation leave
+                            $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Vacation');
+                            $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Vacation');
+                            $leaveBalanceEntity = $this->LeaveBalances->newEntity();
+                            $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
+                            $this->LeaveBalances->save($leaveBalanceEntity);
+    
+                            // Sick leave
+                            $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Sick');
+                            $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Sick');
+                            $leaveBalanceEntity = $this->LeaveBalances->newEntity();
+                            $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
+                            $this->LeaveBalances->save($leaveBalanceEntity);
+                        }
+    
+                        if ($employeeInformation->gender == Configure::read('EMPLOYEES.GENDER.Male')) {
+                            // Paternity leave
+                            $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Paternity');
+                            $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Paternity');
+                            $leaveBalanceEntity = $this->LeaveBalances->newEntity();
+                            $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
+                            $this->LeaveBalances->save($leaveBalanceEntity);
+                        } else {
+                            // Maternity leave
+                            $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Maternity');
+                            $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Maternity');
+                            $leaveBalanceEntity = $this->LeaveBalances->newEntity();
+                            $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
+                            $this->LeaveBalances->save($leaveBalanceEntity);
+                        }
                     }
 
-                    if ($employeeInformation->gender == Configure::read('EMPLOYEES.GENDER.Male')) {
-                        // Paternity leave
-                        $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Paternity');
-                        $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Paternity');
-                        $leaveBalanceEntity = $this->LeaveBalances->newEntity();
-                        $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
-                        $this->LeaveBalances->save($leaveBalanceEntity);
-                    } else {
-                        // Maternity leave
-                        $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.Maternity');
-                        $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.Maternity');
-                        $leaveBalanceEntity = $this->LeaveBalances->newEntity();
-                        $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
-                        $this->LeaveBalances->save($leaveBalanceEntity);
-                    }
+                    $session = $this->getRequest()->getSession();
+                    $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Add New Employee');
                     $this->Flash->success(__('The employee has been saved.'));
 
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'home']);
                 }
                 $this->Flash->error(__('The employee could not be saved. Please, try again.'));
             }
@@ -300,7 +329,7 @@ class EmployeeInformationController extends AppController
      */
     public function delete($id = null)
     {
-        //denies if role is not administrator
+        // denies if role is not administrator
         if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Admin')) {
             return $this->redirect('/');
         }
@@ -323,6 +352,10 @@ class EmployeeInformationController extends AppController
      */
     public function logout()
     {
-        return $this->redirect($this->Auth->logout());
+        $session = $this->getRequest()->getSession();
+        if ($this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'User logout')) {
+            return $this->redirect($this->Auth->logout());
+        }
+        $this->Flash->error(__('Error saving login info in activity log.'));
     }
 }

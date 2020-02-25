@@ -26,6 +26,7 @@ class LeaveApplicationResponsesController extends AppController
         $this->loadModel('LeaveBalances');
         $this->loadModel('LeaveTypes');
         $this->loadModel('Terms');
+        $this->loadComponent('ActivityLog');
     }
 
     /**
@@ -139,6 +140,8 @@ class LeaveApplicationResponsesController extends AppController
             ];
 
             $leaveApplicationResponse->application_id = $this->request->getData('id');
+            $session = $this->getRequest()->getSession();
+            $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Responded to Leave Application');
             if ($this->LeaveApplicationResponses->save($leaveApplicationResponse)) {
                 $table = $this->Leaves->patchEntity($editLeaveApplication, $leaveStatus);
                 $tableBalance = $this->LeaveBalances->patchEntity($editLeaveBalance, $leaveBalance);

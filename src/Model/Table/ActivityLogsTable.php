@@ -9,12 +9,12 @@ use Cake\Validation\Validator;
 /**
  * ActivityLogs Model
  *
- * @property \App\Model\Table\EmployeeInformationTable|\Cake\ORM\Association\BelongsTo $EmployeeInformation
+ * @property &\Cake\ORM\Association\BelongsTo $Employees
  *
  * @method \App\Model\Entity\ActivityLog get($primaryKey, $options = [])
  * @method \App\Model\Entity\ActivityLog newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\ActivityLog[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\ActivityLog|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ActivityLog|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\ActivityLog saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\ActivityLog patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\ActivityLog[] patchEntities($entities, array $data, array $options = [])
@@ -42,7 +42,7 @@ class ActivityLogsTable extends Table
 
         $this->belongsTo('EmployeeInformation', [
             'foreignKey' => 'employee_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
     }
 
@@ -56,7 +56,7 @@ class ActivityLogsTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmptyString('id', 'create');
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->scalar('description')

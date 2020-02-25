@@ -45,6 +45,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'EmployeeInformation', 'action' => 'index', 'login']);
     $routes->connect('/home', ['controller' => 'EmployeeInformation', 'action' => 'home']);
     $routes->connect('/logout', ['controller' => 'EmployeeInformation', 'action' => 'logout']);
+    $routes->connect('/logs', ['controller' => 'ActivityLogs', 'action' => 'index']);
 
     /**
      * EmployeeInformation controller
@@ -124,7 +125,7 @@ Router::scope('/', function (RouteBuilder $routes) {
         );
 
         $routes->connect(
-            '/generateReport',
+            '/report',
             [
                 'controller' => 'Leaves',
                 'action' => 'generateReport'
