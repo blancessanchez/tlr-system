@@ -1,4 +1,6 @@
 <?php $this->assign('title', 'Edit Leave'); ?>
+<?= $this->element('loading') ?>
+
 <?php if ($errorPage) : ?>
   <?= $this->element('404error') ?>
 <?php else : ?>

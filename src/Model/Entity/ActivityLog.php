@@ -14,7 +14,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $deleted_date
  * @property int|null $deleted
  *
- * @property \App\Model\Entity\Employee $employee
+ * @property \App\Model\Entity\EmployeeInformation $employee_information
  */
 class ActivityLog extends Entity
 {
@@ -34,6 +34,6 @@ class ActivityLog extends Entity
         'modified' => true,
         'deleted_date' => true,
         'deleted' => true,
-        'employee' => true
+        'employee_information' => true,
     ];
 }

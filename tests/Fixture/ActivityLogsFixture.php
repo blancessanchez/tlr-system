@@ -46,10 +46,10 @@ class ActivityLogsFixture extends TestFixture
                 'id' => 1,
                 'employee_id' => 1,
                 'description' => 'Lorem ipsum dolor sit amet',
-                'created' => '2019-09-21 15:28:01',
-                'modified' => '2019-09-21 15:28:01',
-                'deleted_date' => '2019-09-21 15:28:01',
-                'deleted' => 1
+                'created' => '2020-02-22 15:31:53',
+                'modified' => '2020-02-22 15:31:53',
+                'deleted_date' => '2020-02-22 15:31:53',
+                'deleted' => 1,
             ],
         ];
         parent::init();

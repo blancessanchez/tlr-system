@@ -1,4 +1,6 @@
 <?php $this->assign('title', 'Home'); ?>
+<?= $this->element('loading') ?>
+
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
@@ -117,7 +119,7 @@
                 <h3 class="box-title">My Leave Applications</h3>
               </div>
               <div class="box-body">
-                <table id="leaves_list" class="table table-bordered table-striped">
+                <table id="table_data" class="table table-bordered table-striped">
                   <thead>
                     <tr>
                       <th>Application ID</th>
@@ -147,7 +149,8 @@
                         <td class="actions">
                           <?php if ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ForApproval')) : ?>
                             <a href="/leaves/edit/<?= $leaveApplication->id?>" class="btn btn-default"><i class="fa fa-pencil"></i></a>
-                            <!-- <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button> -->
+                          <?php else : ?>
+                            <a href="/leaves/view/<?= $leaveApplication->id?>" class="btn btn-default"><i class="fa fa-eye"></i></a>
                           <?php endif ?>
                         </td>
                       </tr>
@@ -170,6 +173,7 @@
     });
 
     $('#term_btn_submit').on('click', function() {
+      $('.loading_modal').show();
       $.ajax({
           type: 'POST',
           url: '/terms/add',

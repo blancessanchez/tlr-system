@@ -22,7 +22,7 @@
             <h3 class="box-title">Recent Applications</h3>
           </div>
           <div class="box-body">
-            <table id="employee_list" class="table table-bordered table-striped">
+            <table id="leaves_list" class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th>Application ID</th>
@@ -66,9 +66,3 @@
     </div>
   </section>
 </div>
-
-<script type="text/javascript">
-  $('#btn-generate-report').on('click', function() {
-    window.open('/leaves/generateReport','_blank');
-  });
-</script>

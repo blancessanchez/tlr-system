@@ -58,7 +58,7 @@ class EmployeeInformationSeed extends AbstractSeed
                 'email' => 'blancessanchez30@gmail.com',
                 'hired_date' => null,
                 'status' => '1',
-                'is_als' => 2,
+                'is_als' => 1,
                 'created' => $date->format('Y-m-d H:i:s'),
                 'modified' => $date->format('Y-m-d H:i:s'),
                 'deleted_date' => null,

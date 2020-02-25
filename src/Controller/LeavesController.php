@@ -26,6 +26,7 @@ class LeavesController extends AppController
         $this->loadModel('EmployeeInformation');
         $this->loadModel('LeaveBalances');
         $this->loadModel('LeaveApplicationResponses');
+        $this->loadComponent('ActivityLog');
     }
 
     /**
@@ -49,7 +50,7 @@ class LeavesController extends AppController
     public function index()
     {
         //denies if role is not principal
-        if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal')) {
+        if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal') ) {
             return $this->redirect('/home');
         }
 
@@ -81,11 +82,6 @@ class LeavesController extends AppController
      */
     public function view($id = null)
     {
-        //denies if role is not principal
-        if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal')) {
-            return $this->redirect('/home');
-        }
-
         $this->viewBuilder()->setLayout('main');
         $leaveApplicationResponseErrors = [];
 
@@ -126,6 +122,8 @@ class LeavesController extends AppController
 
         if ($leaveApplication->leave_status == 3) {
             $leaveResponse = 'cancelled';
+        } elseif ($leaveApplication->leave_status == 2) {
+            $leaveResponse = 'approved';
         }
 
         //getting current leave balance
@@ -240,6 +238,8 @@ class LeavesController extends AppController
                 }
 
                 if ($this->Leaves->save($leaveApplication)) {
+                    $session = $this->getRequest()->getSession();
+                    $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Apply Leave');
                     $this->Flash->success(__('The leave application has been saved.'));
 
                     return $this->redirect('/home');
@@ -361,6 +361,8 @@ class LeavesController extends AppController
                 }
 
                 if ($this->Leaves->save($leaveApplication)) {
+                    $session = $this->getRequest()->getSession();
+                    $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Edit Leave');
                     $this->Flash->success(__('The leave application has been saved.'));
 
                     return $this->redirect('/home');
@@ -433,13 +435,17 @@ class LeavesController extends AppController
     public function cancel($id = null)
     {
         if ($this->request->is('post')) {
-            //edit leave application status
+            // edit leave application status
             $editLeaveApplication = $this->Leaves->get($this->request->getData('id'));
             $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.Cancelled');
             $saveData = $this->Leaves->patchEntity($editLeaveApplication, $leaveStatus);
 
-            //send response error if failed
+            // send response error if failed
             $responseError['message'] = 'The given data was invalid';
+
+            // log in activity log
+            $session = $this->getRequest()->getSession();
+            $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Cancel Leave');
 
             if ($this->Leaves->save($saveData)) {
                 return $this->response->withStatus(200)

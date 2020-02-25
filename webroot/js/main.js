@@ -59,11 +59,11 @@ $(function() {
     dateFormat: 'yyyy-mm-dd'
   });
 
-  $('#employee_list').DataTable();
-  $('#leaves_list').DataTable();
+  $('#table_data').DataTable();
 
   $('#btnApplicationResponse').on('click', function(e) {
     if (confirm('Submit leave response, are you sure?')) {
+      $('.loading_modal').show();
       var id = $('#leave_application_id').val();
       var recommendation_type = $('input[name="LeaveApplicationResponses[recommendation_type]"]:checked').val();
       var recommendation_description = $('#recommendation_description').val();
@@ -127,6 +127,7 @@ $(function() {
    */
   $('#btnCancelLeave').on('click', function(e) {
     if (confirm('Cancel leave application, are you sure?')) {
+      $('.loading_modal').show();
       var edit_leave_application_id = $('#edit_leave_application_id').val();
 
       $.ajaxSetup({
@@ -144,7 +145,7 @@ $(function() {
         }
       }).done(function(res) {
         if (res.status = true) {
-          location.href = '/';
+          location.href = '/home';
         }
       }).fail(function(res) {
         if (res.status == 422) {
@@ -156,6 +157,15 @@ $(function() {
     } else {
       return;
     }
+  });
+
+  /**
+   * configuration for generating report
+   * User: principal
+   * http://tlr.local/leaves
+   */
+  $('#btn-generate-report').on('click', function() {
+    window.open('/leaves/report','_blank');
   });
 });
 

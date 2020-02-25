@@ -1,4 +1,6 @@
-<?php $this->assign('title', 'Home'); ?> 
+<?php $this->assign('title', 'View Leave'); ?>
+<?= $this->element('loading') ?>
+
 <div class="content-wrapper">
   <section class="content-header">
   <h1>
@@ -190,6 +192,13 @@
                 <div class="callout callout-warning" style="margin-bottom: 0!important;">
                   <h4><i class="fa fa-info"></i> Note:</h4>
                   Leave was cancelled
+                </div>
+              </div>
+            <?php elseif ($leaveResponse == 'approved') : ?>
+              <div class="form-group col-md-12">
+                <div class="callout callout-success" style="margin-bottom: 0!important;">
+                  <h4><i class="fa fa-info"></i> Note:</h4>
+                  Leave was approved
                 </div>
               </div>
             <?php else : ?>

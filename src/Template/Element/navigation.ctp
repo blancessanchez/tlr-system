@@ -11,6 +11,16 @@
       ['escape' => false]
     ); ?>
   </li>
+  <li>
+    <?= $this->Html->link(
+      $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
+      'Apply Leave', [
+        'controller' => 'Leaves',
+        'action' => 'add'
+      ],
+      ['escape' => false]
+    ); ?>
+  </li>
   <?php if ($Auth->user('role_id') == $this->Configure->read('EMPLOYEES.ROLES.Principal')) : ?>
     <li>
       <?= $this->Html->link(
@@ -53,18 +63,18 @@
           </li>
         </ul>
     </li>
+    <li>
+      <?= $this->Html->link(
+        $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) .
+        'Activity Logs', [
+          'controller' => 'ActivityLogs',
+          'action' => 'index'
+        ],
+        ['escape' => false]
+      ); ?>
+    </li>
   <!-- <li><a href="#"><i class="fa fa-circle-o"></i> <span>Apply</span></a></li>
   <li><a href="#"><i class="fa fa-circle-o"></i> <span>Past Applications</span></a></li>
   <li><a href="#"><i class="fa fa-circle-o"></i> <span>Activity Log</span></a></li> -->
   <?php endif ?>
-  <li>
-    <?= $this->Html->link(
-      $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
-      'Apply Leave', [
-        'controller' => 'Leaves',
-        'action' => 'add'
-      ],
-      ['escape' => false]
-    ); ?>
-  </li>
 </ul>
