@@ -25,7 +25,6 @@ class EmployeeInformationController extends AppController
         parent::initialize();
         $this->loadModel('Leaves');
         $this->loadModel('LeaveBalances');
-        $this->loadModel('ActivityLogs');
         $this->loadComponent('ActivityLog');
     }
 
@@ -104,7 +103,6 @@ class EmployeeInformationController extends AppController
     public function index()
     {
         $this->viewBuilder()->setLayout('login');
-
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
