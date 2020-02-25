@@ -33,6 +33,8 @@ class ActivityLogComponent extends Component
     {
         $toInsert['employee_id'] = $employeeId;
         $toInsert['description'] = $description;
+        $toInsert['created'] = date('Y-m-d H:i:s');
+        $toInsert['modified'] = date('Y-m-d H:i:s');
 
         $entity = $this->ActivityLog->newEntity();
         $dataSave = $this->ActivityLog->patchEntity($entity, $toInsert);

@@ -24,12 +24,10 @@ class InitialMigration extends AbstractMigration
                 'null' => false
             ])
             ->addColumn('created', 'datetime', [
-                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => false
             ])
             ->addColumn('modified', 'datetime', [
-                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => false
             ])

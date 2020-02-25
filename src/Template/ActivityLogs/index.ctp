@@ -23,6 +23,7 @@
                 <th>Id</th>
                 <th>Employee Name</th>
                 <th>Activity</th>
+                <th>Date</th>
               </tr>
               </thead>
               <tbody>
@@ -35,6 +36,7 @@
                         $log->employee_information->middle_name) ?>
                     </td>
                     <td><?= h($log->description) ?></td>
+                    <td><?= date('Y-m-d H:i:s', strtotime($log->created)) ?></td>
                   </tr>
                 <?php endforeach ?>
               </tbody>
