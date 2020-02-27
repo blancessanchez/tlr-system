@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?= __($this->Configure->read('system_name') . ' | ' . $this->fetch('title')) ?></title>
+  <title><?= __($systemName->value . ' | ' . $this->fetch('title')) ?></title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <?= $this->Html->css([
       'adminlte/skins/_all-skins.min.css',
@@ -26,7 +26,7 @@
     <header class="main-header">
       <a href="index2.html" class="logo">
         <span class="logo-mini">TLR</span>
-        <span class="logo-lg"><?= $this->Configure->read('system_name') ?></span>
+        <span class="logo-lg"><?= $systemName->value ?></span>
       </a>
       <nav class="navbar navbar-static-top">
         <div class="navbar-custom-menu">

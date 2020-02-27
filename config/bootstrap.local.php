@@ -203,11 +203,6 @@ Type::build('timestamp')
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 
 /**
- * Writes the system name
- */
-Configure::write('system_name', 'BNHS TLR');
-
-/**
  * Writes the employee
  */
 Configure::write('EMPLOYEES', [
@@ -235,4 +230,12 @@ Configure::write('LEAVES', [
     'MATERNITY_ID' => 4,
     'PATERNITY_ID' => 5,
     'NON_ALS_ID' => 6
+]);
+
+/**
+ * Writes the system configuration
+ */
+Configure::write('SYSTEM_CONFIG', [
+    'Name' => 1,
+    'Image' => 2
 ]);
