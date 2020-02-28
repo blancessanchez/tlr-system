@@ -1,7 +1,7 @@
 <?php $this->assign('title', 'Login'); ?>
 <div class="login-box">
   <div class="login-logo">
-    <?= $this->Html->link($this->Configure->read('system_name'), [
+    <?= $this->Html->link($systemName->value, [
         'controller' => 'EmployeeInformation',
         'action' => 'home'
       ],

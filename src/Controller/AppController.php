@@ -87,6 +87,17 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
-        $this->set('Auth', $this->Auth);
+        $this->loadModel('Configurations');
+
+        $Auth = $this->Auth;
+        $systemName = $this->Configurations->find('all', [
+            'conditions' => [
+                'Configurations.type_id' => Configure::read('SYSTEM_CONFIG.Name'),
+                'Configurations.deleted' => 0
+            ]
+        ])
+        ->first();
+
+        $this->set(compact('Auth', 'systemName'));
     }
 }

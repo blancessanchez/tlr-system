@@ -77,4 +77,14 @@
   <li><a href="#"><i class="fa fa-circle-o"></i> <span>Past Applications</span></a></li>
   <li><a href="#"><i class="fa fa-circle-o"></i> <span>Activity Log</span></a></li> -->
   <?php endif ?>
+  <li>
+    <?= $this->Html->link(
+      $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
+      'Settings', [
+        'controller' => 'Configurations',
+        'action' => 'edit'
+      ],
+      ['escape' => false]
+    ); ?>
+  </li>
 </ul>
