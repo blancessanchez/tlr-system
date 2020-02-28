@@ -39,10 +39,6 @@ class JobPositionsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
-
-        $this->hasMany('EmployeeInformation', [
-            'foreignKey' => 'job_position_id'
-        ]);
     }
 
     /**
@@ -61,7 +57,7 @@ class JobPositionsTable extends Table
             ->scalar('title')
             ->maxLength('title', 255)
             ->requirePresence('title', 'create')
-            ->notEmptyString('title');
+            ->notEmptyString('title', 'Job Title must not be empty');
 
         $validator
             ->dateTime('deleted_date')
@@ -72,5 +68,17 @@ class JobPositionsTable extends Table
             ->allowEmptyString('deleted');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        return $rules;
     }
 }
