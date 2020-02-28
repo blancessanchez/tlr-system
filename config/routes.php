@@ -46,7 +46,17 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/home', ['controller' => 'EmployeeInformation', 'action' => 'home']);
     $routes->connect('/logout', ['controller' => 'EmployeeInformation', 'action' => 'logout']);
     $routes->connect('/logs', ['controller' => 'ActivityLogs', 'action' => 'index']);
-    $routes->connect('/settings', ['controller' => 'Configurations', 'action' => 'edit']);
+    $routes->connect(
+        '/settings/:id',
+        [
+            'controller' => 'Configurations',
+            'action' => 'edit'
+        ],
+        [
+            'pass' => ['id'],
+            'id' => '[0-9]+'
+        ]
+    );
 
     /**
      * EmployeeInformation controller

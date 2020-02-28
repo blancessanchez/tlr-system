@@ -81,9 +81,9 @@ class ConfigurationsController extends AppController
     {
         $this->viewBuilder()->setLayout('main');
         $configurationErrors = [];
-
         $configuration = $this->Configurations->find('all', [
             'conditions' => [
+                'Configurations.id' => 1,
                 'Configurations.deleted' => 0
             ]
         ])
@@ -91,7 +91,6 @@ class ConfigurationsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $configuration = $this->Configurations->patchEntity($configuration, $this->request->getData());
-            // pr($this->request->getData());die;
             if ($configuration->hasErrors()) {
                 $configurationErrors = $configuration->errors();
                 $this->Flash->error(__('The configuration could not be saved. Please, try again.'));

@@ -80,5 +80,6 @@ class ConfigurationsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        return $rules;
     }
 }
