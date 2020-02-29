@@ -46,17 +46,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/home', ['controller' => 'EmployeeInformation', 'action' => 'home']);
     $routes->connect('/logout', ['controller' => 'EmployeeInformation', 'action' => 'logout']);
     $routes->connect('/logs', ['controller' => 'ActivityLogs', 'action' => 'index']);
-    $routes->connect(
-        '/settings/:id',
-        [
-            'controller' => 'Configurations',
-            'action' => 'edit'
-        ],
-        [
-            'pass' => ['id'],
-            'id' => '[0-9]+'
-        ]
-    );
+    $routes->connect('/settings', ['controller' => 'Configurations', 'action' => 'edit']);
 
     /**
      * EmployeeInformation controller
@@ -178,6 +168,68 @@ Router::scope('/', function (RouteBuilder $routes) {
             [
                 'controller' => 'Terms',
                 'action' => 'add'
+            ]
+        );
+    });
+
+    /**
+     * Job Positions controller
+     */
+    $routes->scope('/job_positions', function($routes) {
+        $routes->connect(
+            '/',
+            [
+                'controller' => 'JobPositions',
+                'action' => 'index'
+            ]
+        );
+        $routes->connect(
+            '/add',
+            [
+                'controller' => 'JobPositions',
+                'action' => 'add'
+            ]
+        );
+        $routes->connect(
+            '/edit/:id',
+            [
+                'controller' => 'JobPositions',
+                'action' => 'edit'
+            ],
+            [
+                'pass' => ['id'],
+                'id' => '[0-9]+'
+            ]
+        );
+    });
+
+    /**
+     * Roles controller
+     */
+    $routes->scope('/roles', function($routes) {
+        $routes->connect(
+            '/',
+            [
+                'controller' => 'Roles',
+                'action' => 'index'
+            ]
+        );
+        $routes->connect(
+            '/add',
+            [
+                'controller' => 'Roles',
+                'action' => 'add'
+            ]
+        );
+        $routes->connect(
+            '/edit/:id',
+            [
+                'controller' => 'Roles',
+                'action' => 'edit'
+            ],
+            [
+                'pass' => ['id'],
+                'id' => '[0-9]+'
             ]
         );
     });

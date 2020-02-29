@@ -377,7 +377,7 @@ class InitialMigration extends AbstractMigration
             ])
             ->addColumn('description', 'string', [
                 'limit' => 255,
-                'null' => false
+                'null' => true
             ])
             ->addColumn('created', 'datetime', [
                 'default' => 'CURRENT_TIMESTAMP',

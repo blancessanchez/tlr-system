@@ -24,7 +24,7 @@
 <body class="hold-transition skin-green sidebar-mini">
  <div class="wrapper">
     <header class="main-header">
-      <a href="index2.html" class="logo">
+      <a href="/home" class="logo">
         <span class="logo-mini">TLR</span>
         <span class="logo-lg"><?= $systemName->value ?></span>
       </a>

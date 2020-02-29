@@ -73,18 +73,45 @@
         ['escape' => false]
       ); ?>
     </li>
-  <!-- <li><a href="#"><i class="fa fa-circle-o"></i> <span>Apply</span></a></li>
-  <li><a href="#"><i class="fa fa-circle-o"></i> <span>Past Applications</span></a></li>
-  <li><a href="#"><i class="fa fa-circle-o"></i> <span>Activity Log</span></a></li> -->
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-circle-o"></i> <span>Settings</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+        <ul class="treeview-menu">
+          <li>
+          <?= $this->Html->link(
+            $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
+            'System Name', [
+              'controller' => 'Configurations',
+              'action' => 'edit'
+            ],
+            ['escape' => false]
+          ); ?>
+          </li>
+          <li>
+            <?= $this->Html->link(
+              $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
+              'Job Positions', [
+                'controller' => 'JobPositions',
+                'action' => 'index'
+              ],
+              ['escape' => false]
+            ); ?>
+          </li>
+          <li>
+            <?= $this->Html->link(
+              $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
+              'Roles', [
+                'controller' => 'Roles',
+                'action' => 'index'
+              ],
+              ['escape' => false]
+            ); ?>
+          </li>
+        </ul>
+    </li>
   <?php endif ?>
-  <li>
-    <?= $this->Html->link(
-      $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
-      'Settings', [
-        'controller' => 'Configurations',
-        'action' => 'edit'
-      ],
-      ['escape' => false]
-    ); ?>
-  </li>
 </ul>

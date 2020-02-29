@@ -39,10 +39,6 @@ class RolesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
-
-        $this->hasMany('EmployeeInformation', [
-            'foreignKey' => 'role_id'
-        ]);
     }
 
     /**
@@ -61,13 +57,11 @@ class RolesTable extends Table
             ->scalar('title')
             ->maxLength('title', 255)
             ->requirePresence('title', 'create')
-            ->notEmptyString('title');
+            ->notEmptyString('title', 'Role must not be empty');
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 255)
-            ->requirePresence('description', 'create')
-            ->notEmptyString('description');
+            ->maxLength('description', 255);
 
         $validator
             ->dateTime('deleted_date')
@@ -78,5 +72,17 @@ class RolesTable extends Table
             ->allowEmptyString('deleted');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        return $rules;
     }
 }

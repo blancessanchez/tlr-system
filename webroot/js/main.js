@@ -167,6 +167,24 @@ $(function() {
   $('#btn-generate-report').on('click', function() {
     window.open('/leaves/report','_blank');
   });
+
+  /**
+   * configuration for adding new job position
+   * User: admin
+   * http://tlr.local/job_positions
+   */
+  $('#btn-add-job-position').on('click', function() {
+    location.href = '/job_positions/add';
+  })
+
+  /**
+   * configuration for adding new role
+   * User: admin
+   * http://tlr.local/roles
+   */
+  $('#btn-add-role').on('click', function() {
+    location.href = '/roles/add';
+  })
 });
 
 /**
