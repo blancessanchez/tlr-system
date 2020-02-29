@@ -214,6 +214,14 @@ Configure::write('EMPLOYEES', [
         'Admin' => 1,
         'Principal' => 2,
         'Teacher' => 3
+    ],
+    'GENDER' => [
+        'Male' => 1,
+        'Female' => 2
+    ],
+    'ALS' => [
+        'True' => 1,
+        'False' => 2
     ]
 ]);
 
@@ -229,7 +237,21 @@ Configure::write('LEAVES', [
     ],
     'MATERNITY_ID' => 4,
     'PATERNITY_ID' => 5,
-    'NON_ALS_ID' => 6
+    'NON_ALS_ID' => 6,
+    'BALANCE' => [
+        'Combo' => 15,
+        'Vacation' => 15,
+        'Sick' => 15,
+        'Paternity' => 7,
+        'Maternity' => 103
+    ],
+    'TYPE' => [
+        'Vacation' => 1,
+        'Sick' => 2,
+        'Maternity' => 4,
+        'Paternity' => 5,
+        'Combo' => 6
+    ]
 ]);
 
 /**
