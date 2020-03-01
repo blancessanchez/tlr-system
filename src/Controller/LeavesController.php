@@ -58,6 +58,9 @@ class LeavesController extends AppController
         $leaveApplications = $this->Leaves->find('all', [
             'contain' => [
                 'EmployeeInformation'
+            ],
+            'conditions' => [
+                'EmployeeInformation.deleted' => 0
             ]
         ]);
 
