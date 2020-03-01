@@ -21,6 +21,7 @@ class JobPositionsController extends AppController
     public function initialize()
     {
         parent::initialize();
+        $this->loadComponent('ActivityLog');
     }
 
     /**
@@ -60,6 +61,9 @@ class JobPositionsController extends AppController
                 $this->Flash->error(__('The job position information could not be saved. Please, try again.'));
             } else {
                 if ($this->JobPositions->save($jobPosition)) {
+                    // loging in activity log
+                    $session = $this->getRequest()->getSession();
+                    $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Addition of Job Position');
                     $this->Flash->success(__('The job position has been saved.'));
     
                     return $this->redirect(['action' => 'index']);
@@ -90,6 +94,9 @@ class JobPositionsController extends AppController
                 $this->Flash->error(__('The job position information could not be saved. Please, try again.'));
             } else {
                 if ($this->JobPositions->save($jobPosition)) {
+                    // loging in activity log
+                    $session = $this->getRequest()->getSession();
+                    $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Edit of Job Position');
                     $this->Flash->success(__('The job position has been saved.'));
     
                     return $this->redirect(['action' => 'index']);
@@ -117,6 +124,9 @@ class JobPositionsController extends AppController
         $jobPosition->deleted_date = date('Y-m-d H:i:s');
 
         $jobPosition = $this->JobPositions->patchEntity($jobPosition, $this->request->getData());
+        // loging in activity log
+        $session = $this->getRequest()->getSession();
+        $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Deletion of job position');
         if ($this->JobPositions->save($jobPosition)) {
             $this->Flash->success(__('The job position has been deleted.'));
 

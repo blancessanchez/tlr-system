@@ -354,6 +354,9 @@ class EmployeeInformationController extends AppController
         $employee->deleted_date = date('Y-m-d H:i:s');
 
         $employee = $this->EmployeeInformation->patchEntity($employee, $this->request->getData());
+        // loging in activity log
+        $session = $this->getRequest()->getSession();
+        $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Deletion of employee information');
         if ($this->EmployeeInformation->save($employee)) {
             $this->Flash->success(__('The employee has been deleted.'));
         } else {

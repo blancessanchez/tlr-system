@@ -21,6 +21,7 @@ class RolesController extends AppController
     public function initialize()
     {
         parent::initialize();
+        $this->loadComponent('ActivityLog');
     }
 
     /**
@@ -63,6 +64,9 @@ class RolesController extends AppController
                 $this->Flash->error(__('The role could not be saved. Please, try again.'));
             } else {
                 if ($this->Roles->save($role)) {
+                    // loging in activity log
+                    $session = $this->getRequest()->getSession();
+                    $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Addition of Role');
                     $this->Flash->success(__('The role has been saved.'));
 
                     return $this->redirect(['action' => 'index']);
@@ -92,6 +96,9 @@ class RolesController extends AppController
                 $this->Flash->error(__('The role could not be saved. Please, try again.'));
             } else {
                 if ($this->Roles->save($role)) {
+                    // loging in activity log
+                    $session = $this->getRequest()->getSession();
+                    $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Role has been edited');
                     $this->Flash->success(__('The role has been saved.'));
 
                     return $this->redirect(['action' => 'index']);
@@ -121,6 +128,9 @@ class RolesController extends AppController
         $role = $this->Roles->patchEntity($role, $this->request->getData());
 
         if ($this->Roles->save($role)) {
+            // loging in activity log
+            $session = $this->getRequest()->getSession();
+            $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Deletion of role');
             $this->Flash->success(__('The role has been deleted.'));
 
             return $this->redirect(['action' => 'index']);
