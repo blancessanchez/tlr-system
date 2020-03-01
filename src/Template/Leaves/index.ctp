@@ -5,8 +5,14 @@
       Leaves List
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Leaves List</a></li>
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'home'
+        ]);
+        ?>"><i class="fa fa-dashboard"></i> Home</a>
+      </li>
+      <li class="active">Leaves List</li>
     </ol>
   </section>
 
@@ -22,7 +28,7 @@
             <h3 class="box-title">Recent Applications</h3>
           </div>
           <div class="box-body">
-            <table id="leaves_list" class="table table-bordered table-striped">
+            <table id="table_data" class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th>Application ID</th>

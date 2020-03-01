@@ -126,8 +126,8 @@
                 <div class="radio">
                   <?= $this->Form->radio('Leaves.commutation', 
                       [
-                        'Requested',
-                        'Not Requested'
+                        ['value' => 1, 'text' => 'Requested'],
+                        ['value' => 2, 'text' => 'Not Requested'],
                       ],
                       [
                         'value' => $leaveApplication->commutation,
@@ -208,8 +208,8 @@
                   <div class="radio">
                     <?= $this->Form->radio('LeaveApplicationResponses.recommendation_type', 
                         [
-                          'Approval',
-                          'Disapproval due to'
+                          ['value' => 1, 'text' => 'Approval'],
+                          ['value' => 2, 'text' => 'Disapproval due to'],
                         ],
                         [
                           'value' => $leaveResponse->recommendation_type,

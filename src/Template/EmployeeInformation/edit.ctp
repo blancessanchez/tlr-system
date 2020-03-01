@@ -5,9 +5,23 @@
       Edit Employee
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Employee List</a></li>
-      <li><a href="#">Edit New Employee</a></li>
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'home'
+        ]);
+        ?>"><i class="fa fa-dashboard"></i> Home</a>
+      </li>
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'employeeList'
+        ]);
+        ?>">
+          <i class="fa fa-users"></i> Employee List
+        </a>
+      </li>
+      <li class="active">Edit Employee</li>
     </ol>
   </section>
 
