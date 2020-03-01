@@ -309,6 +309,7 @@ class EmployeeInformationController extends AppController
                 $employeeErrors = $employee->errors();
                 $this->Flash->error(__('The employee information could not be saved. Please, try again.'));
             } else {
+                $employee->hired_date = date('Y-m-d', strtotime($employee->hired_date));
                 if ($this->EmployeeInformation->save($employee)) {
                     $this->Flash->success(__('The employee has been saved.'));
 

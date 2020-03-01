@@ -91,7 +91,7 @@
                 <?= $this->Form->control('', [
                   'class' => 'form-control',
                   'label' => false,
-                  'value' => $employee->hired_date,
+                  'value' => !empty($employee->hired_date) ? date('m/d/Y', strtotime($employee->hired_date)) : null,
                   'disabled' => 'disabled'
                 ]); ?>
               </div>

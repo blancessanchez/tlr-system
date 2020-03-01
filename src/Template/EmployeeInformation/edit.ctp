@@ -105,7 +105,7 @@
                       'class' => 'form-control pull-right',
                       'id' => 'hired_date',
                       'label' => false,
-                      'value' => $employee->hired_date
+                      'value' => !empty($employee->hired_date) ? date('m/d/Y', strtotime($employee->hired_date)) : null
                     ]); ?>
                     <span class="help-block"><?= $this->Error->first(isset($employeeErrors['hired_date']) ? $employeeErrors['hired_date'] : null) ?></span>
                   </div>
