@@ -5,8 +5,14 @@
       Application for Leave
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Apply Leave</a></li>
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'home'
+        ]);
+        ?>"><i class="fa fa-dashboard"></i> Home</a>
+      </li>
+      <li class="active">Apply Leave</a></li>
     </ol>
   </section>
 

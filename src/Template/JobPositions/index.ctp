@@ -1,11 +1,16 @@
-<?php $this->assign('title', 'Job Position'); ?> 
+<?php $this->assign('title', 'Job Positions'); ?> 
 <div class="content-wrapper">
   <section class="content-header">
     <br>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-      <li><a href="#">Job Positions</a></li>
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'home'
+        ]);
+        ?>"><i class="fa fa-dashboard"></i> Home</a>
+      </li>
+      <li class="active">Job Positions</a></li>
     </ol>
   </section>
 

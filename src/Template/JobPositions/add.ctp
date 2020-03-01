@@ -1,11 +1,23 @@
-<?php $this->assign('title', 'Job Position'); ?>
+<?php $this->assign('title', 'Job Positions'); ?>
 <div class="content-wrapper">
   <section class="content-header">
     <h1></h1><br>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-      <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-      <li><a href="#">Add Job Positions</a></li>
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'home'
+        ]);
+        ?>"><i class="fa fa-dashboard"></i> Home</a>
+      </li>
+      <li><a href="<?= $this->Url->build([
+          'controller' => 'JobPositions',
+          'action' => 'index'
+        ]);
+      ?>"><i class="fa fa-briefcase"></i>
+        Job Positions List</a>
+      </li>
+      <li class="active">Add Job Position</a></li>
     </ol>
   </section>
 
@@ -28,7 +40,7 @@
                 </h2>
               </div>
               <div class="col-md-12">
-                <div class="form-group col-md-6 <?= isset($jobPositionErrors['title']) ? 'has-error' : '' ?>">
+                <div class="form-group col-md-12 <?= isset($jobPositionErrors['title']) ? 'has-error' : '' ?>">
                   <label for="value">Job Position Title <span style="color:red">*</span></label>
                   <?= $this->Form->control('JobPositions.title', [
                     'class' => 'form-control',

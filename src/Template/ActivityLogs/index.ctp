@@ -1,10 +1,16 @@
-<?php $this->assign('title', 'Activity Log'); ?> 
+<?php $this->assign('title', 'Activity Logs'); ?> 
 <div class="content-wrapper">
   <section class="content-header">
     <br>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Activity Logs</a></li>
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'home'
+        ]);
+        ?>"><i class="fa fa-dashboard"></i> Home</a>
+      </li>
+      <li class="active">Activity Logs</a></li>
     </ol>
   </section>
 

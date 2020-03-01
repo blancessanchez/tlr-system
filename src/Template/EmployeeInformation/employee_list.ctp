@@ -3,7 +3,13 @@
   <section class="content-header">
     <br>
     <ol class="breadcrumb">
-      <li ><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'home'
+        ]);
+        ?>"><i class="fa fa-dashboard"></i> Home</a>
+      </li>
       <li class="active">Employees List</li>
     </ol>
   </section>
@@ -38,7 +44,25 @@
                     </td>
                     <td><?= h($employee->job_position->title) ?></td>
                     <td><?= $employeeStatus[$employee->status] ?></td>
-                    <td></td>
+                    <td>
+                      <a href="/employees/edit/<?= $employee->id?>" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                      <a href="/employees/view/<?= $employee->id?>" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                      <?= 
+                        $this->Form->postLink(
+                          '<button class="btn btn-danger">
+                              <i class="fa fa-trash"></i>
+                          </button>',
+                          [
+                            'controllers' => 'EmployeeInformation',
+                            'action' => 'delete', $employee->id
+                          ],
+                          [
+                            'escape' => false,
+                            'confirm' => 'Are you sure you want to delete record?'
+                          ]
+                        );
+                      ?>
+                    </td>
                   </tr>
                 <?php endforeach ?>
               </tbody>

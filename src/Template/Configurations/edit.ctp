@@ -3,8 +3,14 @@
   <section class="content-header">
     <h1></h1><br>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Settings</a></li>
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'home'
+        ]);
+        ?>"><i class="fa fa-dashboard"></i> Home</a>
+      </li>
+      <li class="active">System Name</a></li>
     </ol>
   </section>
 
@@ -27,7 +33,7 @@
                 </h2>
               </div>
               <div class="col-md-12">
-                <div class="form-group col-md-6 <?= isset($configurationErrors['value']) ? 'has-error' : '' ?>">
+                <div class="form-group col-md-12 <?= isset($configurationErrors['value']) ? 'has-error' : '' ?>">
                   <label for="value">System Name <span style="color:red">*</span></label>
                   <?= $this->Form->control('Configurations.id', [
                     'type' => 'hidden',

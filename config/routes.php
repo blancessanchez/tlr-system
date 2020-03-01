@@ -79,6 +79,18 @@ Router::scope('/', function (RouteBuilder $routes) {
                 'id' => '[0-9]+'
             ]
         );
+
+        $routes->connect(
+            '/view/:id',
+            [
+                'controller' => 'EmployeeInformation',
+                'action' => 'view'
+            ],
+            [
+                'pass' => ['id'],
+                'id' => '[0-9]+'
+            ]
+        );
     });
 
     /**

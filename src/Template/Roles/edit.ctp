@@ -1,11 +1,23 @@
-<?php $this->assign('title', 'Role'); ?>
+<?php $this->assign('title', 'Edit Roles'); ?>
 <div class="content-wrapper">
   <section class="content-header">
     <h1></h1><br>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-      <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-      <li><a href="#">Edit Role</a></li>
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'home'
+        ]);
+        ?>"><i class="fa fa-dashboard"></i> Home</a>
+      </li>
+      <li><a href="<?= $this->Url->build([
+          'controller' => 'Roles',
+          'action' => 'index'
+        ]);
+      ?>"><i class="fa fa-users"></i>
+        Roles List</a>
+      </li>
+      <li class="active">Edit Roles</a></li>
     </ol>
   </section>
 
@@ -29,7 +41,7 @@
                 </h2>
               </div>
               <div class="col-md-12">
-                <div class="form-group col-md-6 <?= isset($roleErrors['title']) ? 'has-error' : '' ?>">
+                <div class="form-group col-md-12 <?= isset($roleErrors['title']) ? 'has-error' : '' ?>">
                   <label for="value">Roles Title <span style="color:red">*</span></label>
                   <?= $this->Form->control('Roles.title', [
                     'class' => 'form-control',

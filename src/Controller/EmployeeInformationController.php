@@ -265,7 +265,7 @@ class EmployeeInformationController extends AppController
                     $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Add New Employee');
                     $this->Flash->success(__('The employee has been saved.'));
 
-                    return $this->redirect(['action' => 'home']);
+                    return $this->redirect(['action' => 'employeeList']);
                 }
                 $this->Flash->error(__('The employee could not be saved. Please, try again.'));
             }
@@ -288,6 +288,7 @@ class EmployeeInformationController extends AppController
         }
 
         $this->viewBuilder()->setLayout('main');
+        $employeeErrors = [];
         $employeeStatus = Configure::read('EMPLOYEES.EMPLOYEE_STATUS');
         $jobPositions = TableRegistry::get('JobPositions')
             ->find('list', [
@@ -301,21 +302,22 @@ class EmployeeInformationController extends AppController
                     'Roles.deleted' => 0
                 ]
             ]);
-        // $jobPositions = $this->JobPosition->find('all');
-        // $employee = $this->Employees->get($id, [
-        //     'contain' => []
-        // ]);
-        // if ($this->request->is(['patch', 'post', 'put'])) {
-        //     $employee = $this->Employees->patchEntity($employee, $this->request->getData());
-        //     if ($this->Employees->save($employee)) {
-        //         $this->Flash->success(__('The employee has been saved.'));
+        $employee = $this->EmployeeInformation->get($id);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $employee = $this->EmployeeInformation->patchEntity($employee, $this->request->getData());
+            if ($employee->hasErrors()) {
+                $employeeErrors = $employee->errors();
+                $this->Flash->error(__('The employee information could not be saved. Please, try again.'));
+            } else {
+                if ($this->EmployeeInformation->save($employee)) {
+                    $this->Flash->success(__('The employee has been saved.'));
 
-        //         return $this->redirect(['action' => 'index']);
-        //     }
-        //     $this->Flash->error(__('The employee could not be saved. Please, try again.'));
-        // }
-        // $roles = $this->Employees->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('employeeStatus', 'jobPositions', 'roles'));
+                    return $this->redirect(['action' => 'employeeList']);
+                }
+                $this->Flash->error(__('The employee could not be saved. Please, try again.'));
+            }
+        }
+        $this->set(compact('employee', 'employeeStatus', 'jobPositions', 'roles', 'employeeErrors'));
     }
 
     /**
@@ -334,13 +336,19 @@ class EmployeeInformationController extends AppController
 
         $this->request->allowMethod(['post', 'delete']);
         $employee = $this->EmployeeInformation->get($id);
-        if ($this->EmployeeInformation->delete($employee)) {
+
+        // update to deleted = 1
+        $employee->deleted = 1;
+        $employee->deleted_date = date('Y-m-d H:i:s');
+
+        $employee = $this->EmployeeInformation->patchEntity($employee, $this->request->getData());
+        if ($this->EmployeeInformation->save($employee)) {
             $this->Flash->success(__('The employee has been deleted.'));
         } else {
             $this->Flash->error(__('The employee could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'employeeList']);
     }
 
     /**
@@ -355,5 +363,41 @@ class EmployeeInformationController extends AppController
             return $this->redirect($this->Auth->logout());
         }
         $this->Flash->error(__('Error saving login info in activity log.'));
+    }
+
+    /**
+     * View method
+     *
+     * @param string|null $id Configuration id.
+     * @return \Cake\Http\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function view($id = null)
+    {
+        $this->viewBuilder()->setLayout('main');
+        $employee = $this->EmployeeInformation->find('all', [
+            'contain' => [
+                'Roles',
+                'ActivityLogs',
+                'Leaves',
+                'LeaveBalances'
+            ],
+            'conditions' => [
+                'EmployeeInformation.id' => $id
+            ]
+        ])
+        ->first();
+
+        $jobPositions = TableRegistry::get('JobPositions')
+            ->find('list', [
+                'conditions' => [
+                    'JobPositions.deleted' => 0
+                ]
+            ])
+            ->toArray();
+        
+        $employeeStatus = Configure::read('EMPLOYEES.EMPLOYEE_STATUS');
+
+        $this->set(compact('employee', 'jobPositions', 'employeeStatus'));
     }
 }

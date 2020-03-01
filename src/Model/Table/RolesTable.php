@@ -39,6 +39,11 @@ class RolesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('EmployeeInformation', [
+            'foreignKey' => 'role_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**

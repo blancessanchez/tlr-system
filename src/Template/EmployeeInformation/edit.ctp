@@ -1,12 +1,13 @@
-<?php $this->assign('title', 'Add Employee'); ?>
+<?php $this->assign('title', 'Edit Employee'); ?>
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
-      Add Employee
+      Edit Employee
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Add New Employee</a></li>
+      <li><a href="#">Employee List</a></li>
+      <li><a href="#">Edit New Employee</a></li>
     </ol>
   </section>
 
@@ -19,9 +20,9 @@
           <?= $this->Form->create('EmployeeInformation', [
               'url' => [
                 'controller' => 'EmployeeInformation',
-                'action' => 'add'
-              ],
-              // 'autocomplete' => 'off'
+                'action' => 'edit',
+                'id' => $employee->id
+              ]
           ]) ?>
             <div class="box-body">
               <div class="col-md-12">
@@ -35,7 +36,8 @@
                   <?= $this->Form->control('EmployeeInformation.employee_no', [
                     'class' => 'form-control',
                     'id' => 'employee_no',
-                    'label' => false
+                    'label' => false,
+                    'value' => $employee->employee_no
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['employee_no']) ? $employeeErrors['employee_no'] : null) ?></span>
                 </div>
@@ -47,7 +49,7 @@
                     'label' => false,
                     'options' => $jobPositions,
                     'type' => 'select',
-                    'empty' => 'Please select'
+                    'value' => $employee->job_position_id
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['job_position_id']) ? $employeeErrors['job_position_id'] : null) ?></span>
                 </div>
@@ -58,6 +60,9 @@
                         [
                           ['value' => 1, 'text' => 'ALS'],
                           ['value' => 2, 'text' => 'Non-ALS'],
+                        ],
+                        [
+                          'value' => $employee->is_als
                         ]
                       ); 
                     ?>
@@ -71,7 +76,8 @@
                   <?= $this->Form->control('EmployeeInformation.salary', [
                     'class' => 'form-control',
                     'id' => 'salary',
-                    'label' => false
+                    'label' => false,
+                    'value' => $employee->salary
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['salary']) ? $employeeErrors['salary'] : null) ?></span>
                 </div>
@@ -85,7 +91,7 @@
                       'class' => 'form-control pull-right',
                       'id' => 'hired_date',
                       'label' => false,
-                      'autocomplete' => 'off'
+                      'value' => $employee->hired_date
                     ]); ?>
                     <span class="help-block"><?= $this->Error->first(isset($employeeErrors['hired_date']) ? $employeeErrors['hired_date'] : null) ?></span>
                   </div>
@@ -98,7 +104,7 @@
                     'label' => false,
                     'options' => $employeeStatus,
                     'type' => 'select',
-                    'empty' => 'Please select'
+                    'value' => $employee->status
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['status']) ? $employeeErrors['status'] : null) ?></span>
                 </div>
@@ -114,7 +120,8 @@
                   <?= $this->Form->control('EmployeeInformation.last_name', [
                     'class' => 'form-control',
                     'id' => 'last_name',
-                    'label' => false
+                    'label' => false,
+                    'value' => $employee->last_name
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['last_name']) ? $employeeErrors['last_name'] : null) ?></span>
                 </div>
@@ -123,7 +130,8 @@
                   <?= $this->Form->control('EmployeeInformation.first_name', [
                     'class' => 'form-control',
                     'id' => 'first_name',
-                    'label' => false
+                    'label' => false,
+                    'value' => $employee->first_name
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['first_name']) ? $employeeErrors['first_name'] : null) ?></span>
                 </div>
@@ -132,7 +140,8 @@
                   <?= $this->Form->control('EmployeeInformation.middle_name', [
                     'class' => 'form-control',
                     'id' => 'middle_name',
-                    'label' => false
+                    'label' => false,
+                    'value' => $employee->middle_name
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['middle_name']) ? $employeeErrors['middle_name'] : null) ?></span>
                 </div>
@@ -143,7 +152,8 @@
                   <?= $this->Form->control('EmployeeInformation.address', [
                     'class' => 'form-control',
                     'id' => 'address',
-                    'label' => false
+                    'label' => false,
+                    'value' => $employee->address
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['address']) ? $employeeErrors['address'] : null) ?></span>
                 </div>
@@ -153,7 +163,8 @@
                     'class' => 'form-control',
                     'id' => 'mobile_no',
                     'label' => false,
-                    'type' => 'number'
+                    'type' => 'number',
+                    'value' => $employee->mobile_no
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['mobile_no']) ? $employeeErrors['mobile_no'] : null) ?></span>
                 </div>
@@ -163,7 +174,8 @@
                     'class' => 'form-control',
                     'id' => 'email',
                     'label' => false,
-                    'type' => 'email'
+                    'type' => 'email',
+                    'value' => $employee->email
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['email']) ? $employeeErrors['email'] : null) ?></span>
                 </div>
@@ -173,7 +185,10 @@
                     <?= $this->Form->radio('EmployeeInformation.gender', 
                         [
                           ['value' => 1, 'text' => 'Male'],
-                          ['value' => 2, 'text' => 'Female'],
+                          ['value' => 2, 'text' => 'Female']
+                        ],
+                        [
+                        'value' => $employee->gender
                         ]
                       ); 
                     ?>
@@ -181,48 +196,9 @@
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['gender']) ? $employeeErrors['gender'] : null) ?></span>
                 </div>
               </div>
-              <div class="col-md-12">
-                <h2 class="page-header">
-                  <i class="fa fa-key"></i> Account Information
-                </h2>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group col-md-4 <?= isset($employeeErrors['role_id']) ? 'has-error' : '' ?>">
-                  <label for="username">Role <span style="color:red">*</span></label>
-                  <?= $this->Form->control('EmployeeInformation.role_id', [
-                    'class' => 'form-control',
-                    'id' => 'role_id',
-                    'label' => false,
-                    'options' => $roles,
-                    'type' => 'select',
-                    'empty' => 'Please select'
-                  ]); ?>
-                  <span class="help-block"><?= $this->Error->first(isset($employeeErrors['role_id']) ? $employeeErrors['role_id'] : null) ?></span>
-                </div>
-                <div class="form-group col-md-4 <?= isset($employeeErrors['password']) ? 'has-error' : '' ?>">
-                  <label for="password">Password <span style="color:red">*</span></label>
-                  <?= $this->Form->control('EmployeeInformation.password', [
-                    'class' => 'form-control',
-                    'id' => 'password',
-                    'label' => false,
-                    'type' => 'password'
-                  ]); ?>
-                  <span class="help-block"><?= $this->Error->first(isset($employeeErrors['password']) ? $employeeErrors['password'] : null) ?></span>
-                </div>
-                <div class="form-group col-md-4 <?= isset($employeeErrors['confirm_password']) ? 'has-error' : '' ?>">
-                  <label for="confirm_password">Confirm Password <span style="color:red">*</span></label>
-                  <?= $this->Form->control('EmployeeInformation.confirm_password', [
-                    'class' => 'form-control',
-                    'id' => 'confirm_password',
-                    'label' => false,
-                    'type' => 'password'
-                  ]); ?>
-                  <span class="help-block"><?= $this->Error->first(isset($employeeErrors['confirm_password']) ? $employeeErrors['confirm_password'] : null) ?></span>
-                </div>
-              </div>
             </div>
             <div class="box-footer">
-              <button type="button" class="btn btn-default">Clear</button>
+              <button type="button" class="btn btn-default" onclick="return Common.clearFormAll()">Clear</button>
               <button type="submit" class="btn btn-primary pull-right">Submit</button>
             </div>
           <?= $this->Form->end() ?>
