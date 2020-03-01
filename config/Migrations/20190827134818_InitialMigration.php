@@ -117,7 +117,7 @@ class InitialMigration extends AbstractMigration
             ->addColumn('recommendation_type', 'integer', [
                 'limit' => 11,
                 'null' => false,
-                'comment' => '1. approval, 2. disapproval (7b)'
+                'comment' => '0. approval, 1. disapproval (7b)'
             ])
             ->addColumn('recommendation_description', 'string', [
                 'null' => true,

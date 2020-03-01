@@ -27,6 +27,7 @@ class LeavesController extends AppController
         $this->loadModel('LeaveBalances');
         $this->loadModel('LeaveApplicationResponses');
         $this->loadComponent('ActivityLog');
+        $this->loadComponent('Leave');
     }
 
     /**
@@ -145,9 +146,7 @@ class LeavesController extends AppController
             ->toArray();
 
         //get applied for (get days)
-        $earlier = new \DateTime($leaveApplication->leave_from);
-        $later = new \DateTime($leaveApplication->leave_to);
-        $diff = $later->diff($earlier)->format('%a') + 1;
+        $diff = $this->Leave->getDatesFromRange($leaveApplication->leave_from, $leaveApplication->leave_to);
 
         $this->set(compact(
             'leaveApplication',
