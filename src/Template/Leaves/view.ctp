@@ -208,8 +208,8 @@
                   <div class="radio">
                     <?= $this->Form->radio('LeaveApplicationResponses.recommendation_type', 
                         [
-                          ['value' => 1, 'text' => 'Approval'],
-                          ['value' => 2, 'text' => 'Disapproval due to'],
+                          'Approval',
+                          'Disapproval due to'
                         ],
                         [
                           'value' => $leaveResponse->recommendation_type,
