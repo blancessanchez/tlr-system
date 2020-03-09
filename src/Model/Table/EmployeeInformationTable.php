@@ -120,8 +120,7 @@ class EmployeeInformationTable extends Table
 
         $validator
             ->integer('gender')
-            ->requirePresence('gender', 'create')
-            ->notEmptyString('gender', 'Gender must be not empty');
+            ->allowEmptyString('gender');
 
         $validator
             ->scalar('salary')
@@ -142,8 +141,7 @@ class EmployeeInformationTable extends Table
 
         $validator
             ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email', 'Email Address must be not empty');
+            ->allowEmptyString('email');
 
         $validator
             ->date('hired_date', 'mdy')
