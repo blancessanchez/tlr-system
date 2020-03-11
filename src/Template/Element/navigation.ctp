@@ -1,27 +1,28 @@
 <!-- sidebar menu: : style can be found in sidebar.less -->
 <ul class="sidebar-menu" data-widget="tree">
   <li class="header">MAIN NAVIGATION</li>
-  <li>
-    <?= $this->Html->link(
-      $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
-      'Home', [
-        'controller' => 'EmployeeInformation',
-        'action' => 'home'
-      ],
-      ['escape' => false]
-    ); ?>
-  </li>
-  <li>
-    <?= $this->Html->link(
-      $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
-      'Apply Leave', [
-        'controller' => 'Leaves',
-        'action' => 'add'
-      ],
-      ['escape' => false]
-    ); ?>
-  </li>
-  <?php if ($Auth->user('role_id') == $this->Configure->read('EMPLOYEES.ROLES.Principal')) : ?>
+  <?php if ($Auth->user('role_id') == $this->Configure->read('EMPLOYEES.ROLES.Teacher')) : ?>
+    <li>
+      <?= $this->Html->link(
+        $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
+        'Home', [
+          'controller' => 'EmployeeInformation',
+          'action' => 'home'
+        ],
+        ['escape' => false]
+      ); ?>
+    </li>
+    <li>
+      <?= $this->Html->link(
+        $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
+        'Apply Leave', [
+          'controller' => 'Leaves',
+          'action' => 'add'
+        ],
+        ['escape' => false]
+      ); ?>
+    </li>
+  <?php elseif ($Auth->user('role_id') == $this->Configure->read('EMPLOYEES.ROLES.Principal')) : ?>
     <li>
       <?= $this->Html->link(
         $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) .
