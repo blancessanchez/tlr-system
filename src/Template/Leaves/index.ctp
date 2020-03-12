@@ -20,9 +20,6 @@
     <div class="row">
       <div class="col-md-12">
         <?= $this->Flash->render(); ?>
-        <button type="button" class="btn btn-primary btn-md" id="btn-generate-report">
-          Generate Report
-        </button><br><br>
         <div class="box">
           <div class="box-header">
             <h3 class="box-title">Recent Applications</h3>
