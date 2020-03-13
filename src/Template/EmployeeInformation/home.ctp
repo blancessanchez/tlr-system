@@ -23,6 +23,11 @@
           </ul>
         </div><br>
         <?php if ($isAdmin) : ?>
+          <!-- Button for generating report leaves -->
+          <button type="button" class="btn btn-primary btn-md" id="btn-generate-report">
+            Generate Report
+          </button><br><br>
+
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#confirmModal">
             Start New Term
