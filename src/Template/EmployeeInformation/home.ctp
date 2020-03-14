@@ -23,14 +23,14 @@
           </ul>
         </div><br>
         <?php if ($isAdmin) : ?>
-          <!-- Button for generating report leaves -->
-          <button type="button" class="btn btn-primary btn-md" id="btn-generate-report">
-            Generate Report
-          </button><br><br>
-
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#confirmModal">
-            Start New Term
+          <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#confirmModal">
+            <i class="fa fa-flag"></i>  Start New Term
+          </button>
+
+          <!-- Button for generating report leaves -->
+          <button type="button" class="btn btn-default btn-md" id="btn-generate-report">
+            <i class="fa fa-print"></i>  Generate Leaves Report
           </button><br><br>
 
           <!-- Modal -->

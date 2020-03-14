@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 
 /**
  * ActivityLogs Controller
@@ -19,6 +20,12 @@ class ActivityLogsController extends AppController
      */
     public function index()
     {
+        //denies if role is not principal or admin
+        if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Admin') ||
+            $this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal')) {
+            return $this->redirect('/home');
+        }
+
         $this->viewBuilder()->setLayout('main');
         $activityLogs = $this->ActivityLogs->find('all', [
             'contain' => [
