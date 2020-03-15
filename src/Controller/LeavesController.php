@@ -224,6 +224,10 @@ class LeavesController extends AppController
                 ]
             ])
             ->toArray();
+        
+        if (empty($leaveBalance)) {
+            $this->Flash->error(__('The leave application could not be proceed. Please, start term first.'));
+        }
 
         if ($this->request->is('post')) {
             $leaveApplication = $this->Leaves->newEntity($this->request->getData());
