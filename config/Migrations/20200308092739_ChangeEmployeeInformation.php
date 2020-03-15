@@ -91,7 +91,7 @@ class ChangeEmployeeInformation extends AbstractMigration
             ->addColumn('residential_address', 'string', [
                 'after' => 'job_position_id',
                 'limit' => 255,
-                'null' => false
+                'null' => true
             ])
             ->addColumn('residential_zipcode', 'string', [
                 'limit' => 255,
