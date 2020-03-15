@@ -224,10 +224,6 @@ class LeavesController extends AppController
                 ]
             ])
             ->toArray();
-        
-        if (empty($leaveBalance)) {
-            $this->Flash->error(__('The leave application could not be proceed. Please, start term first.'));
-        }
 
         if ($this->request->is('post')) {
             $leaveApplication = $this->Leaves->newEntity($this->request->getData());
@@ -235,7 +231,9 @@ class LeavesController extends AppController
                 $leaveApplication->setErrors(['leave_from' => ['dateCompare' => 'Leave from date must not be greater than leave to date']]);
             }
 
-            if ($leaveApplication->hasErrors()) {
+            if (empty($leaveBalance)) {
+                $this->Flash->error(__('The leave application could not be proceed. Please contact the administrator to start term first.'));
+            } else if ($leaveApplication->hasErrors()) {
                 $leaveApplicationErrors = $leaveApplication->errors();
                 $this->Flash->error(__('The leave application could not be saved. Please, try again.'));
             } else {
