@@ -124,9 +124,9 @@ class LeavesController extends AppController
             ])
             ->first();
 
-        if ($leaveApplication->leave_status == 3) {
+        if ($leaveApplication->leave_status == Configure::read('LEAVES.STATUS.Cancelled')) {
             $leaveResponse = 'cancelled';
-        } elseif ($leaveApplication->leave_status == 2) {
+        } elseif ($leaveApplication->leave_status == Configure::read('LEAVES.STATUS.Approved')) {
             $leaveResponse = 'approved';
         }
 
@@ -181,7 +181,7 @@ class LeavesController extends AppController
         $excludeLeaveTypeId = [$leavesConfiguration['NON_ALS_ID']];
 
         // Filter leave type by gender
-        if ($this->Auth->user('gender') == 1) {
+        if ($this->Auth->user('gender') == Configure::read('EMPLOYEES.GENDER.Female')) {
             $excludeLeaveTypeId[] = $leavesConfiguration['MATERNITY_ID'];
         } else {
             $excludeLeaveTypeId[] = $leavesConfiguration['PATERNITY_ID'];
@@ -302,8 +302,12 @@ class LeavesController extends AppController
             $errorPage = true;
         }
 
-        //if status IN approved,disapproved,cancelled redirect to top page
-        if (!empty($leaveApplication) && in_array($leaveApplication->leave_status, [2, 3, 4])) {
+        //if status IN approved,cancelled,disapproved redirect to top page
+        if (!empty($leaveApplication) && in_array($leaveApplication->leave_status, [
+                Configure::read('LEAVES.STATUS.Approved'),
+                Configure::read('LEAVES.STATUS.Cancelled'),
+                Configure::read('LEAVES.STATUS.Disapproved')
+            ])) {
             return $this->redirect('/home');
         }
 
@@ -314,7 +318,7 @@ class LeavesController extends AppController
         $excludeLeaveTypeId = [$leavesConfiguration['NON_ALS_ID']];
 
         // Filter leave type by gender
-        if ($this->Auth->user('gender') == 1) {
+        if ($this->Auth->user('gender') == Configure::read('EMPLOYEES.GENDER.Female')) {
             $excludeLeaveTypeId[] = $leavesConfiguration['MATERNITY_ID'];
         } else {
             $excludeLeaveTypeId[] = $leavesConfiguration['PATERNITY_ID'];
@@ -427,7 +431,10 @@ class LeavesController extends AppController
                 'LeaveApplicationResponses'
             ],
             'conditions' => [
-                'Leaves.leave_status IN' => [2, 4],
+                'Leaves.leave_status IN' => [
+                    Configure::read('LEAVES.STATUS.Approved'),
+                    Configure::read('LEAVES.STATUS.Disapproved')
+                ],
                 'Leaves.deleted' => 0
             ]
         ])->toArray();
