@@ -43,10 +43,6 @@ class EmployeeInformationTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Roles', [
-            'foreignKey' => 'role_id',
-            'joinType' => 'INNER'
-        ]);
         $this->hasMany('ActivityLogs', [
             'foreignKey' => 'employee_id'
         ]);
@@ -184,7 +180,6 @@ class EmployeeInformationTable extends Table
     {
         // $rules->add($rules->isUnique(['email']));
         $rules->add($rules->isUnique(['employee_no'], 'User already exist.'));
-        $rules->add($rules->existsIn(['role_id'], 'Roles'));
         $rules->add($rules->existsIn(['job_position_id'], 'JobPositions'));
 
         return $rules;

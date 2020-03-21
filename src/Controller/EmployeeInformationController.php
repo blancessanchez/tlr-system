@@ -134,7 +134,6 @@ class EmployeeInformationController extends AppController
         $employees = $this->EmployeeInformation->find('all', [
             'contain' => [
                 'JobPositions',
-                'Roles'
             ],
             'conditions' => [
                 'EmployeeInformation.deleted' => 0
@@ -164,12 +163,7 @@ class EmployeeInformationController extends AppController
                     'JobPositions.deleted' => 0
                 ]
             ]);
-        $roles = TableRegistry::get('Roles')
-            ->find('list', [
-                'conditions' => [
-                    'Roles.deleted' => 0
-                ]
-            ]);
+        $roles = Configure::read('EMPLOYEES.ROLES_LIST');
 
         if ($this->request->is('post')) {
             $employeeInformation = $this->EmployeeInformation->newEntity($this->request->getData());
@@ -296,12 +290,7 @@ class EmployeeInformationController extends AppController
                     'JobPositions.deleted' => 0
                 ]
             ]);
-        $roles = TableRegistry::get('Roles')
-            ->find('list', [
-                'conditions' => [
-                    'Roles.deleted' => 0
-                ]
-            ]);
+        $roles = Configure::read('EMPLOYEES.ROLES_LIST');
         $employee = $this->EmployeeInformation->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $employee = $this->EmployeeInformation->patchEntity($employee, $this->request->getData());
@@ -392,7 +381,6 @@ class EmployeeInformationController extends AppController
         $this->viewBuilder()->setLayout('main');
         $employee = $this->EmployeeInformation->find('all', [
             'contain' => [
-                'Roles',
                 'ActivityLogs',
                 'Leaves',
                 'LeaveBalances'

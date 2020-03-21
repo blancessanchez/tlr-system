@@ -210,10 +210,17 @@ Configure::write('EMPLOYEES', [
         '1' => 'Licensed/Regular',
         '2' => 'Unlicensed'
     ],
+    'ROLES_LIST' => [
+        '1' => 'Admin',
+        '2' => 'Principal',
+        '3' => 'Teacher',
+        '4' => 'Head Teacher'
+    ],
     'ROLES' => [
         'Admin' => 1,
         'Principal' => 2,
-        'Teacher' => 3
+        'Teacher' => 3,
+        'HeadTeacher' => 4
     ],
     'GENDER' => [
         'Male' => 1,

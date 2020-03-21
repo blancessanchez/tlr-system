@@ -215,36 +215,5 @@ Router::scope('/', function (RouteBuilder $routes) {
         );
     });
 
-    /**
-     * Roles controller
-     */
-    $routes->scope('/roles', function($routes) {
-        $routes->connect(
-            '/',
-            [
-                'controller' => 'Roles',
-                'action' => 'index'
-            ]
-        );
-        $routes->connect(
-            '/add',
-            [
-                'controller' => 'Roles',
-                'action' => 'add'
-            ]
-        );
-        $routes->connect(
-            '/edit/:id',
-            [
-                'controller' => 'Roles',
-                'action' => 'edit'
-            ],
-            [
-                'pass' => ['id'],
-                'id' => '[0-9]+'
-            ]
-        );
-    });
-
     $routes->fallbacks(InflectedRoute::class);
 });

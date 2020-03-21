@@ -101,16 +101,6 @@
               ['escape' => false]
             ); ?>
           </li>
-          <li>
-            <?= $this->Html->link(
-              $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
-              'Roles', [
-                'controller' => 'Roles',
-                'action' => 'index'
-              ],
-              ['escape' => false]
-            ); ?>
-          </li>
         </ul>
     </li>
   <?php else : ?>
