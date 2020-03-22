@@ -215,5 +215,36 @@ Router::scope('/', function (RouteBuilder $routes) {
         );
     });
 
+    /**
+     * Departments controller
+     */
+    $routes->scope('/departments', function($routes) {
+        $routes->connect(
+            '/',
+            [
+                'controller' => 'Departments',
+                'action' => 'index'
+            ]
+        );
+        $routes->connect(
+            '/add',
+            [
+                'controller' => 'Departments',
+                'action' => 'add'
+            ]
+        );
+        $routes->connect(
+            '/edit/:id',
+            [
+                'controller' => 'Departments',
+                'action' => 'edit'
+            ],
+            [
+                'pass' => ['id'],
+                'id' => '[0-9]+'
+            ]
+        );
+    });
+
     $routes->fallbacks(InflectedRoute::class);
 });

@@ -164,6 +164,12 @@ class EmployeeInformationController extends AppController
                 ]
             ]);
         $roles = Configure::read('EMPLOYEES.ROLES_LIST');
+        $departments = TableRegistry::get('Departments')
+            ->find('list', [
+                'conditions' => [
+                    'Departments.deleted' => 0
+                ]
+            ]);
 
         if ($this->request->is('post')) {
             $employeeInformation = $this->EmployeeInformation->newEntity($this->request->getData());
@@ -264,7 +270,7 @@ class EmployeeInformationController extends AppController
                 $this->Flash->error(__('The employee could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('employeeStatus', 'jobPositions', 'roles', 'employeeErrors'));
+        $this->set(compact('employeeStatus', 'jobPositions', 'roles', 'employeeErrors', 'departments'));
     }
 
     /**
@@ -291,6 +297,13 @@ class EmployeeInformationController extends AppController
                 ]
             ]);
         $roles = Configure::read('EMPLOYEES.ROLES_LIST');
+        $departments = TableRegistry::get('Departments')
+            ->find('list', [
+                'conditions' => [
+                    'Departments.deleted' => 0
+                ]
+            ]);
+
         $employee = $this->EmployeeInformation->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $employee = $this->EmployeeInformation->patchEntity($employee, $this->request->getData());
@@ -318,7 +331,7 @@ class EmployeeInformationController extends AppController
                 $this->Flash->error(__('The employee could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('employee', 'employeeStatus', 'jobPositions', 'roles', 'employeeErrors'));
+        $this->set(compact('employee', 'employeeStatus', 'jobPositions', 'roles', 'employeeErrors', 'departments'));
     }
 
     /**
@@ -400,7 +413,15 @@ class EmployeeInformationController extends AppController
             ->toArray();
         
         $employeeStatus = Configure::read('EMPLOYEES.EMPLOYEE_STATUS');
+        $roles = Configure::read('EMPLOYEES.ROLES_LIST');
+        $departments = TableRegistry::get('Departments')
+            ->find('list', [
+                'conditions' => [
+                    'Departments.deleted' => 0
+                ]
+            ])
+            ->toArray();
 
-        $this->set(compact('employee', 'jobPositions', 'employeeStatus'));
+        $this->set(compact('employee', 'jobPositions', 'employeeStatus', 'roles', 'departments'));
     }
 }

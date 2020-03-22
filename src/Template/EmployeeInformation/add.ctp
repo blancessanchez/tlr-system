@@ -110,6 +110,20 @@
                 </div>
               </div>
               <div class="col-md-12">
+                <div class="form-group col-md-4 <?= isset($employeeErrors['department_id']) ? 'has-error' : '' ?>">
+                  <label for="username">Department <span style="color:red">*</span></label>
+                  <?= $this->Form->control('EmployeeInformation.department_id', [
+                    'class' => 'form-control',
+                    'id' => 'department_id',
+                    'label' => false,
+                    'options' => $departments,
+                    'type' => 'select',
+                    'empty' => 'Please select'
+                  ]); ?>
+                  <span class="help-block"><?= $this->Error->first(isset($employeeErrors['department_id']) ? $employeeErrors['department_id'] : null) ?></span>
+                </div>
+              </div>
+              <div class="col-md-12">
                 <h2 class="page-header">
                   <i class="fa fa-sticky-note"></i> Basic Information
                 </h2>

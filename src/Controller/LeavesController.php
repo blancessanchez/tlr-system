@@ -51,19 +51,33 @@ class LeavesController extends AppController
     public function index()
     {
         //denies if role is not principal
-        if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal')) {
+        if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal') ||
+            $this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.HeadTeacher')) {
             return $this->redirect('/home');
         }
 
         $this->viewBuilder()->setLayout('main');
-        $leaveApplications = $this->Leaves->find('all', [
-            'contain' => [
-                'EmployeeInformation'
-            ],
-            'conditions' => [
-                'EmployeeInformation.deleted' => 0
-            ]
-        ]);
+
+        if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.HeadTeacher')) {
+            $leaveApplications = $this->Leaves->find('all', [
+                'contain' => [
+                    'EmployeeInformation'
+                ],
+                'conditions' => [
+                    'EmployeeInformation.deleted' => 0,
+                    'EmployeeInformation.department_id' => 0                    
+                ]
+            ]);
+        } else {
+            $leaveApplications = $this->Leaves->find('all', [
+                'contain' => [
+                    'EmployeeInformation'
+                ],
+                'conditions' => [
+                    'EmployeeInformation.deleted' => 0
+                ]
+            ]);
+        }
 
         //geting all options array
         $leaveTypes = TableRegistry::get('LeaveTypes')
