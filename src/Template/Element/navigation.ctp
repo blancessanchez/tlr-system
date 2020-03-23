@@ -44,6 +44,16 @@
         ['escape' => false]
       ); ?>
     </li>
+    <li>
+      <?= $this->Html->link(
+        $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) .
+        'Leaves List', [
+          'controller' => 'Leaves',
+          'action' => 'index'
+        ],
+        ['escape' => false]
+      ); ?>
+    </li>
     <li class="treeview">
       <a href="#">
         <i class="fa fa-circle-o"></i> <span>Employees</span>

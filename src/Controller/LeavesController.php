@@ -52,33 +52,30 @@ class LeavesController extends AppController
     {
         //denies if role is not principal
         if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal') &&
-            $this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.HeadTeacher')) {
+            $this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.HeadTeacher') &&
+            $this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Admin')) {
             return $this->redirect('/home');
         }
 
         $this->viewBuilder()->setLayout('main');
 
+        $conditions = [];
         if ($this->Auth->user('role_id') == Configure::read('EMPLOYEES.ROLES.HeadTeacher')) {
-            $leaveApplications = $this->Leaves->find('all', [
-                'contain' => [
-                    'EmployeeInformation'
-                ],
-                'conditions' => [
-                    'EmployeeInformation.deleted' => 0,
-                    'EmployeeInformation.department_id' => $this->Auth->user('department_id')
-                ]
-            ]);
-        } else {
-            $leaveApplications = $this->Leaves->find('all', [
-                'contain' => [
-                    'EmployeeInformation'
-                ],
-                'conditions' => [
-                    'Leaves.leave_status' => Configure::read('LEAVES.STATUS.Approved'),
-                    'EmployeeInformation.deleted' => 0
-                ]
-            ]);
+            $conditions[] = [
+                'EmployeeInformation.department_id' => $this->Auth->user('department_id')
+            ];
+        } else if ($this->Auth->user('role_id') == Configure::read('EMPLOYEES.ROLES.Principal')) {
+            $conditions[] = [
+                'Leaves.leave_status' => Configure::read('LEAVES.STATUS.ApprovedByAdmin')
+            ];
         }
+
+        $leaveApplications = $this->Leaves->find('all', [
+            'contain' => [
+                'EmployeeInformation'
+            ],
+            'conditions' => $conditions
+        ]);
 
         //geting all options array
         $leaveTypes = TableRegistry::get('LeaveTypes')
