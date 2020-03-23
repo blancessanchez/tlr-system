@@ -201,7 +201,7 @@ Type::build('timestamp')
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
-Configure::write('DebugKit.forceEnable', true);
+// Configure::write('DebugKit.forceEnable', true);
 /**
  * Writes the employee
  */
@@ -240,7 +240,11 @@ Configure::write('LEAVES', [
         'ForApproval' => 1,
         'Approved' => 2,
         'Cancelled' => 3,
-        'Disapproved' => 4
+        'Disapproved' => 4,
+        'ApprovedByHeadTeacher' => 5,
+        'DisapprovedByHeadTeacher' => 6,
+        'ApprovedByAdmin' => 7,
+        'DisapprovedByAdmin' => 8
     ],
     'MATERNITY_ID' => 4,
     'PATERNITY_ID' => 5,
