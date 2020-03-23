@@ -51,10 +51,14 @@ class LeavesController extends AppController
     public function index()
     {
         //denies if role is not principal
-        if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal') ||
-            $this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.HeadTeacher')) {
-            return $this->redirect('/home');
-        }
+        // if ($this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.Principal') ||
+        //     $this->Auth->user('role_id') != Configure::read('EMPLOYEES.ROLES.HeadTeacher')) {
+        //     return $this->redirect('/home');
+        // }
+        // pr($this->Auth->user('role_id'));
+        // pr(Configure::read('EMPLOYEES.ROLES.HeadTeacher'));
+        // die;
+
 
         $this->viewBuilder()->setLayout('main');
 
@@ -65,7 +69,7 @@ class LeavesController extends AppController
                 ],
                 'conditions' => [
                     'EmployeeInformation.deleted' => 0,
-                    'EmployeeInformation.department_id' => 0                    
+                    'EmployeeInformation.department_id' => $this->Auth->user('department_id')
                 ]
             ]);
         } else {
