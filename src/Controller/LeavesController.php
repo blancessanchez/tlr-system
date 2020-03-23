@@ -71,11 +71,11 @@ class LeavesController extends AppController
         }
 
         $leaveApplications = $this->Leaves->find('all', [
-            'contain' => [
-                'EmployeeInformation'
-            ],
-            'conditions' => $conditions
-        ]);
+                'contain' => [
+                    'EmployeeInformation'
+                ]
+            ])
+            ->where($conditions);
 
         //geting all options array
         $leaveTypes = TableRegistry::get('LeaveTypes')
