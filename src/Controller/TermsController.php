@@ -127,6 +127,13 @@ class TermsController extends AppController
                     $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
                     $this->LeaveBalances->save($leaveBalanceEntity);
                 }
+
+                // adding service credit leave balance type
+                $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.ServiceCredit');
+                $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.ServiceCredit');
+                $leaveBalanceEntity = $this->LeaveBalances->newEntity();
+                $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
+                $this->LeaveBalances->save($leaveBalanceEntity);
             }
 
             return $this->response->withStatus(200)
