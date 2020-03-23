@@ -11,7 +11,8 @@
       ['escape' => false]
     ); ?>
   </li>
-  <?php if ($Auth->user('role_id') == $this->Configure->read('EMPLOYEES.ROLES.Principal')) : ?>
+  <?php if ($Auth->user('role_id') == $this->Configure->read('EMPLOYEES.ROLES.Principal') ||
+    $Auth->user('role_id') == $this->Configure->read('EMPLOYEES.ROLES.HeadTeacher')) : ?>
     <li>
       <?= $this->Html->link(
         $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) .
@@ -104,8 +105,8 @@
           <li>
             <?= $this->Html->link(
               $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
-              'Roles', [
-                'controller' => 'Roles',
+              'Departments', [
+                'controller' => 'Departments',
                 'action' => 'index'
               ],
               ['escape' => false]

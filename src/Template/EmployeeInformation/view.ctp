@@ -52,7 +52,7 @@
                 <label for="job_position">Job Position</label>
                 <?= $this->Form->control('', [
                   'class' => 'form-control',
-                  'id' => 'leave_category_id',
+                  'id' => 'job_position_id',
                   'label' => false,
                   'value' => !empty($employee->job_position_id) ? $jobPositions[$employee->job_position_id] : null,
                   'disabled' => 'disabled'
@@ -104,6 +104,28 @@
                   'disabled' => 'disabled'
                 ]); ?>
               </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-4">
+                <label for="job_position">Department</label>
+                <?= $this->Form->control('', [
+                  'class' => 'form-control',
+                  'id' => 'department_id',
+                  'label' => false,
+                  'value' => !empty($employee->department_id) ? $departments[$employee->department_id] : null,
+                  'disabled' => 'disabled'
+                ]); ?>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="job_position">Role</label>
+                <?= $this->Form->control('', [
+                  'class' => 'form-control',
+                  'id' => 'role_id',
+                  'label' => false,
+                  'value' => !empty($employee->role_id) ? $roles[$employee->role_id] : null,
+                  'disabled' => 'disabled'
+                ]); ?>
+              </div> 
             </div>
             <div class="col-md-12">
               <h2 class="page-header">

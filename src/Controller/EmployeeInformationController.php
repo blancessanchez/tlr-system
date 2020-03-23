@@ -134,7 +134,6 @@ class EmployeeInformationController extends AppController
         $employees = $this->EmployeeInformation->find('all', [
             'contain' => [
                 'JobPositions',
-                'Roles'
             ],
             'conditions' => [
                 'EmployeeInformation.deleted' => 0
@@ -164,10 +163,11 @@ class EmployeeInformationController extends AppController
                     'JobPositions.deleted' => 0
                 ]
             ]);
-        $roles = TableRegistry::get('Roles')
+        $roles = Configure::read('EMPLOYEES.ROLES_LIST');
+        $departments = TableRegistry::get('Departments')
             ->find('list', [
                 'conditions' => [
-                    'Roles.deleted' => 0
+                    'Departments.deleted' => 0
                 ]
             ]);
 
@@ -259,6 +259,13 @@ class EmployeeInformationController extends AppController
                             $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
                             $this->LeaveBalances->save($leaveBalanceEntity);
                         }
+
+                        // adding service credit leave balance type
+                        $leaveBalance['balance'] = Configure::read('LEAVES.BALANCE.ServiceCredit');
+                        $leaveBalance['leave_type_id'] = Configure::read('LEAVES.TYPE.ServiceCredit');
+                        $leaveBalanceEntity = $this->LeaveBalances->newEntity();
+                        $this->LeaveBalances->patchEntity($leaveBalanceEntity, $leaveBalance);
+                        $this->LeaveBalances->save($leaveBalanceEntity);
                     }
 
                     $session = $this->getRequest()->getSession();
@@ -270,7 +277,7 @@ class EmployeeInformationController extends AppController
                 $this->Flash->error(__('The employee could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('employeeStatus', 'jobPositions', 'roles', 'employeeErrors'));
+        $this->set(compact('employeeStatus', 'jobPositions', 'roles', 'employeeErrors', 'departments'));
     }
 
     /**
@@ -296,12 +303,14 @@ class EmployeeInformationController extends AppController
                     'JobPositions.deleted' => 0
                 ]
             ]);
-        $roles = TableRegistry::get('Roles')
+        $roles = Configure::read('EMPLOYEES.ROLES_LIST');
+        $departments = TableRegistry::get('Departments')
             ->find('list', [
                 'conditions' => [
-                    'Roles.deleted' => 0
+                    'Departments.deleted' => 0
                 ]
             ]);
+
         $employee = $this->EmployeeInformation->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $employee = $this->EmployeeInformation->patchEntity($employee, $this->request->getData());
@@ -329,7 +338,7 @@ class EmployeeInformationController extends AppController
                 $this->Flash->error(__('The employee could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('employee', 'employeeStatus', 'jobPositions', 'roles', 'employeeErrors'));
+        $this->set(compact('employee', 'employeeStatus', 'jobPositions', 'roles', 'employeeErrors', 'departments'));
     }
 
     /**
@@ -392,7 +401,6 @@ class EmployeeInformationController extends AppController
         $this->viewBuilder()->setLayout('main');
         $employee = $this->EmployeeInformation->find('all', [
             'contain' => [
-                'Roles',
                 'ActivityLogs',
                 'Leaves',
                 'LeaveBalances'
@@ -412,7 +420,15 @@ class EmployeeInformationController extends AppController
             ->toArray();
         
         $employeeStatus = Configure::read('EMPLOYEES.EMPLOYEE_STATUS');
+        $roles = Configure::read('EMPLOYEES.ROLES_LIST');
+        $departments = TableRegistry::get('Departments')
+            ->find('list', [
+                'conditions' => [
+                    'Departments.deleted' => 0
+                ]
+            ])
+            ->toArray();
 
-        $this->set(compact('employee', 'jobPositions', 'employeeStatus'));
+        $this->set(compact('employee', 'jobPositions', 'employeeStatus', 'roles', 'departments'));
     }
 }

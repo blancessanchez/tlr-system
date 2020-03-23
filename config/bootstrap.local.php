@@ -201,7 +201,7 @@ Type::build('timestamp')
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
-
+// Configure::write('DebugKit.forceEnable', true);
 /**
  * Writes the employee
  */
@@ -210,10 +210,17 @@ Configure::write('EMPLOYEES', [
         '1' => 'Licensed/Regular',
         '2' => 'Unlicensed'
     ],
+    'ROLES_LIST' => [
+        '1' => 'Admin',
+        '2' => 'Principal',
+        '3' => 'Teacher',
+        '4' => 'Head Teacher'
+    ],
     'ROLES' => [
         'Admin' => 1,
         'Principal' => 2,
-        'Teacher' => 3
+        'Teacher' => 3,
+        'HeadTeacher' => 4
     ],
     'GENDER' => [
         'Male' => 1,
@@ -233,7 +240,11 @@ Configure::write('LEAVES', [
         'ForApproval' => 1,
         'Approved' => 2,
         'Cancelled' => 3,
-        'Disapproved' => 4
+        'Disapproved' => 4,
+        'ApprovedByHeadTeacher' => 5,
+        'DisapprovedByHeadTeacher' => 6,
+        'ApprovedByAdmin' => 7,
+        'DisapprovedByAdmin' => 8
     ],
     'MATERNITY_ID' => 4,
     'PATERNITY_ID' => 5,
@@ -243,11 +254,13 @@ Configure::write('LEAVES', [
         'Vacation' => 15,
         'Sick' => 15,
         'Paternity' => 7,
-        'Maternity' => 103
+        'Maternity' => 103,
+        'ServiceCredit' => 0
     ],
     'TYPE' => [
         'Vacation' => 1,
         'Sick' => 2,
+        'ServiceCredit' => 3,
         'Maternity' => 4,
         'Paternity' => 5,
         'Combo' => 6

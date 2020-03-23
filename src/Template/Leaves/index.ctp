@@ -47,13 +47,21 @@
                     <td><?= $leaveApplication->leave_from . ' - ' . $leaveApplication->leave_to ?></td>
                     <td>
                       <?php if ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ForApproval')) : ?>
-                        <span class="badge bg-white">For Approval</span>
+                        <span class="badge bg-white">For Head Teacher Approval</span>
                       <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Approved')) :?>
-                        <span class="badge bg-green">Approved</span>
+                        <span class="badge bg-green">Approved by Principal</span>
                       <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Cancelled')) :?>
-                        <span class="badge bg-yellow">Cancelled</span>
+                        <span class="badge bg-yellow">Cancelled by Applicant</span>
                       <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Disapproved')) :?>
-                        <span class="badge bg-red">Disapproved</span>
+                        <span class="badge bg-red">Disapproved by Principal</span>
+                      <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ApprovedByHeadTeacher')) :?>
+                        <span class="badge bg-green">Approved by Head Teacher</span>
+                      <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.DisapprovedByHeadTeacher')) :?>
+                        <span class="badge bg-red">Disapproved by Head Teacher</span>
+                      <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ApprovedByAdmin')) :?>
+                        <span class="badge bg-green">Approved by Admin</span>
+                      <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.DisapprovedByAdmin')) :?>
+                        <span class="badge bg-red">Disapproved by Admin</span>
                       <?php endif; ?>
                     </td>
                     <td class="actions">

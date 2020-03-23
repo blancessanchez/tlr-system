@@ -175,7 +175,7 @@ $(function() {
    */
   $('#btn-add-job-position').on('click', function() {
     location.href = '/job_positions/add';
-  })
+  });
 
   /**
    * configuration for adding new role
@@ -184,6 +184,15 @@ $(function() {
    */
   $('#btn-add-role').on('click', function() {
     location.href = '/roles/add';
+  });
+
+  /**
+   * configuration for adding new department
+   * User: admin
+   * http://tlr.local/department
+   */
+  $('#btn-add-department').on('click', function() {
+    location.href = '/departments/add';
   })
 });
 

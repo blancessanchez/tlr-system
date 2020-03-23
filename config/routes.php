@@ -216,27 +216,27 @@ Router::scope('/', function (RouteBuilder $routes) {
     });
 
     /**
-     * Roles controller
+     * Departments controller
      */
-    $routes->scope('/roles', function($routes) {
+    $routes->scope('/departments', function($routes) {
         $routes->connect(
             '/',
             [
-                'controller' => 'Roles',
+                'controller' => 'Departments',
                 'action' => 'index'
             ]
         );
         $routes->connect(
             '/add',
             [
-                'controller' => 'Roles',
+                'controller' => 'Departments',
                 'action' => 'add'
             ]
         );
         $routes->connect(
             '/edit/:id',
             [
-                'controller' => 'Roles',
+                'controller' => 'Departments',
                 'action' => 'edit'
             ],
             [
