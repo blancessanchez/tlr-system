@@ -102,12 +102,14 @@
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-default">
               <span class="info-box-icon">
-                <?php if ($balance->leave_type->id == 6) : ?>
+                <?php if ($balance->leave_type_id == $this->Configure->read('LEAVES.TYPE.Combo')) : ?>
                   <i class="fa fa-calendar-plus-o"></i>
-                <?php elseif ($balance->leave_type->id == 1) : ?>
+                <?php elseif ($balance->leave_type_id == $this->Configure->read('LEAVES.TYPE.Vacation')) : ?>
                   <i class="fa fa-suitcase"></i>
-                <?php elseif ($balance->leave_type->id == 2) : ?>
+                <?php elseif ($balance->leave_type_id == $this->Configure->read('LEAVES.TYPE.Sick')) : ?>
                   <i class="fa fa-medkit"></i>
+                <?php elseif ($balance->leave_type_id == $this->Configure->read('LEAVES.TYPE.ServiceCredit')) : ?>
+                  <i class="fa fa-star"></i>
                 <?php endif ?>
               </span>
               <div class="info-box-content">
@@ -142,13 +144,21 @@
                         <td><?= $leaveApplication->leave_from . ' - ' . $leaveApplication->leave_to ?></td>
                         <td>
                           <?php if ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ForApproval')) : ?>
-                            <span class="badge bg-white">For Approval</span>
+                            <span class="badge bg-white">For Head Teacher Approval</span>
                           <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Approved')) :?>
-                            <span class="badge bg-green">Approved</span>
+                            <span class="badge bg-green">Approved by Principal</span>
                           <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Cancelled')) :?>
-                            <span class="badge bg-yellow">Cancelled</span>
+                            <span class="badge bg-yellow">Cancelled by Applicant</span>
                           <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Disapproved')) :?>
-                            <span class="badge bg-red">Disapproved</span>
+                            <span class="badge bg-red">Disapproved by Principal</span>
+                          <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ApprovedByHeadTeacher')) :?>
+                            <span class="badge bg-green">Approved by Head Teacher</span>
+                          <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.DisapprovedByHeadTeacher')) :?>
+                            <span class="badge bg-red">Disapproved by Head Teacher</span>
+                          <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ApprovedByAdmin')) :?>
+                            <span class="badge bg-green">Approved by Admin</span>
+                          <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.DisapprovedByAdmin')) :?>
+                            <span class="badge bg-red">Disapproved by Admin</span>
                           <?php endif; ?>
                         </td>
                         <td class="actions">

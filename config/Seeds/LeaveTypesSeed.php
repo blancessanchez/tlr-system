@@ -73,6 +73,15 @@ class LeaveTypesSeed extends AbstractSeed
                 'modified' => $date->format('Y-m-d H:i:s'),
                 'deleted_date' => null,
                 'deleted' => '0'
+            ],
+            [
+                'id' => '7',
+                'description' => 'Service Credit',
+                'days_applicable' => 0,
+                'created' => $date->format('Y-m-d H:i:s'),
+                'modified' => $date->format('Y-m-d H:i:s'),
+                'deleted_date' => null,
+                'deleted' => '0'
             ]
         ];
 
