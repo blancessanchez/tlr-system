@@ -103,4 +103,23 @@ class ServiceCreditHistoryController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * History method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function history($id = null)
+    {
+        $this->viewBuilder()->setLayout('main');
+        $serviceCreditHistory = $this->ServiceCreditHistory->find('all', [
+            'conditions' => [
+                'ServiceCreditHistory.employee_id' => $id,
+                'ServiceCreditHistory.deleted' => 0
+            ]
+        ]);
+        // pr($serviceCreditHistory);die;
+
+        $this->set(compact('serviceCreditHistory'));
+    }
 }

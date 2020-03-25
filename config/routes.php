@@ -246,5 +246,33 @@ Router::scope('/', function (RouteBuilder $routes) {
         );
     });
 
+    /**
+     * Leave Balances controller
+     */
+    $routes->scope('/service_credit', function($routes) {
+        $routes->connect(
+            '/edit/:id',
+            [
+                'controller' => 'LeaveBalances',
+                'action' => 'edit'
+            ],
+            [
+                'pass' => ['id'],
+                'id' => '[0-9]+'
+            ]
+        );
+        $routes->connect(
+            '/history/:id',
+            [
+                'controller' => 'ServiceCreditHistory',
+                'action' => 'history'
+            ],
+            [
+                'pass' => ['id'],
+                'id' => '[0-9]+'
+            ]
+        );
+    });
+
     $routes->fallbacks(InflectedRoute::class);
 });

@@ -16,7 +16,7 @@
         <legend><?= __('Add Service Credit History') ?></legend>
         <?php
             echo $this->Form->control('description');
-            echo $this->Form->control('added_balance');
+            echo $this->Form->control('current_balance');
             echo $this->Form->control('deleted_date', ['empty' => true]);
             echo $this->Form->control('deleted');
         ?>

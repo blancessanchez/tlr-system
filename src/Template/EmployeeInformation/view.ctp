@@ -23,6 +23,7 @@
       <li class="active">View Employee</li>
     </ol>
     <h4>Leave Balances Information</h4>
+    <?= $this->Flash->render(); ?>
       <?php foreach ($employee->leave_balances as $balance) : ?>
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box bg-default">
@@ -39,9 +40,10 @@
             </span>
             <div class="info-box-content">
               <span class="info-box-text"><?= ($balance->leave_type->description == 'ALS') ? 'Leaves' : $balance->leave_type->description ?></span>
-              <span class="info-box-number"><?= $balance->balance ?> days</span>
+              <!-- Check balance if is less than 2, which is one for use of word day/days -->
+              <span class="info-box-number"><?= ($balance->balance < 2 ? $balance->balance . ' day' : $balance->balance . ' days') ?></span>
               <?php if ($balance->leave_type_id == $this->Configure->read('LEAVES.TYPE.ServiceCredit') && $isAdmin) : ?>
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#confirmModal">
+                <button type="button" class="btn btn-default btn-sm" id="btn-edit-service-credit" onclick="location.href='/service_credit/edit/' + '<?= $balance->id ?>'">
                   <i class="fa fa-pencil"></i>  Edit service credit
                 </button>
               <?php endif ?>
@@ -54,7 +56,6 @@
 <section class="content">
     <div class="row">
       <div class="col-md-12">
-        <?= $this->Flash->render(); ?>
         <div class="box box-primary">
           <div class="box-body">
             <div class="col-md-12">

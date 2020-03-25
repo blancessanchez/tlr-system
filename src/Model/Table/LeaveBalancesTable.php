@@ -70,6 +70,11 @@ class LeaveBalancesTable extends Table
             ->integer('balance')
             ->requirePresence('balance', 'create')
             ->notEmptyString('balance');
+        
+        // $validator
+        //     ->scalar('description')
+        //     ->maxLength('description', 255)
+        //     ->notEmptyString('description');
 
         $validator
             ->dateTime('deleted_date')

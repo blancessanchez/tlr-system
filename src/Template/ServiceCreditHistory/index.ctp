@@ -17,7 +17,7 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('description') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('added_balance') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('current_balance') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('deleted_date') ?></th>
@@ -30,7 +30,7 @@
             <tr>
                 <td><?= $this->Number->format($serviceCreditHistory->id) ?></td>
                 <td><?= h($serviceCreditHistory->description) ?></td>
-                <td><?= $this->Number->format($serviceCreditHistory->added_balance) ?></td>
+                <td><?= $this->Number->format($serviceCreditHistory->current_balance) ?></td>
                 <td><?= h($serviceCreditHistory->created) ?></td>
                 <td><?= h($serviceCreditHistory->modified) ?></td>
                 <td><?= h($serviceCreditHistory->deleted_date) ?></td>

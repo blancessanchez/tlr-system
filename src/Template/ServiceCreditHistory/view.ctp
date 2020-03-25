@@ -26,7 +26,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Added Balance') ?></th>
-            <td><?= $this->Number->format($serviceCreditHistory->added_balance) ?></td>
+            <td><?= $this->Number->format($serviceCreditHistory->current_balance) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Deleted') ?></th>

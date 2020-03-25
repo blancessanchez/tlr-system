@@ -15,13 +15,23 @@ class AddServiceCreditHistoryTable extends AbstractMigration
         $table = $this->table('service_credit_history', [
                 'collation' => 'utf8_general_ci'
             ])
+            ->addColumn('employee_id', 'integer', [
+                'default' => '0',
+                'limit' => 11,
+                'null' => true
+            ])
+            ->addColumn('leave_balance_id', 'integer', [
+                'default' => '0',
+                'limit' => 11,
+                'null' => true
+            ])
             ->addColumn('description', 'string', [
                 'limit' => 255,
                 'null' => false
             ])
-            ->addColumn('added_balance', 'integer', [
+            ->addColumn('current_balance', 'integer', [
                 'default' => '0',
-                'limit' => 1,
+                'limit' => 11,
                 'null' => true
             ])
             ->addColumn('created', 'datetime', [

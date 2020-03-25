@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $description
- * @property int|null $added_balance
+ * @property int|null $current_balance
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  * @property \Cake\I18n\FrozenTime|null $deleted_date
@@ -27,7 +27,7 @@ class ServiceCreditHistory extends Entity
      */
     protected $_accessible = [
         'description' => true,
-        'added_balance' => true,
+        'current_balance' => true,
         'created' => true,
         'modified' => true,
         'deleted_date' => true,

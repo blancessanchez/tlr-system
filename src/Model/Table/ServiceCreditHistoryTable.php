@@ -58,8 +58,8 @@ class ServiceCreditHistoryTable extends Table
             ->notEmptyString('description');
 
         $validator
-            ->integer('added_balance')
-            ->allowEmptyString('added_balance');
+            ->integer('current_balance')
+            ->allowEmptyString('current_balance');
 
         $validator
             ->dateTime('deleted_date')
