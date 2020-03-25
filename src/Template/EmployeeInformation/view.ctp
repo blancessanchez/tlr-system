@@ -3,28 +3,52 @@
 
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>
-      Employee Detail
-    </h1>
-  <ol class="breadcrumb">
-    <li>
-      <a href="<?= $this->Url->build([
-        'controller' => 'EmployeeInformation',
-        'action' => 'home'
-      ]);
-      ?>"><i class="fa fa-dashboard"></i> Home</a>
-    </li>
-    <li>
-      <a href="<?= $this->Url->build([
-        'controller' => 'EmployeeInformation',
-        'action' => 'employeeList'
-      ]);
-      ?>">
-        <i class="fa fa-users"></i> Employee List
-      </a>
-    </li>
-    <li class="active">View Employee</li>
-  </ol>
+    <ol class="breadcrumb">
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'home'
+        ]);
+        ?>"><i class="fa fa-dashboard"></i> Home</a>
+      </li>
+      <li>
+        <a href="<?= $this->Url->build([
+          'controller' => 'EmployeeInformation',
+          'action' => 'employeeList'
+        ]);
+        ?>">
+          <i class="fa fa-users"></i> Employee List
+        </a>
+      </li>
+      <li class="active">View Employee</li>
+    </ol>
+    <h4>Leave Balances Information</h4>
+      <?php foreach ($employee->leave_balances as $balance) : ?>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-default">
+            <span class="info-box-icon">
+              <?php if ($balance->leave_type_id == $this->Configure->read('LEAVES.TYPE.Combo')) : ?>
+                <i class="fa fa-calendar-plus-o"></i>
+              <?php elseif ($balance->leave_type_id == $this->Configure->read('LEAVES.TYPE.Vacation')) : ?>
+                <i class="fa fa-suitcase"></i>
+              <?php elseif ($balance->leave_type_id == $this->Configure->read('LEAVES.TYPE.Sick')) : ?>
+                <i class="fa fa-medkit"></i>
+              <?php elseif ($balance->leave_type_id == $this->Configure->read('LEAVES.TYPE.ServiceCredit')) : ?>
+                <i class="fa fa-star"></i>
+              <?php endif ?>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text"><?= ($balance->leave_type->description == 'ALS') ? 'Leaves' : $balance->leave_type->description ?></span>
+              <span class="info-box-number"><?= $balance->balance ?> days</span>
+              <?php if ($balance->leave_type_id == $this->Configure->read('LEAVES.TYPE.ServiceCredit') && $isAdmin) : ?>
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#confirmModal">
+                  <i class="fa fa-pencil"></i>  Edit service credit
+                </button>
+              <?php endif ?>
+            </div>
+          </div>
+        </div>
+      <?php endforeach ?>
   </section>
 <!-- Main content -->
 <section class="content">

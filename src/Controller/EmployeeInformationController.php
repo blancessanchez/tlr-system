@@ -403,7 +403,9 @@ class EmployeeInformationController extends AppController
             'contain' => [
                 'ActivityLogs',
                 'Leaves',
-                'LeaveBalances'
+                'LeaveBalances' => [
+                    'LeaveTypes'
+                ]
             ],
             'conditions' => [
                 'EmployeeInformation.id' => $id
@@ -428,7 +430,10 @@ class EmployeeInformationController extends AppController
                 ]
             ])
             ->toArray();
+        
+        // checks if current role is admin
+        $isAdmin = $this->Auth->user('role_id') == Configure::read('EMPLOYEES.ROLES.Admin') ? true : false;
 
-        $this->set(compact('employee', 'jobPositions', 'employeeStatus', 'roles', 'departments'));
+        $this->set(compact('employee', 'jobPositions', 'employeeStatus', 'roles', 'departments', 'isAdmin'));
     }
 }
