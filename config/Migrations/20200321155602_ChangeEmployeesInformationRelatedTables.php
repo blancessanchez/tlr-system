@@ -12,33 +12,6 @@ class ChangeEmployeesInformationRelatedTables extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('employee_information')
-            ->removeColumn('created')
-            ->removeColumn('modified')
-            ->removeColumn('deleted_date')
-            ->removeColumn('deleted')
-            ->addColumn('created', 'datetime', [
-                'default' => 'CURRENT_TIMESTAMP',
-                'limit' => null,
-                'null' => false
-            ])
-            ->addColumn('modified', 'datetime', [
-                'default' => 'CURRENT_TIMESTAMP',
-                'limit' => null,
-                'null' => false
-            ])
-            ->addColumn('deleted_date', 'datetime', [
-                'default' => null,
-                'limit' => null,
-                'null' => true
-            ])
-            ->addColumn('deleted', 'integer', [
-                'default' => '0',
-                'limit' => 1,
-                'null' => true
-            ])
-            ->update();
-
         $table = $this->table('employee_education_information')
             ->addColumn('created', 'datetime', [
                 'default' => 'CURRENT_TIMESTAMP',
