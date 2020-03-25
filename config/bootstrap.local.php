@@ -201,7 +201,7 @@ Type::build('timestamp')
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
-// Configure::write('DebugKit.forceEnable', true);
+Configure::write('DebugKit.forceEnable', true);
 /**
  * Writes the employee
  */
@@ -260,10 +260,11 @@ Configure::write('LEAVES', [
     'TYPE' => [
         'Vacation' => 1,
         'Sick' => 2,
-        'ServiceCredit' => 3,
+        'ToSeekEmployment' => 3,
         'Maternity' => 4,
         'Paternity' => 5,
-        'Combo' => 6
+        'Combo' => 6,
+        'ServiceCredit' => 7
     ]
 ]);
 
