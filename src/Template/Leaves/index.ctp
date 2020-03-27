@@ -65,7 +65,29 @@
                       <?php endif; ?>
                     </td>
                     <td class="actions">
-                      <a href="/leaves/view/<?= $leaveApplication->id?>" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                      <?php if (
+                            $role == $this->Configure->read('EMPLOYEES.ROLES.Admin') &&
+                            (
+                              $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ApprovedByHeadTeacher') ||
+                              $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.DisapprovedByHeadTeacher')
+                            )
+                          ) : ?>
+                        <a href="/leaves/view/<?= $leaveApplication->id?>" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                      <?php endif; ?>
+                      <?php if ($role == $this->Configure->read('EMPLOYEES.ROLES.HeadTeacher') &&
+                          $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ForApproval')
+                        ) : ?>
+                        <a href="/leaves/view/<?= $leaveApplication->id?>" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                      <?php endif; ?>
+                      <?php if (
+                            $role == $this->Configure->read('EMPLOYEES.ROLES.Principal') &&
+                            (
+                              $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ApprovedByAdmin') ||
+                              $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.DisapprovedByAdmin')
+                            )
+                          ) : ?>
+                        <a href="/leaves/view/<?= $leaveApplication->id?>" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                      <?php endif; ?>
                     </td>
                   </tr>
                 <?php endforeach ?>

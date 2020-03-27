@@ -82,7 +82,7 @@ class EmployeeInformationSeed extends AbstractSeed
             ],
             [
                 'id' => '4',
-                'role_id' => '3',
+                'role_id' => '4',
                 'employee_no' => '4',
                 'department_id' => '1',
                 'password' => '$2y$10$R31ZoCE2xvZywTL0CRkDtOe8KxdZqUsD5L9GIHSi477CzuniqwNLy',

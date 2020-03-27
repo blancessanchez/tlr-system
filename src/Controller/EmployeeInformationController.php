@@ -173,7 +173,6 @@ class EmployeeInformationController extends AppController
 
         if ($this->request->is('post')) {
             $employeeInformation = $this->EmployeeInformation->newEntity($this->request->getData());
-
             if ($employeeInformation->hasErrors()) {
                 $employeeErrors = $employeeInformation->errors();
                 $this->Flash->error(__('The employee could not be saved. Please, try again.'));

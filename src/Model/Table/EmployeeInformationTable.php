@@ -79,6 +79,11 @@ class EmployeeInformationTable extends Table
             ->integer('employee_no')
             ->requirePresence('employee_no', 'create')
             ->notEmptyString('employee_no', 'Employee Number must be not empty');
+        
+        $validator
+            ->integer('department_id')
+            ->requirePresence('department_id', 'create')
+            ->notEmptyString('department_id', 'Department must be not empty');
 
         $validator
             ->scalar('password')

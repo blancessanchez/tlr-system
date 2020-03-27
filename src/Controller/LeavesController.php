@@ -59,12 +59,15 @@ class LeavesController extends AppController
 
         $this->viewBuilder()->setLayout('main');
 
+        // getting current role
+        $role = $this->Auth->user('role_id');
+
         $conditions = [];
-        if ($this->Auth->user('role_id') == Configure::read('EMPLOYEES.ROLES.HeadTeacher')) {
+        if ($role == Configure::read('EMPLOYEES.ROLES.HeadTeacher')) {
             $conditions[] = [
                 'EmployeeInformation.department_id' => $this->Auth->user('department_id')
             ];
-        } else if ($this->Auth->user('role_id') == Configure::read('EMPLOYEES.ROLES.Principal')) {
+        } else if ($role == Configure::read('EMPLOYEES.ROLES.Principal')) {
             $conditions[] = [
                 'Leaves.leave_status' => Configure::read('LEAVES.STATUS.ApprovedByAdmin')
             ];
@@ -86,7 +89,7 @@ class LeavesController extends AppController
             ])
             ->toArray();
 
-        $this->set(compact('leaveApplications', 'leaveTypes'));
+        $this->set(compact('leaveApplications', 'leaveTypes', 'role'));
     }
 
     /**
@@ -189,8 +192,11 @@ class LeavesController extends AppController
         $leaveApplicationErrors = [];
         $leavesConfiguration = Configure::read('LEAVES');
 
-        // Always exclude NON ALS leave type
-        $excludeLeaveTypeId = [$leavesConfiguration['NON_ALS_ID']];
+        // Always exclude NON ALS leave type and Service Credit
+        $excludeLeaveTypeId = [
+            $leavesConfiguration['NON_ALS_ID'],
+            $leavesConfiguration['SERVICE_CREDIT']
+        ];
 
         // Filter leave type by gender
         if ($this->Auth->user('gender') == Configure::read('EMPLOYEES.GENDER.Female')) {
@@ -326,8 +332,11 @@ class LeavesController extends AppController
         $leaveApplicationErrors = [];
         $leavesConfiguration = Configure::read('LEAVES');
 
-        // Always exclude NON ALS leave type
-        $excludeLeaveTypeId = [$leavesConfiguration['NON_ALS_ID']];
+        // Always exclude NON ALS leave type and Service Credit
+        $excludeLeaveTypeId = [
+            $leavesConfiguration['NON_ALS_ID'],
+            $leavesConfiguration['SERVICE_CREDIT']
+        ];
 
         // Filter leave type by gender
         if ($this->Auth->user('gender') == Configure::read('EMPLOYEES.GENDER.Female')) {

@@ -42,6 +42,7 @@ class EmployeeInformation extends Entity
     protected $_accessible = [
         'role_id' => true,
         'employee_no' => true,
+        'department_id' => true,
         'password' => true,
         'last_name' => true,
         'first_name' => true,
