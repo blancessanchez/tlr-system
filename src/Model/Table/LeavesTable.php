@@ -99,6 +99,10 @@ class LeavesTable extends Table
         $validator
             ->integer('commutation')
             ->notEmptyString('commutation', 'Commutation must not be empty');
+        
+        $validator
+            ->integer('deductible_to_service_credit')
+            ->allowEmptyString('deductible_to_service_credit');
 
         $validator
             ->integer('is_success')

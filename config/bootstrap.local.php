@@ -249,6 +249,7 @@ Configure::write('LEAVES', [
     'MATERNITY_ID' => 4,
     'PATERNITY_ID' => 5,
     'NON_ALS_ID' => 6,
+    'SERVICE_CREDIT' => 7,
     'BALANCE' => [
         'Combo' => 15,
         'Vacation' => 15,
@@ -274,4 +275,18 @@ Configure::write('LEAVES', [
 Configure::write('SYSTEM_CONFIG', [
     'Name' => 1,
     'Image' => 2
+]);
+
+/**
+ * Write the leave application response
+ */
+Configure::write('LEAVE_APPLICATION', [
+    'RECOMMENDATION_TYPE' => [
+        'Approved' => 0,
+        'Disapproved' => 1
+    ],
+    'COMMUTATION' => [
+        'Requested' => 1,
+        'NotRequested' => 2
+    ]
 ]);

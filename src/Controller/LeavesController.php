@@ -67,10 +67,6 @@ class LeavesController extends AppController
             $conditions[] = [
                 'EmployeeInformation.department_id' => $this->Auth->user('department_id')
             ];
-        } else if ($role == Configure::read('EMPLOYEES.ROLES.Principal')) {
-            $conditions[] = [
-                'Leaves.leave_status' => Configure::read('LEAVES.STATUS.ApprovedByAdmin')
-            ];
         }
 
         $leaveApplications = $this->Leaves->find('all', [
@@ -103,6 +99,9 @@ class LeavesController extends AppController
     {
         $this->viewBuilder()->setLayout('main');
         $leaveApplicationResponseErrors = [];
+
+        // get current user
+        $currentUser = $this->Auth->user('role_id');
 
         //get leave application information
         $leaveApplication = $this->Leaves->get($id, [
@@ -139,10 +138,12 @@ class LeavesController extends AppController
             ])
             ->first();
 
-        if ($leaveApplication->leave_status == Configure::read('LEAVES.STATUS.Cancelled')) {
-            $leaveResponse = 'cancelled';
-        } elseif ($leaveApplication->leave_status == Configure::read('LEAVES.STATUS.Approved')) {
-            $leaveResponse = 'approved';
+        if (!empty($leaveResponse)) {
+            if ($leaveApplication->leave_status == Configure::read('LEAVES.STATUS.Cancelled')) {
+                $leaveResponse = 'cancelled';
+            } elseif ($leaveApplication->leave_status == Configure::read('LEAVES.STATUS.Approved')) {
+                $leaveResponse = 'approved';
+            }
         }
 
         //getting current leave balance
@@ -171,7 +172,8 @@ class LeavesController extends AppController
             'leaveApplicationResponseErrors',
             'leaveResponse',
             'diff',
-            'leaveBalance'
+            'leaveBalance',
+            'currentUser'
         ));
     }
 
@@ -200,9 +202,9 @@ class LeavesController extends AppController
 
         // Filter leave type by gender
         if ($this->Auth->user('gender') == Configure::read('EMPLOYEES.GENDER.Female')) {
-            $excludeLeaveTypeId[] = $leavesConfiguration['MATERNITY_ID'];
-        } else {
             $excludeLeaveTypeId[] = $leavesConfiguration['PATERNITY_ID'];
+        } else {
+            $excludeLeaveTypeId[] = $leavesConfiguration['MATERNITY_ID'];
         }
 
         //geting all options

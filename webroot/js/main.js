@@ -67,6 +67,7 @@ $(function() {
       var id = $('#leave_application_id').val();
       var recommendation_type = $('input[name="LeaveApplicationResponses[recommendation_type]"]:checked').val();
       var recommendation_description = $('#recommendation_description').val();
+      var deductible_to_service_credit = $('#deductible_to_service_credit').val();
 
       $.ajaxSetup({
         headers: {
@@ -80,8 +81,13 @@ $(function() {
         dataType: 'json',
         data: {
           id: id,
-          recommendation_type: recommendation_type,
-          recommendation_description: recommendation_description
+          LeaveApplicationResponses: {
+            recommendation_type: recommendation_type,
+            recommendation_description: recommendation_description,
+          },
+          Leaves: {
+            deductible_to_service_credit: deductible_to_service_credit
+          }
         }
       }).done(function(res) {
         if (res.status = true) {
@@ -90,6 +96,7 @@ $(function() {
       }).fail(function(res) {
         if (res.status == 422) {
           alert('Sending application response is failed. Please check your input');
+          $('.loading_modal').hide();
           let mainResponse = $.parseJSON(res.responseText);
           if (mainResponse.errors) {
             $.each(mainResponse.errors, function(key, value) {

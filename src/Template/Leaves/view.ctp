@@ -182,6 +182,24 @@
                     <label id="error_recommendation_description" class="error_label"></label>
                   </div>
                 </div>
+                <?php if ($currentUser == $this->Configure->read('EMPLOYEES.ROLES.Admin') ||
+                  $currentUser == $this->Configure->read('EMPLOYEES.ROLES.Principal') &&
+                  $leaveApplication->commutation == $this->Configure->read('LEAVE_APPLICATION.COMMUTATION.Requested')) : ?>
+                  <div class="form-group col-md-12">
+                    <div class="form-group col-md-4">
+                      <label id="lblDisapproved" for="notes">Deductible to Service Credit</label>
+                      <?= $this->Form->control('Leaves.deductible_to_service_credit', [
+                        'class' => 'form-control',
+                        'id' => 'deductible_to_service_credit',
+                        'label' => false,
+                        'type' => 'number',
+                        'value' => $leaveApplication->deductible_to_service_credit,
+                        'disabled' => $currentUser == $this->Configure->read('EMPLOYEES.ROLES.Principal') ? 'disabled' : 'false'
+                      ]); ?>
+                      <label id="error_deductible_to_service_credit" class="error_label"></label>
+                    </div>
+                  </div>
+                <?php endif ?>
                 <div class="box-footer">
                   <button type="button" class="btn btn-default">Clear</button>
                   <button type="button" id="btnApplicationResponse" class="btn btn-primary pull-right">Submit</button>

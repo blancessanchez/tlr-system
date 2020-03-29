@@ -15,6 +15,7 @@ use Cake\ORM\Entity;
  * @property string $leave_from
  * @property string $leave_to
  * @property int|null $commutation
+ * @property int|null $deductible_to_service_credit
  * @property int|null $is_success
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
@@ -45,6 +46,7 @@ class Leave extends Entity
         'leave_from' => true,
         'leave_to' => true,
         'commutation' => true,
+        'deductible_to_service_credit' => true,
         'is_success' => true,
         'leave_status' => true,
         'created' => true,
