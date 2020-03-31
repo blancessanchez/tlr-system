@@ -143,7 +143,8 @@
                 <i class="fa fa-info"></i> Details on Action of Application
               </h2>
             </div>
-            <?php if (empty($leaveResponse)) : ?>
+            <?php if (empty($leaveResponse) && (($currentUser != $this->Configure->read('EMPLOYEES.ROLES.Teacher')) &&
+              $leaveApplication->leave_status != $this->Configure->read('LEAVES.STATUS.Cancelled'))) : ?>
               <?= $this->Form->create('LeaveApplicationResponses', [
                 'url' => [
                   'controller' => 'LeaveApplicationResponses',
@@ -182,8 +183,8 @@
                     <label id="error_recommendation_description" class="error_label"></label>
                   </div>
                 </div>
-                <?php if ($currentUser == $this->Configure->read('EMPLOYEES.ROLES.Admin') ||
-                  $currentUser == $this->Configure->read('EMPLOYEES.ROLES.Principal') &&
+                <?php if (($currentUser == $this->Configure->read('EMPLOYEES.ROLES.Admin') ||
+                  $currentUser == $this->Configure->read('EMPLOYEES.ROLES.Principal')) &&
                   $leaveApplication->commutation == $this->Configure->read('LEAVE_APPLICATION.COMMUTATION.Requested')) : ?>
                   <div class="form-group col-md-12">
                     <div class="form-group col-md-4">
@@ -205,18 +206,32 @@
                   <button type="button" id="btnApplicationResponse" class="btn btn-primary pull-right">Submit</button>
                 </div>
               <?= $this->Form->end() ?>
-            <?php elseif ($leaveResponse == 'cancelled') : ?>
+            <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Cancelled')) : ?>
               <div class="form-group col-md-12">
                 <div class="callout callout-warning" style="margin-bottom: 0!important;">
                   <h4><i class="fa fa-info"></i> Note:</h4>
-                  Leave was cancelled
+                  Leave was cancelled by applicant
                 </div>
               </div>
-            <?php elseif ($leaveResponse == 'approved') : ?>
+            <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Approved')) : ?>
               <div class="form-group col-md-12">
                 <div class="callout callout-success" style="margin-bottom: 0!important;">
                   <h4><i class="fa fa-info"></i> Note:</h4>
-                  Leave was approved
+                  Leave was approved by principal
+                </div>
+              </div>
+            <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ApprovedByHeadTeacher')) : ?>
+              <div class="form-group col-md-12">
+                <div class="callout callout-success" style="margin-bottom: 0!important;">
+                  <h4><i class="fa fa-info"></i> Note:</h4>
+                  Leave was approved by head teacher
+                </div>
+              </div>
+            <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ApprovedByAdmin')) : ?>
+              <div class="form-group col-md-12">
+                <div class="callout callout-success" style="margin-bottom: 0!important;">
+                  <h4><i class="fa fa-info"></i> Note:</h4>
+                  Leave was approved by admin
                 </div>
               </div>
             <?php else : ?>
@@ -246,6 +261,23 @@
                     'value' => $leaveResponse->recommendation_description,
                     'disabled' => 'disabled'
                   ]); ?>
+                </div>
+              </div>
+            <?php endif ?>
+            <?php if ($leaveApplication->commutation == $this->Configure->read('LEAVE_APPLICATION.COMMUTATION.Requested') &&
+              $currentUser == $this->Configure->read('EMPLOYEES.ROLES.Teacher')) : ?>
+              <div class="form-group col-md-12">
+                <div class="form-group col-md-4">
+                  <label for="notes">Deductible to Service Credit</label>
+                  <?= $this->Form->control('Leaves.deductible_to_service_credit', [
+                    'class' => 'form-control',
+                    'id' => 'deductible_to_service_credit',
+                    'label' => false,
+                    'type' => 'number',
+                    'value' => $leaveApplication->deductible_to_service_credit,
+                    'disabled' => 'disabled'
+                  ]); ?>
+                  <label id="error_deductible_to_service_credit" class="error_label"></label>
                 </div>
               </div>
             <?php endif ?>

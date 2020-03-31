@@ -69,6 +69,16 @@ class LeaveApplicationResponsesTable extends Table
             ->allowEmptyString('recommendation_description');
 
         $validator
+            ->scalar('recommendation_description_by_admin')
+            ->maxLength('recommendation_description_by_admin', 255)
+            ->allowEmptyString('recommendation_description_by_admin');
+
+        $validator
+            ->scalar('recommendation_description_by_head_teacher')
+            ->maxLength('recommendation_description_by_head_teacher', 255)
+            ->allowEmptyString('recommendation_description_by_head_teacher');
+
+        $validator
             ->dateTime('deleted_date')
             ->allowEmptyDateTime('deleted_date');
 

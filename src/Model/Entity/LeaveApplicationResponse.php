@@ -35,6 +35,8 @@ class LeaveApplicationResponse extends Entity
         'application_id' => true,
         'recommendation_type' => true,
         'recommendation_description' => true,
+        'recommendation_description_by_admin' => true,
+        'recommendation_description_by_head_teacher' => true,
         'created' => true,
         'modified' => true,
         'deleted_date' => true,

@@ -131,20 +131,15 @@ class LeavesController extends AppController
 
         //find response in LeaveResponse
         $leaveResponse = $this->LeaveApplicationResponses->find('all', [
+                'contain' => [
+                    'Leaves'
+                ],
                 'conditions' => [
                     'LeaveApplicationResponses.application_id' => $id,
                     'LeaveApplicationResponses.deleted' => 0,
                 ]
             ])
             ->first();
-
-        if (!empty($leaveResponse)) {
-            if ($leaveApplication->leave_status == Configure::read('LEAVES.STATUS.Cancelled')) {
-                $leaveResponse = 'cancelled';
-            } elseif ($leaveApplication->leave_status == Configure::read('LEAVES.STATUS.Approved')) {
-                $leaveResponse = 'approved';
-            }
-        }
 
         //getting current leave balance
         $leaveBalance = TableRegistry::get('LeaveBalances')

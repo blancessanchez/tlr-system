@@ -128,8 +128,7 @@ class LeaveApplicationResponsesController extends AppController
 
             $editLeaveBalance = $this->LeaveBalances->get($getLeaveBalance['id']);
             $leaveBalance['LeaveBalances']['balance'] = $getLeaveBalance['balance'];
-
-            if ($this->request->getData('recommendation_type') == Configure::read('LEAVE_APPLICATION.RECOMMENDATION_TYPE.Approved')) {
+            if ($getData['LeaveApplicationResponses']['recommendation_type'] == Configure::read('LEAVE_APPLICATION.RECOMMENDATION_TYPE.Approved')) {
                 if ($currentUser == Configure::read('EMPLOYEES.ROLES.Principal')) {
                     $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.Approved');
                     if ($diff < $getLeaveBalance['balance']) {
@@ -157,19 +156,26 @@ class LeaveApplicationResponsesController extends AppController
                     }
                 } else if ($currentUser == Configure::read('EMPLOYEES.ROLES.Admin')) {
                     $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.ApprovedByAdmin');
-                    $leaveStatus['Leaves']['deductible_to_service_credit'] = $getData['Leaves']['deductible_to_service_credit'];
+                    if (!empty($getData['Leaves']['deductible_to_service_credit'])) {
+                        $leaveStatus['Leaves']['deductible_to_service_credit'] = $getData['Leaves']['deductible_to_service_credit'];
+                    }
                 } else if ($currentUser == Configure::read('EMPLOYEES.ROLES.HeadTeacher')) {
                     $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.ApprovedByHeadTeacher');
                 }
-            } elseif ($this->request->getData('recommendation_type') == Configure::read('LEAVE_APPLICATION.RECOMMMENDATION_TYPE.Disapproved')) {
+            } else {
+                if (empty($this->request->getData('recommendation_description'))) {
+                    $leaveApplicationResponse->setErrors(['recommendation_description' => ['_required' => 'Disapproved description is required']]);
+                }
                 if ($currentUser == Configure::read('EMPLOYEES.ROLES.Principal')) {
-                    if (empty($this->request->getData('recommendation_description'))) {
-                        $leaveApplicationResponse->setErrors(['recommendation_description' => ['_required' => 'Disapproved description is required']]);
-                    }
+                    $leaveApplicationResponse->recommendation_description = $getData['LeaveApplicationResponses']['recommendation_description'];
                     $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.Disapproved');
                 } else if ($currentUser == Configure::read('EMPLOYEES.ROLES.Admin')) {
+                    $leaveApplicationResponse->recommendation_description_by_admin = $getData['LeaveApplicationResponses']['recommendation_description'];
+                    $leaveApplicationResponse->recommendation_description = null;
                     $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.DisapprovedByAdmin');
                 } else if ($currentUser == Configure::read('EMPLOYEES.ROLES.HeadTeacher')) {
+                    $leaveApplicationResponse->recommendation_description_by_head_teacher = $getData['LeaveApplicationResponses']['recommendation_description'];
+                    $leaveApplicationResponse->recommendation_description = null;
                     $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.DisapprovedByHeadTeacher');
                 }
             }
@@ -181,37 +187,27 @@ class LeaveApplicationResponsesController extends AppController
             ];
 
             $leaveApplicationResponse->application_id = $this->request->getData('id');
+            // pr($leaveApplicationResponse);die;
             $session = $this->getRequest()->getSession();
             $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Responded to Leave Application');
 
-            if ($currentUser == Configure::read('EMPLOYEES.ROLES.Principal')) {
-                if ($this->LeaveApplicationResponses->save($leaveApplicationResponse)) {
-                    $table = $this->Leaves->patchEntity($editLeaveApplication, $leaveStatus);
-                    $tableBalance = $this->LeaveBalances->patchEntity($editLeaveBalance, $leaveBalance);
-    
-                    //update record
-                    $this->Leaves->save($table);
-                    $this->LeaveBalances->save($tableBalance);
-
-                    if (!empty($getData['Leaves']['deductible_to_service_credit'])) {
-                        $tableServiceCreditBalance = $this->LeaveBalances->patchEntity($editServiceCreditLeaveBalance, $leaveServiceCreditBalance);
-                        $this->LeaveBalances->save($tableServiceCreditBalance);
-                    }
-    
-                    $this->Flash->success(__('The leave application response has been saved.'));
-    
-                    return $this->response->withStatus(200)
-                        ->withStringBody(json_encode(['status' => true], JSON_UNESCAPED_UNICODE));
-                }
-            } else {
+            if ($this->LeaveApplicationResponses->save($leaveApplicationResponse)) {
                 $table = $this->Leaves->patchEntity($editLeaveApplication, $leaveStatus);
+                $tableBalance = $this->LeaveBalances->patchEntity($editLeaveBalance, $leaveBalance);
 
-                if ($this->Leaves->save($table)) {
-                    $this->Flash->success(__('The leave application response has been saved.'));
+                //update record
+                $this->Leaves->save($table);
+                $this->LeaveBalances->save($tableBalance);
 
-                    return $this->response->withStatus(200)
-                        ->withStringBody(json_encode(['status' => true], JSON_UNESCAPED_UNICODE));
+                if (!empty($getData['Leaves']['deductible_to_service_credit'])) {
+                    $tableServiceCreditBalance = $this->LeaveBalances->patchEntity($editServiceCreditLeaveBalance, $leaveServiceCreditBalance);
+                    $this->LeaveBalances->save($tableServiceCreditBalance);
                 }
+
+                $this->Flash->success(__('The leave application response has been saved.'));
+
+                return $this->response->withStatus(200)
+                    ->withStringBody(json_encode(['status' => true], JSON_UNESCAPED_UNICODE));
             }
 
             return $this->response->withStatus(422)
