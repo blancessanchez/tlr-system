@@ -81,7 +81,8 @@
                           $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.ForApproval') ||
                           $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Cancelled') ||
                           $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Approved') ||
-                          $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Disapproved')
+                          $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Disapproved') ||
+                          $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.DisapprovedByHeadTeacher')
                         ) : ?>
                         <a href="/leaves/view/<?= $leaveApplication->id?>" class="btn btn-default"><i class="fa fa-eye"></i></a>
                       <?php elseif (

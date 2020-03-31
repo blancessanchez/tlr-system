@@ -167,15 +167,21 @@ class LeaveApplicationResponsesController extends AppController
                     $leaveApplicationResponse->setErrors(['recommendation_description' => ['_required' => 'Disapproved description is required']]);
                 }
                 if ($currentUser == Configure::read('EMPLOYEES.ROLES.Principal')) {
-                    $leaveApplicationResponse->recommendation_description = $getData['LeaveApplicationResponses']['recommendation_description'];
+                    if (!empty($getData['LeaveApplicationResponses']['recommendation_description'])) {
+                        $leaveApplicationResponse->recommendation_description = $getData['LeaveApplicationResponses']['recommendation_description'];
+                    }
                     $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.Disapproved');
                 } else if ($currentUser == Configure::read('EMPLOYEES.ROLES.Admin')) {
-                    $leaveApplicationResponse->recommendation_description_by_admin = $getData['LeaveApplicationResponses']['recommendation_description'];
-                    $leaveApplicationResponse->recommendation_description = null;
+                    if (!empty($getData['LeaveApplicationResponses']['recommendation_description'])) {
+                        $leaveApplicationResponse->recommendation_description_by_admin = $getData['LeaveApplicationResponses']['recommendation_description'];
+                        $leaveApplicationResponse->recommendation_description = null;
+                    }
                     $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.DisapprovedByAdmin');
                 } else if ($currentUser == Configure::read('EMPLOYEES.ROLES.HeadTeacher')) {
-                    $leaveApplicationResponse->recommendation_description_by_head_teacher = $getData['LeaveApplicationResponses']['recommendation_description'];
-                    $leaveApplicationResponse->recommendation_description = null;
+                    if (!empty($getData['LeaveApplicationResponses']['recommendation_description'])) {
+                        $leaveApplicationResponse->recommendation_description_by_head_teacher = $getData['LeaveApplicationResponses']['recommendation_description'];
+                        $leaveApplicationResponse->recommendation_description = null;
+                    }
                     $leaveStatus['Leaves']['leave_status'] = Configure::read('LEAVES.STATUS.DisapprovedByHeadTeacher');
                 }
             }
@@ -187,16 +193,13 @@ class LeaveApplicationResponsesController extends AppController
             ];
 
             $leaveApplicationResponse->application_id = $this->request->getData('id');
-            // pr($leaveApplicationResponse);die;
             $session = $this->getRequest()->getSession();
             $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Responded to Leave Application');
 
-            if ($this->LeaveApplicationResponses->save($leaveApplicationResponse)) {
-                $table = $this->Leaves->patchEntity($editLeaveApplication, $leaveStatus);
-                $tableBalance = $this->LeaveBalances->patchEntity($editLeaveBalance, $leaveBalance);
-
+            $table = $this->Leaves->patchEntity($editLeaveApplication, $leaveStatus);
+            $tableBalance = $this->LeaveBalances->patchEntity($editLeaveBalance, $leaveBalance);
+            if ($this->Leaves->save($table)) {
                 //update record
-                $this->Leaves->save($table);
                 $this->LeaveBalances->save($tableBalance);
 
                 if (!empty($getData['Leaves']['deductible_to_service_credit'])) {
@@ -205,6 +208,11 @@ class LeaveApplicationResponsesController extends AppController
                 }
 
                 $this->Flash->success(__('The leave application response has been saved.'));
+
+                if (!empty($getData['LeaveApplicationResponses']['recommendation_description']) ||
+                    $currentUser == Configure::read('EMPLOYEES.ROLES.Principal')) {
+                    $this->LeaveApplicationResponses->save($leaveApplicationResponse);
+                }
 
                 return $this->response->withStatus(200)
                     ->withStringBody(json_encode(['status' => true], JSON_UNESCAPED_UNICODE));

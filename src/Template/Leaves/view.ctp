@@ -143,8 +143,7 @@
                 <i class="fa fa-info"></i> Details on Action of Application
               </h2>
             </div>
-            <?php if (empty($leaveResponse) && (($currentUser != $this->Configure->read('EMPLOYEES.ROLES.Teacher')) &&
-              $leaveApplication->leave_status != $this->Configure->read('LEAVES.STATUS.Cancelled'))) : ?>
+            <?php if (empty($leaveResponse) && ($currentUser != $this->Configure->read('EMPLOYEES.ROLES.Teacher'))) : ?>
               <?= $this->Form->create('LeaveApplicationResponses', [
                 'url' => [
                   'controller' => 'LeaveApplicationResponses',
@@ -234,38 +233,67 @@
                   Leave was approved by admin
                 </div>
               </div>
-            <?php else : ?>
+            <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.DisapprovedByAdmin')) : ?>
               <div class="form-group col-md-12">
-                <div class="form-group col-md-4">
-                  <label for="recommendation_type">Recommendation</label>
-                  <div class="radio">
-                    <?= $this->Form->radio('LeaveApplicationResponses.recommendation_type', 
-                        [
-                          'Approval',
-                          'Disapproval due to'
-                        ],
-                        [
-                          'value' => $leaveResponse->recommendation_type,
-                          'disabled' => 'disabled'
-                        ]
-                      ); 
-                    ?>
-                  </div>
+                <div class="callout callout-danger" style="margin-bottom: 0!important;">
+                  <h4><i class="fa fa-info"></i> Note:</h4>
+                  Leave was disapproved by admin
                 </div>
-                <div class="form-group col-md-8">
-                  <label for="notes" id="lblDisapprovedView">Disappproved due to</label>
-                  <?= $this->Form->control('LeaveApplicationResponses.recommendation_description', [
+              </div>
+            <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.DisapprovedByHeadTeacher')) : ?>
+              <div class="form-group col-md-12">
+                <div class="callout callout-danger" style="margin-bottom: 0!important;">
+                  <h4><i class="fa fa-info"></i> Note:</h4>
+                  Leave was disapproved by head teacher
+                </div>
+              </div>
+            <?php elseif ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Disapproved')) : ?>
+              <div class="form-group col-md-12">
+                <div class="callout callout-danger" style="margin-bottom: 0!important;">
+                  <h4><i class="fa fa-info"></i> Note:</h4>
+                  Leave was disapproved by Principal
+                </div>
+              </div>
+            <?php endif ?>
+            <?php if ($leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.DisapprovedByHeadTeacher') ||
+              $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.DisapprovedByAdmin') ||
+              $leaveApplication->leave_status == $this->Configure->read('LEAVES.STATUS.Disapproved')) : ?>
+              <div class="form-group col-md-12">
+                <div class="form-group col-md-12">
+                  <label for="employee_id">Recommendation description by Head Teacher</label>
+                  <?= $this->Form->control('', [
                     'class' => 'form-control',
-                    'id' => 'recommendation_description_disabled',
                     'label' => false,
-                    'value' => $leaveResponse->recommendation_description,
-                    'disabled' => 'disabled'
+                    'disabled' => 'disabled',
+                    'value' => isset($leaveResponse->recommendation_description_by_head_teacher) ? h($leaveResponse->recommendation_description_by_head_teacher) : null
+                  ]); ?>
+                </div>
+              </div>
+              <div class="form-group col-md-12">
+                <div class="form-group col-md-12">
+                  <label for="employee_id">Recommendation description by Admin</label>
+                  <?= $this->Form->control('', [
+                    'class' => 'form-control',
+                    'label' => false,
+                    'disabled' => 'disabled',
+                    'value' => isset($leaveResponse->recommendation_description_by_admin) ? h($leaveResponse->recommendation_description_by_admin) : null
+                  ]); ?>
+                </div>
+              </div>
+              <div class="form-group col-md-12">
+                <div class="form-group col-md-12">
+                  <label for="employee_id">Recommendation description by Principal</label>
+                  <?= $this->Form->control('', [
+                    'class' => 'form-control',
+                    'label' => false,
+                    'disabled' => 'disabled',
+                    'value' => isset($leaveResponse->recommendation_description) ? h($leaveResponse->recommendation_description) : null
                   ]); ?>
                 </div>
               </div>
             <?php endif ?>
             <?php if ($leaveApplication->commutation == $this->Configure->read('LEAVE_APPLICATION.COMMUTATION.Requested') &&
-              $currentUser == $this->Configure->read('EMPLOYEES.ROLES.Teacher')) : ?>
+              $currentUser == $this->Configure->read('EMPLOYEES.ROLES.Teacher') && !empty($leaveApplication->deductible_to_service_credit)) : ?>
               <div class="form-group col-md-12">
                 <div class="form-group col-md-4">
                   <label for="notes">Deductible to Service Credit</label>
