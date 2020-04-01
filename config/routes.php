@@ -91,6 +91,14 @@ Router::scope('/', function (RouteBuilder $routes) {
                 'id' => '[0-9]+'
             ]
         );
+
+        $routes->connect(
+            '/change_password',
+            [
+                'controller' => 'EmployeeInformation',
+                'action' => 'changePassword'
+            ]
+        );
     });
 
     /**

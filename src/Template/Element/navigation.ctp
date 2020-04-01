@@ -86,7 +86,7 @@
     </li>
     <li class="treeview">
       <a href="#">
-        <i class="fa fa-circle-o"></i> <span>Settings</span>
+        <i class="fa fa-circle-o"></i> <span>System Settings</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
@@ -136,4 +136,34 @@
       ); ?>
     </li>
   <?php endif ?>
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-circle-o"></i> <span>Account Settings</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+        <ul class="treeview-menu">
+          <li>
+            <?= $this->Html->link(
+              $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
+              'Edit Profile', [
+                'controller' => 'EmployeeInformation',
+                'action' => ''
+              ],
+              ['escape' => false]
+            ); ?>
+          </li>
+          <li>
+            <?= $this->Html->link(
+              $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
+              'Change Password', [
+                'controller' => 'EmployeeInformation',
+                'action' => 'changePassword'
+              ],
+              ['escape' => false]
+            ); ?>
+          </li>
+        </ul>
+    </li>
 </ul>

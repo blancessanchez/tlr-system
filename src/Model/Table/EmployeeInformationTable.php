@@ -101,6 +101,22 @@ class EmployeeInformationTable extends Table
                     'rule' => ['compareWith', 'password']
                 ]
             ]);
+        
+        $validator
+            ->scalar('current_password')
+            ->maxLength('current_password', 255)
+            ->notEmptyString('current_password', 'Current Password must be not empty')
+            ->add('current_password', 'custom', [
+                'rule' => function ($value, $context) {
+                    $query = $this->find()->where([
+                        'id' => $context['data']['id']
+                    ])->first();
+                    $data = $query->toArray();
+
+                    return (new DefaultPasswordHasher)->check($value, $data['password']);
+                },
+                'message' => 'Current password is incorrect'
+            ]);
 
         $validator
             ->scalar('last_name')
@@ -199,12 +215,10 @@ class EmployeeInformationTable extends Table
     public function beforeSave(Event $event)
     {
         $entity = $event->getData('entity');
-        if ($entity->isNew()) {
-            $hasher = new DefaultPasswordHasher();
-            // Bcrypt the token so BasicAuthenticate can check
-            // it during login.
-            $entity->password = $hasher->hash($entity->password);
-        }
+        $hasher = new DefaultPasswordHasher();
+        // Bcrypt the token so BasicAuthenticate can check
+        // it during login.
+        $entity->password = $hasher->hash($entity->password);
 
         return true;
     }

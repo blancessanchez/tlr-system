@@ -435,4 +435,39 @@ class EmployeeInformationController extends AppController
 
         $this->set(compact('employee', 'jobPositions', 'employeeStatus', 'roles', 'departments', 'isAdmin'));
     }
+
+    /**
+     * Change Password function
+     * 
+     * @return void
+     */
+    public function changePassword()
+    {
+        $this->viewBuilder()->setLayout('main');
+
+        $currentUserId = $this->Auth->user('id');
+        $employeeErrors = [];
+        if ($this->request->is('post')) {
+            $this->request->allowMethod(['post', 'delete']);
+            $employee = $this->EmployeeInformation->get($currentUserId);
+            $saveEmployeeData = $this->EmployeeInformation->patchEntity($employee, $this->request->getData());
+            if ($saveEmployeeData->hasErrors()) {
+                $employeeErrors = $employee->errors();
+                $this->Flash->error(__('The employee could not be saved. Please, try again.'));
+            } else {
+                // loging in activity log
+                $session = $this->getRequest()->getSession();
+                $this->ActivityLog->logginginActivityLog($session->read('Auth.User.id'), 'Changed password');
+                if ($this->EmployeeInformation->save($saveEmployeeData)) {
+                    $this->Flash->success(__('Successfully changed password.'));
+                } else {
+                    $this->Flash->error(__('The password could not be changed. Please, try again.'));
+                }
+
+                return $this->redirect(['action' => 'employeeList']);
+            }
+        }
+
+        $this->set(compact('employeeErrors'));
+    }
 }
