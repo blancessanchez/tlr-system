@@ -54,6 +54,16 @@
         ['escape' => false]
       ); ?>
     </li>
+    <li>
+      <?= $this->Html->link(
+        $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) .
+        'Activity Logs', [
+          'controller' => 'ActivityLogs',
+          'action' => 'index'
+        ],
+        ['escape' => false]
+      ); ?>
+    </li>
     <li class="treeview">
       <a href="#">
         <i class="fa fa-circle-o"></i> <span>Employees</span>
