@@ -457,4 +457,20 @@ class EmployeeInformationController extends AppController
 
         $this->set(compact('employeeErrors'));
     }
+
+    /**
+     * Generate password function
+     * 
+     * @return string password
+     */
+    public function generatePassword()
+    {
+        $generatePassword = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 5);
+        
+        return $this->response->withStatus(200)
+            ->withStringBody(json_encode([
+                'status' => true,
+                'password' => $generatePassword
+            ], JSON_UNESCAPED_UNICODE));
+    }
 }

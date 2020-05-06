@@ -85,7 +85,9 @@ class EmployeeInformationTable extends Table
                         if (!empty($isExistPrincipal)) {
                             return false;
                         }
+                        return true;
                     }
+                    return true;
                 },
                 'message' => 'Principal already existing'
             ]);
@@ -160,29 +162,8 @@ class EmployeeInformationTable extends Table
             ->allowEmptyString('gender');
 
         $validator
-            ->scalar('salary')
-            ->maxLength('salary', 255)
-            ->allowEmptyString('salary');
-
-        $validator
-            ->scalar('address')
-            ->maxLength('address', 255)
-            ->requirePresence('address', 'create')
-            ->notEmptyString('address', 'Address must be not empty');
-
-        $validator
-            ->scalar('mobile_no')
-            ->maxLength('mobile_no', 255)
-            ->requirePresence('mobile_no', 'create')
-            ->notEmptyString('mobile_no', 'Mobile Number must be not empty');
-
-        $validator
             ->email('email')
             ->allowEmptyString('email');
-
-        $validator
-            ->date('hired_date', 'mdy')
-            ->allowEmptyDate('hired_date');
 
         $validator
             ->integer('status')

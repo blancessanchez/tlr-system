@@ -90,7 +90,7 @@ $(function() {
           }
         }
       }).done(function(res) {
-        if (res.status = true) {
+        if (res.status) {
           location.href = '/leaves';
         }
       }).fail(function(res) {
@@ -151,7 +151,7 @@ $(function() {
           id: edit_leave_application_id
         }
       }).done(function(res) {
-        if (res.status = true) {
+        if (res.status) {
           location.href = '/home';
         }
       }).fail(function(res) {
@@ -200,7 +200,31 @@ $(function() {
    */
   $('#btn-add-department').on('click', function() {
     location.href = '/departments/add';
-  })
+  });
+
+  /**
+   * submit form in employee information add
+   * User: admin
+   * http://local.tlr/employees/add
+   */
+  $('#btn-submit-employee-form').on('click', function() {
+    $('#employeeInformationForm').submit();
+  });
+
+  $('#showGeneratePassword').on('show.bs.modal', function(e) {
+    $.ajax({
+      url: '/employees/generate_password',
+      method: 'GET',
+      type: 'ajax',
+      dataType: 'json',
+    }).done(function(res) {
+      if (res.status) {
+        $('#password').val(res.password);
+        $('#confirm_password').val(res.password);
+        $('#password_show').html(res.password);
+      }
+    });
+  });
 });
 
 /**

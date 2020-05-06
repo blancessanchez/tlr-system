@@ -157,16 +157,6 @@
           <li>
             <?= $this->Html->link(
               $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
-              'Edit Profile', [
-                'controller' => 'EmployeeInformation',
-                'action' => ''
-              ],
-              ['escape' => false]
-            ); ?>
-          </li>
-          <li>
-            <?= $this->Html->link(
-              $this->Html->tag('i', '', ['class' => 'fa fa-circle-o']) . 
               'Change Password', [
                 'controller' => 'EmployeeInformation',
                 'action' => 'changePassword'

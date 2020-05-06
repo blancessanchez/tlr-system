@@ -25,9 +25,9 @@
           <?= $this->Form->create('EmployeeInformation', [
               'url' => [
                 'controller' => 'EmployeeInformation',
-                'action' => 'add'
+                'action' => 'add',
               ],
-              // 'autocomplete' => 'off'
+              'id' => 'employeeInformationForm'
           ]) ?>
             <div class="box-body">
               <div class="col-md-12">
@@ -72,30 +72,6 @@
                 </div>
               </div>
               <div class="col-md-12">
-                <div class="form-group col-md-4 <?= isset($employeeErrors['salary']) ? 'has-error' : '' ?>">
-                  <label for="salary">Salary</label>
-                  <?= $this->Form->control('EmployeeInformation.salary', [
-                    'class' => 'form-control',
-                    'id' => 'salary',
-                    'label' => false
-                  ]); ?>
-                  <span class="help-block"><?= $this->Error->first(isset($employeeErrors['salary']) ? $employeeErrors['salary'] : null) ?></span>
-                </div>
-                <div class="form-group col-md-4 <?= isset($employeeErrors['hired_date']) ? 'has-error' : '' ?>">
-                  <label for="hired_date">Hired date</label>
-                  <div class="input-group date">
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
-                    </div>
-                    <?= $this->Form->control('EmployeeInformation.hired_date', [
-                      'class' => 'form-control pull-right',
-                      'id' => 'hired_date',
-                      'label' => false,
-                      'autocomplete' => 'off'
-                    ]); ?>
-                    <span class="help-block"><?= $this->Error->first(isset($employeeErrors['hired_date']) ? $employeeErrors['hired_date'] : null) ?></span>
-                  </div>
-                </div>
                 <div class="form-group col-md-4 <?= isset($employeeErrors['status']) ? 'has-error' : '' ?>">
                   <label for="status">Status <span style="color:red">*</span></label>
                   <?= $this->Form->control('EmployeeInformation.status', [
@@ -108,8 +84,6 @@
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['status']) ? $employeeErrors['status'] : null) ?></span>
                 </div>
-              </div>
-              <div class="col-md-12">
                 <div class="form-group col-md-4 <?= isset($employeeErrors['department_id']) ? 'has-error' : '' ?>">
                   <label for="username">Department <span style="color:red">*</span></label>
                   <?= $this->Form->control('EmployeeInformation.department_id', [
@@ -158,27 +132,8 @@
                 </div>
               </div>
               <div class="col-md-12">
-                <div class="form-group col-md-4 <?= isset($employeeErrors['address']) ? 'has-error' : '' ?>">
-                  <label for="address">Address <span style="color:red">*</span></label>
-                  <?= $this->Form->control('EmployeeInformation.address', [
-                    'class' => 'form-control',
-                    'id' => 'address',
-                    'label' => false
-                  ]); ?>
-                  <span class="help-block"><?= $this->Error->first(isset($employeeErrors['address']) ? $employeeErrors['address'] : null) ?></span>
-                </div>
-                <div class="form-group col-md-4 <?= isset($employeeErrors['mobile_no']) ? 'has-error' : '' ?>">
-                  <label for="mobile_no">Mobile Number <span style="color:red">*</span></label>
-                  <?= $this->Form->control('EmployeeInformation.mobile_no', [
-                    'class' => 'form-control',
-                    'id' => 'mobile_no',
-                    'label' => false,
-                    'type' => 'number'
-                  ]); ?>
-                  <span class="help-block"><?= $this->Error->first(isset($employeeErrors['mobile_no']) ? $employeeErrors['mobile_no'] : null) ?></span>
-                </div>
                 <div class="form-group col-md-4 <?= isset($employeeErrors['email']) ? 'has-error' : '' ?>">
-                  <label for="email">Email Address <span style="color:red">*</span></label>
+                  <label for="email">Email Address</label>
                   <?= $this->Form->control('EmployeeInformation.email', [
                     'class' => 'form-control',
                     'id' => 'email',
@@ -219,35 +174,49 @@
                   ]); ?>
                   <span class="help-block"><?= $this->Error->first(isset($employeeErrors['role_id']) ? $employeeErrors['role_id'] : null) ?></span>
                 </div>
-                <div class="form-group col-md-4 <?= isset($employeeErrors['password']) ? 'has-error' : '' ?>">
-                  <label for="password">Password <span style="color:red">*</span></label>
                   <?= $this->Form->control('EmployeeInformation.password', [
                     'class' => 'form-control',
                     'id' => 'password',
                     'label' => false,
-                    'type' => 'password'
+                    'type' => 'hidden'
                   ]); ?>
-                  <span class="help-block"><?= $this->Error->first(isset($employeeErrors['password']) ? $employeeErrors['password'] : null) ?></span>
-                </div>
-                <div class="form-group col-md-4 <?= isset($employeeErrors['confirm_password']) ? 'has-error' : '' ?>">
-                  <label for="confirm_password">Confirm Password <span style="color:red">*</span></label>
                   <?= $this->Form->control('EmployeeInformation.confirm_password', [
                     'class' => 'form-control',
                     'id' => 'confirm_password',
                     'label' => false,
-                    'type' => 'password'
+                    'type' => 'hidden'
                   ]); ?>
-                  <span class="help-block"><?= $this->Error->first(isset($employeeErrors['confirm_password']) ? $employeeErrors['confirm_password'] : null) ?></span>
-                </div>
               </div>
             </div>
             <div class="box-footer">
               <button type="button" class="btn btn-default" onclick="return Common.clearFormAll()">Clear</button>
-              <button type="submit" class="btn btn-primary pull-right">Submit</button>
+              <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#showGeneratePassword">Submit</button>
             </div>
           <?= $this->Form->end() ?>
         </div>
       </div>
     </div>
   </section>
+</div>
+<div class="modal fade" id="showGeneratePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Generated password for employee</h4>
+      </div>
+      <div class="modal-body">
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <h3 class="box-title" id="password_show"></h3>
+          </div>
+        </div>
+        Kindly take note of the newly created password for your next login.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-submit-employee-form">Save</button>
+      </div>
+    </div>
+  </div>
 </div>

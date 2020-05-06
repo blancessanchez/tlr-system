@@ -99,6 +99,14 @@ Router::scope('/', function (RouteBuilder $routes) {
                 'action' => 'changePassword'
             ]
         );
+
+        $routes->connect(
+            '/generate_password',
+            [
+                'controller' => 'EmployeeInformation',
+                'action' => 'generatePassword'
+            ]
+        );
     });
 
     /**
