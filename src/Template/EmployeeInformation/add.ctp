@@ -208,13 +208,13 @@
       <div class="modal-body">
         <div class="box box-solid">
           <div class="box-header with-border">
-            <h3 class="box-title" id="password_show"></h3>
+            <h3 class="box-title-password" id="password_show"></h3>
           </div>
         </div>
         Kindly take note of the newly created password for your next login.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-submit-employee-form">Save</button>
       </div>
     </div>
