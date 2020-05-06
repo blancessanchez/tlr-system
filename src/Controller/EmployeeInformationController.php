@@ -190,19 +190,6 @@ class EmployeeInformationController extends AppController
                     $employeeInformation->salary = null;
                 }
 
-                // check if employee number already exists
-                $query = $this->EmployeeInformation->find('all', [
-                    'conditions' => [
-                        'EmployeeInformation.employee_no' => $employeeInformation->employee_no
-                    ]
-                ]);
-
-                $checkIfEmployeeExists = $query->first();
-
-                if (!empty($checkIfEmployeeExists)) {
-                    $this->Flash->error(__('Employee number is already existing.'));
-                }
-                
                 if ($this->EmployeeInformation->save($employeeInformation)) {
                     $currentTerm = TableRegistry::get('Terms')
                         ->find('all', [

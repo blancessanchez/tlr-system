@@ -2,8 +2,8 @@
 namespace App\Model\Table;
 
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\Core\Configure;
 use Cake\Event\Event;
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -73,12 +73,32 @@ class EmployeeInformationTable extends Table
         $validator
             ->integer('role_id')
             ->requirePresence('role_id', 'create')
-            ->notEmptyString('role_id', 'Role must be not empty');
+            ->notEmptyString('role_id', 'Role must be not empty')
+            ->add('role_id', 'custom', [
+                'rule' => function ($value, $context) {
+                    if ($context['data']['role_id'] == Configure::read('EMPLOYEES.ROLES.Principal')) {
+                        $query = $this->find()->where([
+                            'role_id' => $context['data']['role_id']
+                        ])->first();
+                        $isExistPrincipal = $query->toArray();
+    
+                        if (!empty($isExistPrincipal)) {
+                            return false;
+                        }
+                    }
+                },
+                'message' => 'Principal already existing'
+            ]);
 
         $validator
             ->integer('employee_no')
             ->requirePresence('employee_no', 'create')
-            ->notEmptyString('employee_no', 'Employee Number must be not empty');
+            ->notEmptyString('employee_no', 'Employee Number must be not empty')
+            ->add('employee_no', 'unique', [
+                'rule'=> 'validateUnique',
+                'provider' => 'table',
+                'message' => 'Employee number already in use'
+            ]);
         
         $validator
             ->integer('department_id')
@@ -200,7 +220,6 @@ class EmployeeInformationTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         // $rules->add($rules->isUnique(['email']));
-        $rules->add($rules->isUnique(['employee_no'], 'User already exist.'));
         $rules->add($rules->existsIn(['job_position_id'], 'JobPositions'));
 
         return $rules;
