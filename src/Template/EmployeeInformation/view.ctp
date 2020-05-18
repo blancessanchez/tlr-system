@@ -22,7 +22,7 @@
       </li>
       <li class="active">View Employee</li>
     </ol>
-    <h4>Leave Balances Information</h4>
+    <h4>Employee Information</h4>
     <?= $this->Flash->render(); ?>
       <?php foreach ($employee->leave_balances as $balance) : ?>
         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -188,11 +188,11 @@
             </div>
             <div class="col-md-12">
               <div class="form-group col-md-4">
-                <label for="address">Address</label>
+                <label for="address">Residential Address</label>
                 <?= $this->Form->control('', [
                   'class' => 'form-control',
                   'label' => false,
-                  'value' => h($employee->address),
+                  'value' => h($employee->residential_address),
                   'disabled' => 'disabled'
                 ]); ?>
               </div>

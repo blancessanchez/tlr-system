@@ -296,6 +296,10 @@ class EmployeeInformationController extends AppController
                     'Departments.deleted' => 0
                 ]
             ]);
+        $civilStatus = Configure::read('EMPLOYEES.CIVIL_STATUS');
+        $citizenship = Configure::read('EMPLOYEES.CITIZENSHIP');
+        $citizenshipDual = Configure::read('EMPLOYEES.CITIZENSHIP_DUAL');
+        $citizenshipCountry = Configure::read('COUNTRIES');
 
         $employee = $this->EmployeeInformation->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -324,7 +328,18 @@ class EmployeeInformationController extends AppController
                 $this->Flash->error(__('The employee could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('employee', 'employeeStatus', 'jobPositions', 'roles', 'employeeErrors', 'departments'));
+        $this->set(compact(
+            'employee',
+            'employeeStatus',
+            'jobPositions',
+            'roles',
+            'employeeErrors',
+            'departments',
+            'civilStatus',
+            'citizenship',
+            'citizenshipDual',
+            'citizenshipCountry'
+        ));
     }
 
     /**

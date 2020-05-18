@@ -188,6 +188,132 @@ class EmployeeInformationTable extends Table
             ->requirePresence('job_position_id', 'create')
             ->notEmptyString('job_position_id', 'Job Position must be not empty');
 
+        $validator
+            ->scalar('name_extension')
+            ->maxLength('name_extension', 255)
+            ->allowEmptyString('name_extension');
+
+        $validator
+            ->integer('gender')
+            ->allowEmptyString('gender');
+
+        $validator
+            ->date('birth_date')
+            ->allowEmptyDate('birth_date');
+        
+        $validator
+            ->scalar('residential_address')
+            ->maxLength('residential_address', 255)
+            ->allowEmptyString('residential_address');
+        
+        $validator
+            ->scalar('birth_place')
+            ->maxLength('birth_place', 255)
+            ->allowEmptyString('birth_place');
+
+        $validator
+            ->integer('civil_status')
+            ->allowEmptyString('civil_status');
+        
+        $validator
+            ->integer('height')
+            ->allowEmptyString('height');
+        
+        $validator
+            ->integer('weight')
+            ->allowEmptyString('weight');
+
+        $validator
+            ->scalar('blood_type')
+            ->maxLength('blood_type', 10)
+            ->allowEmptyString('blood_type');
+        
+        $validator
+            ->scalar('gsis_id_no')
+            ->maxLength('gsis_id_no', 255)
+            ->allowEmptyString('gsis_id_no');
+
+        $validator
+            ->scalar('pagibig_id_no')
+            ->maxLength('pagibig_id_no', 255)
+            ->allowEmptyString('pagibig_id_no');
+        
+        $validator
+            ->scalar('philhealth_no')
+            ->maxLength('philhealth_no', 255)
+            ->allowEmptyString('philhealth_no');
+        
+        $validator
+            ->scalar('sss_no')
+            ->maxLength('sss_no', 255)
+            ->allowEmptyString('sss_no');
+
+        $validator
+            ->scalar('tin_no')
+            ->maxLength('tin_no', 255)
+            ->allowEmptyString('tin_no');
+
+        $validator
+            ->scalar('agency_employee_no')
+            ->maxLength('agency_employee_no', 255)
+            ->allowEmptyString('agency_employee_no');
+
+        $validator
+            ->integer('citizenship')
+            ->allowEmptyString('citizenship');
+
+        $validator
+            ->integer('citizenship_dual')
+            ->allowEmptyString('citizenship_dual');
+
+        $validator
+            ->integer('citizenship_country')
+            ->allowEmptyString('citizenship_country');
+
+        $validator
+            ->scalar('residential_zipcode')
+            ->maxLength('residential_zipcode', 255)
+            ->allowEmptyString('residential_zipcode');
+        
+        $validator
+            ->scalar('permanent_address')
+            ->maxLength('permanent_address', 255)
+            ->allowEmptyString('permanent_address');
+
+        $validator
+            ->scalar('permanent_zipcode')
+            ->maxLength('permanent_zipcode', 255)
+            ->allowEmptyString('permanent_zipcode');
+
+        $validator
+            ->scalar('telephone_no')
+            ->maxLength('telephone_no', 255)
+            ->allowEmptyString('telephone_no');
+
+        $validator
+            ->scalar('image')
+            ->maxLength('image', 255)
+            ->allowEmptyString('image');
+
+        $validator
+            ->scalar('government_issued_id')
+            ->maxLength('government_issued_id', 255)
+            ->allowEmptyString('government_issued_id');
+
+        $validator
+            ->scalar('id_no')
+            ->maxLength('id_no', 255)
+            ->allowEmptyString('id_no');
+
+        $validator
+            ->scalar('place_of_issue')
+            ->maxLength('place_of_issue', 255)
+            ->allowEmptyString('place_of_issue');
+
+        $validator
+            ->date('date_accomplished')
+            ->allowEmptyDate('date_accomplished');
+
         return $validator;
     }
 

@@ -41,9 +41,37 @@ $(function() {
    * configuration for hired date
    * URL: http://tlr.local/employees/add
    */
-  $('#hired_date').datepicker({
+  $('#hired_date, #birth_date').datepicker({
     autoclose: true,
     defaultDate:'now'
+  });
+
+  /**
+   * configuration for employees edit
+   * URL: http://tlr.local/employees/edit/{employee_number}
+   */
+  $('#civil_status').change(function() {
+    if ($(this).val() == 4) {
+      $('#lblCivilStatusOthers').show();
+      $('#civil_status_others').prop('type', 'text');
+    } else {
+      $('#lblCivilStatusOthers').hide();
+      $('#civil_status_others').prop('type', 'hidden');
+    }
+  });
+
+  $('#citizenship').change(function() {
+    if ($(this).val() == 2) {
+      $('#lblCitizenshipDual').show();
+      $('#citizenship_dual').show();
+      $('#lblCitizenshipCountry').show();
+      $('#citizenship_country').show();
+    } else {
+      $('#lblCitizenshipDual').hide();
+      $('#citizenship_dual').hide();
+      $('#lblCitizenshipCountry').hide();
+      $('#citizenship_country').hide();
+    }
   });
 
   /**

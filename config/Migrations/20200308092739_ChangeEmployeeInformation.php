@@ -34,7 +34,7 @@ class ChangeEmployeeInformation extends AbstractMigration
             ->addColumn('civil_status', 'integer', [
                 'limit' => 11,
                 'null' => true,
-                'comment' => '1. single, 2. widowed, 3. married, 4. separated, 5. others'
+                'comment' => '0. single, 1. married, 2. widowed, 3. separated, 4. others'
             ])
             ->addColumn('height', 'integer', [
                 'limit' => 11,
